@@ -13,6 +13,8 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 * tokens are versioned for each season.
 * somehow make it harder for people to buy tokens (sabotage others)? (maybe too hard for now to implement)
 * if/when a subreddit wins, more expensive and less tokens.
+* maybe "kill" subreddits with low amount of tokens?
+* tokens that count negatively towards rivaling subreddit?
 * battle stats will be displayed on a website.
 
 ## TODO
