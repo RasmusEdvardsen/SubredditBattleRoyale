@@ -16,6 +16,8 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 * battle stats will be displayed on a website.
 
 ## TODO
+* Consider ethereum over solana
+
 ### Installation and preparation
 * VSCODE (and extensions) (development)
 * RUST (backend)
