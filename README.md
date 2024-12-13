@@ -19,7 +19,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 
 ## TODO
 * Consider ethereum over solana
-* Try this: [hardhat](https://hardhat.org/hardhat-runner/docs/getting-started#overview)
+* Try this: [hardhat](https://hardhat.org/hardhat-runner/docs/getting-started#overview) and this (for deploys): [hardhat ignition](https://hardhat.org/ignition/docs/getting-started#overview)
 
 ### Installation and preparation
 * VSCODE (and extensions) (development)
