@@ -18,9 +18,8 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 * battle stats will be displayed on a website.
 
 ## TODO
-* Consider ethereum over solana
-* Try these:
-* [hardhat](https://hardhat.org/hardhat-runner/docs/getting-started#overview)
+* read the [ethereum whitepaper](https://ethereum.org/en/whitepaper/)
+* read about [hardhat](https://hardhat.org/hardhat-runner/docs/getting-started#overview)
 * [hardhat ignition](https://hardhat.org/ignition/docs/getting-started#overview)
 * [hardhat verifying deploys](https://hardhat.org/hardhat-runner/docs/guides/verifying)
 
