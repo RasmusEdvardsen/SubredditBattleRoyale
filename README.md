@@ -24,7 +24,13 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 * [hardhat ignition](https://hardhat.org/ignition/docs/getting-started#overview)
 * [hardhat verifying deploys](https://hardhat.org/hardhat-runner/docs/guides/verifying)
 
-### Installation and preparation
+## Installation and preparation
+### Ethereum
+* VSCODE (Hardhat extension for VSCODE) (development)
+* npm (and npx)
+* [etherscan.io](https://etherscan.io/) account
+
+### Solana
 * VSCODE (and extensions) (development)
 * RUST (backend)
 * SOLANA CLI (backend)
