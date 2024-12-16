@@ -16,6 +16,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 * maybe "kill" subreddits with low amount of tokens?
 * tokens that count negatively towards rivaling subreddit?
 * battle stats will be displayed on a website.
+* 'the void' could also just get stronger after every win, then old coins would still matter.
 
 ## TODO
 * read the [ethereum whitepaper](https://ethereum.org/en/whitepaper/)
