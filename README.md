@@ -28,6 +28,8 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 3. Create tests for SUBR.sol
 4. Deploy to testnet
 5. Deploy to live
+6. At some point, create frontend that shows subreddit standings
+7. Figure out some rivaling subreddits, and initialize contract with unequal amounts of coins for them to incentivize usage.
 
 ## Installation and preparation
 ### Ethereum
