@@ -23,6 +23,11 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 * read about [hardhat](https://hardhat.org/hardhat-runner/docs/getting-started#overview)
 * [hardhat ignition](https://hardhat.org/ignition/docs/getting-started#overview)
 * [hardhat verifying deploys](https://hardhat.org/hardhat-runner/docs/guides/verifying)
+1. Try deploy Lock.sol to testnet
+2. Work on SUBR.sol
+3. Create tests for SUBR.sol
+4. Deploy to testnet
+5. Deploy to live
 
 ## Installation and preparation
 ### Ethereum
