@@ -30,7 +30,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 - [x] [hardhat verifying deploys](https://hardhat.org/hardhat-runner/docs/guides/verifying)
 - [x] Try deploy Lock.sol to testnet
 - [x] Read up on [how to interact with smart contracts](https://www.quicknode.com/guides/ethereum-development/smart-contracts/how-to-interact-with-smart-contracts#interacting-with-smart-contracts)
-- [ ] Try calling Lock.sol on testnet?
+- [x] Try calling Lock.sol on testnet?
 - [ ] Work on SUBR.sol
 - [ ] Create tests for SUBR.sol
 - [ ] Deploy to testnet
