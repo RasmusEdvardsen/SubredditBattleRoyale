@@ -37,6 +37,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 * npm (and npx)
 * [etherscan.io](https://etherscan.io/) account
 * [metamask](https://developer.metamask.io/) account (infura sepolia)
+* metamask wallet & edge/chrome/firefox extension
 
 ### Solana
 * VSCODE (and extensions) (development)
