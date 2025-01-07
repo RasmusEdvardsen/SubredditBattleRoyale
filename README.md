@@ -18,6 +18,9 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 * battle stats will be displayed on a website.
 * 'the void' could also just get stronger after every win, then old coins would still matter.
 
+## Progress
+[Deployed Lock contract for testing](https://sepolia.etherscan.io/address/0xB86DC26c7fe525Fe7938c4Ea5C8121d9192ec618#code)
+
 ## TODO
 * read the [ethereum whitepaper](https://ethereum.org/en/whitepaper/)
 * read about [hardhat](https://hardhat.org/hardhat-runner/docs/getting-started#overview)
