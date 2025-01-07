@@ -36,6 +36,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 * VSCODE (Hardhat extension for VSCODE) (development)
 * npm (and npx)
 * [etherscan.io](https://etherscan.io/) account
+* [metamask](https://developer.metamask.io/) account (infura sepolia)
 
 ### Solana
 * VSCODE (and extensions) (development)
