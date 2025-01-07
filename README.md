@@ -23,17 +23,17 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 * [My wallet](https://etherscan.io/address/0xB6Bf1Eec596602D14acb288262C7B9b6D1B801eA)
 
 ## TODO
-* read the [ethereum whitepaper](https://ethereum.org/en/whitepaper/)
-* read about [hardhat](https://hardhat.org/hardhat-runner/docs/getting-started#overview)
-* [hardhat ignition](https://hardhat.org/ignition/docs/getting-started#overview)
-* [hardhat verifying deploys](https://hardhat.org/hardhat-runner/docs/guides/verifying)
-1. Try deploy Lock.sol to testnet
-2. Work on SUBR.sol
-3. Create tests for SUBR.sol
-4. Deploy to testnet
-5. Deploy to live
-6. At some point, create frontend that shows subreddit standings
-7. Figure out some rivaling subreddits, and initialize contract with unequal amounts of coins for them to incentivize usage.
+- [x] read the [ethereum whitepaper](https://ethereum.org/en/whitepaper/)
+- [x] read about [hardhat](https://hardhat.org/hardhat-runner/docs/getting-started#overview)
+- [x] [hardhat ignition](https://hardhat.org/ignition/docs/getting-started#overview)
+- [x] [hardhat verifying deploys](https://hardhat.org/hardhat-runner/docs/guides/verifying)
+- [x] Try deploy Lock.sol to testnet
+- [ ] Work on SUBR.sol
+- [ ] Create tests for SUBR.sol
+- [ ] Deploy to testnet
+- [ ] Deploy to live
+- [ ] At some point, create frontend that shows subreddit standings
+- [ ] Figure out some rivaling subreddits, and initialize contract with unequal amounts of coins for them to incentivize usage.
 
 ## Installation and preparation
 ### Ethereum
@@ -42,6 +42,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 * [etherscan.io](https://etherscan.io/) account
 * [metamask](https://developer.metamask.io/) account (infura sepolia)
 * metamask wallet & edge/chrome/firefox extension
+* Alchemy faucet (used instead of Infura)
 
 ### Solana
 * VSCODE (and extensions) (development)
