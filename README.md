@@ -11,6 +11,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 ## Future ideas
 * If some time expires before anyone gets more, the void wins?
 * Tokens are versioned for each season?
+* Make it harder to buy more tokens?
 * Maybe "kill" subreddits with low amount of tokens?
 * The void could also just get stronger after every win, then old coins would still matter?
 
