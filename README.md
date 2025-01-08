@@ -37,6 +37,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 - [ ] Test that eth/gwei are sent to owner wallet, and that I have control over it (configure wallet during build/deploy to go to mine)
 - [ ] Deploy to live
 - [ ] At some point, create frontend that shows subreddit standings
+- [ ] Figure out how to enable seamless usage of smart contract
 
 ## Installation and preparation
 ### Ethereum
