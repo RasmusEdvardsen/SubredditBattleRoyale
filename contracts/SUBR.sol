@@ -72,8 +72,7 @@ contract SubredditBattleRoyale {
     function _startNewSeason() internal {
         // Mint new tokens and assign them to "the void"
         currentSeason++;
-        uint256 newTokens = INITIAL_SUPPLY * (currentSeason);
-        voidTokenCount += newTokens;
+        voidTokenCount += INITIAL_SUPPLY + (INITIAL_SUPPLY / currentSeason);
     }
 
     function withdraw() public onlyOwner {
