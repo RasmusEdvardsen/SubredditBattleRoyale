@@ -32,7 +32,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 - [x] Create tests for SUBR.sol
 - [x] Figure out how to handle casing (subreddits are case insensitive right?)
 - [x] Figure out max subreddit length
-- [ ] Figure out some rivaling subreddits, and initialize contract with unequal amounts of coins for them to incentivize usage.
+- [ ] Find rivaling subreddits, init contract with unequal amounts of coins to incentivize usage (add test for this).
 - [ ] Deploy to testnet
 - [ ] Test that eth/gwei are sent to owner wallet, and that I have control over it (configure wallet during build/deploy to go to mine)
 - [ ] Deploy to live
