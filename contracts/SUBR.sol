@@ -1,132 +1,78 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.28;
 
+// Author: rasmusedvardsen
 contract SubredditBattleRoyale {
-    struct Token {
-        string subreddit; // Subreddit associated with the token
-        uint256 version; // Game version of the token
+    uint256 public constant INITIAL_SUPPLY = 1_000_000;
+    uint256 public constant TOKEN_PRICE = 0.001 ether; // In WEI
+    uint256 public constant BURN_MULTIPLIER = 3;
+
+    struct Subreddit {
+        string name;
+        uint256 tokenCount;
     }
 
-    uint256 public constant INITIAL_SUPPLY = 1_000_000; // Initial supply of tokens in the void
-    uint256 public gameNumber; // Current game number
-    uint256 public tokenPrice; // Current price of a token
-    uint256 public tokenSupply; // Total supply of tokens for the current game
-    uint256 public transactionFeeRate = 10; // Fee rate in basis points (0.1%)
+    mapping(string => uint256) public subredditTokenBalances; // Track token balances by subreddit
+    uint256 public voidTokenCount; // Tokens belonging to "the void"
+    uint256 public currentSeason = 1;
 
-    address public owner; // Contract owner
-    address public voidWallet; // The void wallet
-    address public feeWallet; // Wallet for collecting fees
+    address public owner;
 
-    mapping(address => uint256) public playerBalances; // Player token balances
-    mapping(uint256 => mapping(uint256 => Token)) public tokenDetails; // Mapping for token details per version
-    mapping(string => uint256) public subredditBalances; // Subreddit token balances
+    event TokensPurchased(address indexed buyer, string subreddit, uint256 amount);
+    event TokensBurned(address indexed buyer, string subreddit, uint256 amount);
+    event SeasonWon(string subreddit, uint256 tokens, uint256 season);
 
-    uint256 public nextTokenId; // Unique token ID tracker
-
-    event TokensPurchased(address indexed purchaser, string subreddit, uint256 amount);
-    event GameEnded(string winner, uint256 tokens);
-    event TokensTraded(address indexed from, address indexed to, uint256 amount, string newSubreddit);
-
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Not the owner");
+    modifier validSubreddit(string memory subreddit) {
+        bytes memory b = bytes(subreddit);
+        require(b.length > 3, "Subreddit name too short"); // Must be at least "/r/" + 1 char
+        require(b[0] == "/" || b[1] == "r" || b[2] == "/", "Subreddit must start with '/r/'");
         _;
     }
 
-    constructor(address _feeWallet) {
-        owner = msg.sender;
-        feeWallet = _feeWallet;
-        voidWallet = address(this); // The void wallet is the contract address itself
-        gameNumber = 1;
-        tokenPrice = 0.01 ether; // Initial token price
-        tokenSupply = INITIAL_SUPPLY;
-        subredditBalances["the void"] = INITIAL_SUPPLY;
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only the owner can call this function");
+        _;
     }
 
-    // Buy tokens for a subreddit or the void
-    function buyTokens(string memory subreddit, uint256 amount) external payable {
-        require(msg.value == amount * tokenPrice, "Incorrect Ether sent");
+    constructor() {
+        voidTokenCount = INITIAL_SUPPLY; // Initialize "the void" with the initial supply of tokens
+        owner = msg.sender;
+    }
 
-        uint256 fee = (msg.value * transactionFeeRate) / 10000;
-        uint256 netAmount = msg.value - fee;
+    function purchaseTokens(string memory subreddit, uint256 amount) public payable validSubreddit(subreddit) {
+        require(msg.value == amount * TOKEN_PRICE, "Incorrect Ether sent");
 
-        payable(feeWallet).transfer(fee);
-
-        // Update subreddit balances
-        if (isValidSubreddit(subreddit)) {
-            subredditBalances[subreddit] += amount;
-        } else {
-            subreddit = "the void";
-            subredditBalances[subreddit] += amount;
-        }
-
-        subredditBalances["the void"] -= amount; // Tokens leave the void
-        playerBalances[msg.sender] += amount;
-
-        // Assign tokens with details
-        for (uint256 i = 0; i < amount; i++) {
-            tokenDetails[gameNumber][nextTokenId] = Token(subreddit, gameNumber);
-            nextTokenId++;
-        }
+        subredditTokenBalances[subreddit] += amount;
+        voidTokenCount -= amount; // Reduce tokens in "the void"
 
         emit TokensPurchased(msg.sender, subreddit, amount);
-        checkGameEnd();
-    }
 
-    // Check if the game has ended and determine a winner
-    function checkGameEnd() public {
-        if (subredditBalances["the void"] == 0) {
-            startNewGame();
-            return;
-        }
-
-        for (uint256 i = 0; i < nextTokenId; i++) {
-            string memory subreddit = tokenDetails[gameNumber][i].subreddit;
-            if (subredditBalances[subreddit] > subredditBalances["the void"]) {
-                emit GameEnded(subreddit, subredditBalances[subreddit]);
-                startNewGame();
-                return;
-            }
+        if (subredditTokenBalances[subreddit] > voidTokenCount) {
+            emit SeasonWon(subreddit, subredditTokenBalances[subreddit], currentSeason);
+            _startNewSeason();
         }
     }
 
-    // Start a new game
-    function startNewGame() internal {
-        gameNumber++;
-        tokenPrice = (tokenPrice * 110) / 100; // Increase token price by 10%
-        tokenSupply = INITIAL_SUPPLY + (gameNumber * 10_000); // Mint additional tokens
+    function burnTokens(string memory subreddit, uint256 amount) public payable validSubreddit(subreddit) {
+        require(msg.value == amount * TOKEN_PRICE, "Incorrect Ether sent");
+        require(subredditTokenBalances[subreddit] >= amount * BURN_MULTIPLIER, "Not enough tokens to burn");
 
-        subredditBalances["the void"] = tokenSupply;
+        subredditTokenBalances[subreddit] -= amount * BURN_MULTIPLIER;
+        voidTokenCount -= amount; // Reduce tokens in "the void"
 
-        // Reset all other subreddit balances
-        for (uint256 i = 0; i < nextTokenId; i++) {
-            string memory subreddit = tokenDetails[gameNumber - 1][i].subreddit;
-            subredditBalances[subreddit] = 0;
-        }
-
-        nextTokenId = 0; // Reset token ID tracker
+        emit TokensBurned(msg.sender, subreddit, amount);
     }
 
-    // Trade tokens between players, optionally updating subreddit
-    function tradeTokens(address to, uint256 amount, string memory newSubreddit) external {
-        require(playerBalances[msg.sender] >= amount, "Insufficient balance");
-
-        playerBalances[msg.sender] -= amount;
-        playerBalances[to] += amount;
-
-        // Optionally update token details
-        if (isValidSubreddit(newSubreddit)) {
-            for (uint256 i = 0; i < amount; i++) {
-                uint256 tokenId = nextTokenId - amount + i;
-                tokenDetails[gameNumber][tokenId].subreddit = newSubreddit;
-            }
-        }
-
-        emit TokensTraded(msg.sender, to, amount, newSubreddit);
+    function _startNewSeason() internal {
+        // Mint new tokens and assign them to "the void"
+        uint256 newTokens = INITIAL_SUPPLY;
+        voidTokenCount += newTokens;
+        currentSeason++;
     }
 
-    // Validate subreddit format
-    function isValidSubreddit(string memory subreddit) internal pure returns (bool) {
-        bytes memory subredditBytes = bytes(subreddit);
-        return subredditBytes.length > 3 && subredditBytes[0] == '/' && subredditBytes[1] == 'r' && subredditBytes[2] == '/';
+    function withdraw() public onlyOwner {
+        require(address(this).balance > 0, "No Ether available to withdraw");
+
+        payable(owner).transfer(address(this).balance);
     }
 }
