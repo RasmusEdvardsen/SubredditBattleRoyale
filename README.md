@@ -35,6 +35,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 - [x] Figure out max subreddit length
 - [x] Test that _startNewSeason increases linearly over time, and that successive wins can occur
 - [x] Test that successive withdrawals can occur
+- [ ] Use bytes32 instead of string for subreddit names?
 - [ ] _toLowerCase might be expensive gas-wise. Try to optimize?
 - [ ] Add remaining folders/files from hardhat boilerplate
 - [ ] Find rivaling subreddits, init contract with unequal amounts of coins to incentivize usage (add test for this) (heavy on crypto/tech sites).
