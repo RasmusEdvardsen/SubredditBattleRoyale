@@ -14,7 +14,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 * Make it harder to buy more tokens?
 * Maybe "kill" subreddits with low amount of tokens?
 * The void could also just get stronger after every win, then old coins would still matter?
-* Create ERC20 tokens somehow. Seems difficult though, as we need metadata (subreddit) somehow.
+* Create ERC20 tokens. Seems difficult though, as we need metadata (subreddit) for each token trade.
 
 ## Progress
 * [Deployed Lock contract for testing](https://sepolia.etherscan.io/address/0xB86DC26c7fe525Fe7938c4Ea5C8121d9192ec618#code)
