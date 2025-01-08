@@ -17,7 +17,7 @@ contract SubredditBattleRoyale {
     uint256 public voidTokenCount; // Tokens belonging to "the void"
     uint256 public currentSeason = 1;
 
-    address public owner;
+    address public immutable owner;
 
     event TokensPurchased(address indexed buyer, string subreddit, uint256 amount);
     event TokensBurned(address indexed buyer, string subreddit, uint256 amount);
