@@ -3,20 +3,16 @@
 SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddits to flex on each other, or for people to secure the void will win against subreddits. When a winner is found, a new and harder season is started.
 
 ## Game summary
-* Some set amount of tokens (think this through. Since seasons, maybe deflationary?)
-* initial all season tokens under "the void".
-* all transactions needs "/r/SOME_SUBREDDIT".
-* if not "/r/SOME_SUBREDDIT", then still "the void", so people can support the void kinda.
-* goal is for your "/r/SOME_SUBREDDIT" to have more than the void.
-* if some time expires before anyone gets more, the void wins.
-* when a winner is found (the void or a subreddit), a new "season" (game) starts up.
-* tokens are versioned for each season.
-* somehow make it harder for people to buy tokens (sabotage others)? (maybe too hard for now to implement)
-* if/when a subreddit wins, more expensive and less tokens.
-* maybe "kill" subreddits with low amount of tokens?
-* tokens that count negatively towards rivaling subreddit?
-* battle stats will be displayed on a website.
-* 'the void' could also just get stronger after every win, then old coins would still matter.
+* Start with 1_000_000 SUBR tokens. They cost 0.001 ether to purchase. 
+* Tokens should be inscribed with a subreddit. It should always start with "/r/" followed by no less than one character.
+* A "season" is won, when a subreddit has more tokens than "the void". After that, a new season starts. Old tokens still count, but new tokens are minted for the new season.
+* **(MAYBE)** You can also burn tokens, which will burn amount 3 times the amount of tokens of the specified subreddit.
+
+## Future ideas
+* If some time expires before anyone gets more, the void wins?
+* Tokens are versioned for each season?
+* Maybe "kill" subreddits with low amount of tokens?
+* The void could also just get stronger after every win, then old coins would still matter?
 
 ## Progress
 * [Deployed Lock contract for testing](https://sepolia.etherscan.io/address/0xB86DC26c7fe525Fe7938c4Ea5C8121d9192ec618#code)
