@@ -29,9 +29,9 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 - [x] Read up on [how to interact with smart contracts](https://www.quicknode.com/guides/ethereum-development/smart-contracts/how-to-interact-with-smart-contracts#interacting-with-smart-contracts)
 - [x] Try calling Lock.sol on testnet?
 - [x] Work on SUBR.sol
-- [ ] Create tests for SUBR.sol
-- [ ] Figure out how to handle casing (subreddits are case insensitive right?)
-- [ ] Figure out max subreddit length
+- [x] Create tests for SUBR.sol
+- [x] Figure out how to handle casing (subreddits are case insensitive right?)
+- [x] Figure out max subreddit length
 - [ ] Deploy to testnet
 - [ ] Test that eth/gwei are sent to owner wallet, and that I have control over it (configure wallet during build/deploy to go to mine)
 - [ ] Deploy to live

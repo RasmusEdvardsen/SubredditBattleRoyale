@@ -44,9 +44,8 @@ describe("SubredditBattleRoyale", function () {
         it("Should purchase tokens, and send price to contract", async function () {
             const { subr, otherAccount } = await loadFixture(deploySubredditBattleRoyaleFixture);
 
-            const tokenPrice = BigInt(await subr.TOKEN_PRICE());
             const purchaseAmount = BigInt(10);
-            const totalCost = tokenPrice * purchaseAmount;
+            const totalCost = await subr.TOKEN_PRICE() * purchaseAmount;
 
             let purchaseTokenResponse = await subr
                 .connect(otherAccount)
@@ -60,9 +59,8 @@ describe("SubredditBattleRoyale", function () {
         it("Should revert if not enough ether is sent", async function () {
             const { subr, otherAccount } = await loadFixture(deploySubredditBattleRoyaleFixture);
 
-            const tokenPrice = BigInt(await subr.TOKEN_PRICE());
             const purchaseAmount = BigInt(10);
-            const insufficientCost = (tokenPrice * purchaseAmount) - BigInt(1);
+            const insufficientCost = (await subr.TOKEN_PRICE() * purchaseAmount) - BigInt(1);
 
             let purchaseTokenResponse = subr
                 .connect(otherAccount)
@@ -70,15 +68,40 @@ describe("SubredditBattleRoyale", function () {
 
             expect(purchaseTokenResponse).to.be.revertedWith("Incorrect Ether sent");
         });
+
+        it("Should set subreddit to lower case", async function () {
+            const { subr, otherAccount } = await loadFixture(deploySubredditBattleRoyaleFixture);
+
+            const purchaseAmount = BigInt(10);
+            const totalCost = await subr.TOKEN_PRICE() * purchaseAmount;
+
+            await subr.connect(otherAccount).purchaseTokens(DOTA_2_SUBREDDIT.toUpperCase(), purchaseAmount, { value: totalCost });
+
+            expect(await subr.subredditTokenBalances(DOTA_2_SUBREDDIT)).to.equal(purchaseAmount);
+        });
+
+        it("Should revert if subreddit name is too long", async function () {
+            const { subr, otherAccount } = await loadFixture(deploySubredditBattleRoyaleFixture);
+
+            const TOO_LONG_SUBREDDIT_NAME = "/r/" + "a".repeat(21 + 1); // "/r/" + 21 characters + 1 character is 1 too many.
+
+            const purchaseAmount = BigInt(10);
+            const totalCost = await subr.TOKEN_PRICE() * purchaseAmount;
+
+            let purchaseTokenResponse = subr
+                .connect(otherAccount)
+                .purchaseTokens(TOO_LONG_SUBREDDIT_NAME, purchaseAmount, { value: totalCost });
+
+            expect(purchaseTokenResponse).to.be.revertedWith("Subreddit name too long");
+        });
     });
     
     describe("Events", function () {
         it("Should emit an event on token purchase", async function () {
             const { subr, otherAccount } = await loadFixture(deploySubredditBattleRoyaleFixture);
 
-            const tokenPrice = BigInt(await subr.TOKEN_PRICE());
             const purchaseAmount = BigInt(10);
-            const totalCost = tokenPrice * purchaseAmount;
+            const totalCost = await subr.TOKEN_PRICE() * purchaseAmount;
 
             expect(await subr.connect(otherAccount).purchaseTokens(DOTA_2_SUBREDDIT, purchaseAmount, { value: totalCost }))
                 .to.emit(subr, "TokensPurchased")
@@ -88,9 +111,8 @@ describe("SubredditBattleRoyale", function () {
         it("Should emit an event on token burn", async function () {
             const { subr, otherAccount } = await loadFixture(deploySubredditBattleRoyaleFixture);
 
-            const tokenPrice = BigInt(await subr.TOKEN_PRICE());
             const purchaseAmount = BigInt(10);
-            const totalCost = tokenPrice * purchaseAmount;
+            const totalCost = await subr.TOKEN_PRICE() * purchaseAmount;
 
             await subr.connect(otherAccount).purchaseTokens(DOTA_2_SUBREDDIT, purchaseAmount * BigInt(3), { value: totalCost * BigInt(3) });
 
@@ -104,9 +126,8 @@ describe("SubredditBattleRoyale", function () {
 
             let currentSeason = await subr.currentSeason();
 
-            const tokenPrice = BigInt(await subr.TOKEN_PRICE());
             const purchaseAmount = BigInt((await subr.INITIAL_SUPPLY() / BigInt(2)) + BigInt(1));
-            const totalCost = tokenPrice * purchaseAmount;
+            const totalCost = await subr.TOKEN_PRICE() * purchaseAmount;
 
             expect(await subr.connect(otherAccount).purchaseTokens(DOTA_2_SUBREDDIT, purchaseAmount, { value: totalCost }))
                 .to.emit(subr, "SeasonWon")
@@ -118,9 +139,8 @@ describe("SubredditBattleRoyale", function () {
         it("Should withdraw funds", async function () {
             const { subr, owner, otherAccount } = await loadFixture(deploySubredditBattleRoyaleFixture);
 
-            const tokenPrice = BigInt(await subr.TOKEN_PRICE());
             const purchaseAmount = BigInt(10);
-            const totalCost = tokenPrice * purchaseAmount;
+            const totalCost = await subr.TOKEN_PRICE() * purchaseAmount;
 
             await subr
                 .connect(otherAccount)

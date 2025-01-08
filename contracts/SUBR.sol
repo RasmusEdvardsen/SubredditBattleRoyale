@@ -6,6 +6,7 @@ contract SubredditBattleRoyale {
     uint256 public constant INITIAL_SUPPLY = 1_000_000;
     uint256 public constant TOKEN_PRICE = 0.001 ether; // In WEI
     uint256 public constant BURN_MULTIPLIER = 3;
+    uint256 public constant MAX_SUBREDDIT_LENGTH = 3 + 21; // "/r/" + 21 chars
 
     struct Subreddit {
         string name;
@@ -24,6 +25,7 @@ contract SubredditBattleRoyale {
 
     modifier validSubreddit(string memory subreddit) {
         bytes memory b = bytes(subreddit);
+        require(b.length <= MAX_SUBREDDIT_LENGTH, "Subreddit name too long");
         require(b.length > 3, "Subreddit name too short"); // Must be at least "/r/" + 1 char
         require(b[0] == "/" || b[1] == "r" || b[2] == "/", "Subreddit must start with '/r/'");
         _;
@@ -42,6 +44,8 @@ contract SubredditBattleRoyale {
     function purchaseTokens(string memory subreddit, uint256 amount) public payable validSubreddit(subreddit) {
         require(msg.value == amount * TOKEN_PRICE, "Incorrect Ether sent");
 
+        subreddit = _toLowerCase(subreddit);
+
         subredditTokenBalances[subreddit] += amount;
         voidTokenCount -= amount; // Reduce tokens in "the void"
 
@@ -56,6 +60,8 @@ contract SubredditBattleRoyale {
     function burnTokens(string memory subreddit, uint256 amount) public payable validSubreddit(subreddit) {
         require(msg.value == amount * TOKEN_PRICE, "Incorrect Ether sent");
         require(subredditTokenBalances[subreddit] >= amount * BURN_MULTIPLIER, "Not enough tokens to burn");
+
+        subreddit = _toLowerCase(subreddit);
 
         subredditTokenBalances[subreddit] -= amount * BURN_MULTIPLIER;
         voidTokenCount -= amount; // Reduce tokens in "the void"
@@ -74,5 +80,19 @@ contract SubredditBattleRoyale {
         require(address(this).balance > 0, "No Ether available to withdraw");
 
         payable(owner).transfer(address(this).balance);
+    }
+
+    function _toLowerCase(string memory str) internal pure returns (string memory) {
+        bytes memory bStr = bytes(str);
+        bytes memory bLower = new bytes(bStr.length);
+        for (uint256 i = 0; i < bStr.length; i++) {
+            // Uppercase character
+            if ((uint8(bStr[i]) >= 65) && (uint8(bStr[i]) <= 90)) {
+                bLower[i] = bytes1(uint8(bStr[i]) + 32);
+            } else {
+                bLower[i] = bStr[i];
+            }
+        }
+        return string(bLower);
     }
 }
