@@ -37,8 +37,8 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 - [ ] Test that eth/gwei are sent to owner wallet, and that I have control over it (configure wallet during build/deploy to go to mine)
 - [ ] Deploy to live
 - [ ] Read up on the [ethers library](https://docs.ethers.org/v6/) for interacting with the Ethereum Blockchain
-- [ ] Create frontend that shows subreddit standings
-- [ ] Figure out how to call smart contract seamlessly
+- [ ] Create frontend that shows subreddit standings (Take inspiration from the frontend in the [hardhat boilerplate project](https://hardhat.org/tutorial/boilerplate-project))
+- [ ] Figure out how to call smart contract seamlessly (purchasing, burning, withdrawing)
 - [ ] Ads/marketing
 
 ## Installation and preparation
