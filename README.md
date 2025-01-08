@@ -40,6 +40,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 - [ ] Add remaining folders/files from hardhat boilerplate
 - [ ] Find rivaling subreddits, init contract with unequal amounts of coins to incentivize usage (add test for this) (heavy on crypto/tech sites).
 - [ ] Deploy to testnet
+- [ ] Read up on localhost testing with [ethernal or ganache](https://ethereum.stackexchange.com/questions/92512/can-i-use-etherscan-with-my-local-development-blockchain)
 - [ ] Test that eth/gwei are sent to owner wallet, and that I have control over it (configure wallet during build/deploy to go to mine)
 - [ ] Deploy to live
 - [ ] Read up on the [ethers library](https://docs.ethers.org/v6/) for interacting with the Ethereum Blockchain
