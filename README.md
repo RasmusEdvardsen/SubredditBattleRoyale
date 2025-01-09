@@ -35,14 +35,14 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 - [x] Figure out max subreddit length
 - [x] Test that _startNewSeason increases linearly over time, and that successive wins can occur
 - [x] Test that successive withdrawals can occur
-- [ ] Use bytes32 instead of string for subreddit names?
-- [ ] _toLowerCase might be expensive gas-wise. Try to optimize?
 - [x] Add remaining folders/files from hardhat boilerplate
 - [ ] Find rivaling subreddits, init contract with unequal amounts of coins to incentivize usage (add test for this) (heavy on crypto/tech sites).
 - [x] Allow the owner to adjust the burn multiplier as part of seasonal settings.
 - [ ] Deploy to testnet
-- [ ] Read up on localhost testing with [ethernal or ganache](https://ethereum.stackexchange.com/questions/92512/can-i-use-etherscan-with-my-local-development-blockchain)
 - [ ] Test that eth/gwei are sent to owner wallet, and that I have control over it (configure wallet during build/deploy to go to mine)
+- [ ] Read up on localhost testing with [ethernal or ganache](https://ethereum.stackexchange.com/questions/92512/can-i-use-etherscan-with-my-local-development-blockchain)
+- [ ] Use bytes32 instead of string for subreddit names?
+- [ ] _toLowerCase might be expensive gas-wise. Try to optimize?
 - [ ] Deploy to live
 - [ ] Read up on the [ethers library](https://docs.ethers.org/v6/) for interacting with the Ethereum Blockchain
 - [ ] Create frontend that shows subreddit standings (Take inspiration from the frontend in the [hardhat boilerplate project](https://hardhat.org/tutorial/boilerplate-project))
