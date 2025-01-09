@@ -37,7 +37,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 - [x] Test that successive withdrawals can occur
 - [ ] Use bytes32 instead of string for subreddit names?
 - [ ] _toLowerCase might be expensive gas-wise. Try to optimize?
-- [ ] Add remaining folders/files from hardhat boilerplate
+- [x] Add remaining folders/files from hardhat boilerplate
 - [ ] Find rivaling subreddits, init contract with unequal amounts of coins to incentivize usage (add test for this) (heavy on crypto/tech sites).
 - [ ] Allow the owner to adjust the burn multiplier as part of seasonal settings.
 - [ ] Deploy to testnet
