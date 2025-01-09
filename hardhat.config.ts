@@ -10,6 +10,9 @@ const SEPOLIA_PRIVATE_KEY = vars.get("SEPOLIA_PRIVATE_KEY");
 // npx hardhat vars set ETHERSCAN_API_KEY <ETHERSCAN_API_KEY>
 const ETHERSCAN_API_KEY = vars.get("ETHERSCAN_API_KEY");
 
+// npx hardhat vars set COINMARKETCAP_API_KEY <COINMARKETCAP_API_KEY>
+const COINMARKETCAP_API_KEY = vars.get("COINMARKETCAP_API_KEY");
+
 const config: HardhatUserConfig = {
   solidity: {
     version: "0.8.28",
@@ -30,6 +33,10 @@ const config: HardhatUserConfig = {
     apiKey: {
       sepolia: ETHERSCAN_API_KEY,
     },
+  },
+  gasReporter: {
+    coinmarketcap: COINMARKETCAP_API_KEY,
+    L1Etherscan: ETHERSCAN_API_KEY
   },
 };
 
