@@ -3,7 +3,8 @@ import { expect } from "chai";
 import hre from "hardhat";
 
 describe("SubredditBattleRoyale", function () {
-    const DOTA_2_SUBREDDIT = "/r/dota2";
+    const TEST_SUBREDDIT = "/r/test_subreddit";
+    const NUM_ASSIGNED_TOKENS_AT_START = 24_182n;
 
     async function deploySubredditBattleRoyaleFixture() {
         const [owner, otherAccount] = await hre.ethers.getSigners();
@@ -18,13 +19,13 @@ describe("SubredditBattleRoyale", function () {
         it("Should have minted the correct amount of tokens", async function () {
             const { subr } = await loadFixture(deploySubredditBattleRoyaleFixture);
 
-            expect(await subr.voidTokenCount()).to.equal(await subr.INITIAL_SUPPLY());
+            expect(await subr.voidTokenCount()).to.equal(await subr.INITIAL_SUPPLY() - NUM_ASSIGNED_TOKENS_AT_START);
         });
 
         it("Should have set the correct token price", async function () {
             const { subr } = await loadFixture(deploySubredditBattleRoyaleFixture);
 
-            expect(await subr.TOKEN_PRICE()).to.equal(1000000000000000);
+            expect(await subr.TOKEN_PRICE()).to.equal(100000000000000);
         });
 
         it("Should set the right owner", async function () {
@@ -49,11 +50,11 @@ describe("SubredditBattleRoyale", function () {
 
             let purchaseTokenResponse = await subr
                 .connect(otherAccount)
-                .purchaseTokens(DOTA_2_SUBREDDIT, purchaseAmount, { value: totalCost });
+                .purchaseTokens(TEST_SUBREDDIT, purchaseAmount, { value: totalCost });
             
             expect(purchaseTokenResponse).to.changeEtherBalance(subr, totalCost);
 
-            expect(await subr.subredditTokenBalances(DOTA_2_SUBREDDIT)).to.equal(purchaseAmount);
+            expect(await subr.subredditTokenBalances(TEST_SUBREDDIT)).to.equal(purchaseAmount);
         });
 
         it("Should revert if not enough ether is sent", async function () {
@@ -64,7 +65,7 @@ describe("SubredditBattleRoyale", function () {
 
             let purchaseTokenResponse = subr
                 .connect(otherAccount)
-                .purchaseTokens(DOTA_2_SUBREDDIT, purchaseAmount, { value: insufficientCost });
+                .purchaseTokens(TEST_SUBREDDIT, purchaseAmount, { value: insufficientCost });
 
             await expect(purchaseTokenResponse).to.be.revertedWith("Incorrect Ether sent");
         });
@@ -75,9 +76,9 @@ describe("SubredditBattleRoyale", function () {
             const purchaseAmount = 10n;
             const totalCost = await subr.TOKEN_PRICE() * purchaseAmount;
 
-            await subr.connect(otherAccount).purchaseTokens(DOTA_2_SUBREDDIT.toUpperCase(), purchaseAmount, { value: totalCost });
+            await subr.connect(otherAccount).purchaseTokens(TEST_SUBREDDIT.toUpperCase(), purchaseAmount, { value: totalCost });
 
-            expect(await subr.subredditTokenBalances(DOTA_2_SUBREDDIT)).to.equal(purchaseAmount);
+            expect(await subr.subredditTokenBalances(TEST_SUBREDDIT)).to.equal(purchaseAmount);
         });
 
         it("Should revert if subreddit name is too long", async function () {
@@ -103,9 +104,9 @@ describe("SubredditBattleRoyale", function () {
             const purchaseAmount = 10n;
             const totalCost = await subr.TOKEN_PRICE() * purchaseAmount;
 
-            expect(await subr.connect(otherAccount).purchaseTokens(DOTA_2_SUBREDDIT, purchaseAmount, { value: totalCost }))
+            expect(await subr.connect(otherAccount).purchaseTokens(TEST_SUBREDDIT, purchaseAmount, { value: totalCost }))
                 .to.emit(subr, "TokensPurchased")
-                .withArgs(otherAccount.address, DOTA_2_SUBREDDIT, purchaseAmount);
+                .withArgs(otherAccount.address, TEST_SUBREDDIT, purchaseAmount);
         });
 
         it("Should emit an event on token burn", async function () {
@@ -114,11 +115,11 @@ describe("SubredditBattleRoyale", function () {
             const purchaseAmount = 10n;
             const totalCost = await subr.TOKEN_PRICE() * purchaseAmount;
 
-            await subr.connect(otherAccount).purchaseTokens(DOTA_2_SUBREDDIT, purchaseAmount * 3n, { value: totalCost * 3n });
+            await subr.connect(otherAccount).purchaseTokens(TEST_SUBREDDIT, purchaseAmount * 3n, { value: totalCost * 3n });
 
-            expect(await subr.connect(otherAccount).burnTokens(DOTA_2_SUBREDDIT, purchaseAmount, { value: totalCost}))
+            expect(await subr.connect(otherAccount).burnTokens(TEST_SUBREDDIT, purchaseAmount, { value: totalCost}))
                 .to.emit(subr, "TokensBurned")
-                .withArgs(otherAccount.address, DOTA_2_SUBREDDIT, purchaseAmount);
+                .withArgs(otherAccount.address, TEST_SUBREDDIT, purchaseAmount);
         });
 
         it("Should emit an event on season winner", async function () {
@@ -129,9 +130,9 @@ describe("SubredditBattleRoyale", function () {
             const purchaseAmount = (await subr.INITIAL_SUPPLY() / 2n) + 1n;
             const totalCost = await subr.TOKEN_PRICE() * purchaseAmount;
 
-            expect(await subr.connect(otherAccount).purchaseTokens(DOTA_2_SUBREDDIT, purchaseAmount, { value: totalCost }))
+            expect(await subr.connect(otherAccount).purchaseTokens(TEST_SUBREDDIT, purchaseAmount, { value: totalCost }))
                 .to.emit(subr, "SeasonWon")
-                .withArgs(DOTA_2_SUBREDDIT, await subr.subredditTokenBalances(DOTA_2_SUBREDDIT), currentSeason);
+                .withArgs(TEST_SUBREDDIT, await subr.subredditTokenBalances(TEST_SUBREDDIT), currentSeason);
         });
 
         it("Should increase the token supply linearly over time", async function () {
@@ -143,12 +144,13 @@ describe("SubredditBattleRoyale", function () {
             // Win season 1, and start season 2.
             await subr
                 .connect(otherAccount)
-                .purchaseTokens(DOTA_2_SUBREDDIT, purchaseAmount, { value: totalCost });
+                .purchaseTokens(TEST_SUBREDDIT, purchaseAmount, { value: totalCost });
             
             let voidTokenCount =
                 await subr.INITIAL_SUPPLY()
                 + await subr.INITIAL_SUPPLY() + (await subr.INITIAL_SUPPLY() / await subr.currentSeason())
-                - await subr.subredditTokenBalances(DOTA_2_SUBREDDIT);
+                - await subr.subredditTokenBalances(TEST_SUBREDDIT)
+                - NUM_ASSIGNED_TOKENS_AT_START;
 
             expect(await subr.voidTokenCount()).to.equal(voidTokenCount);
 
@@ -158,13 +160,14 @@ describe("SubredditBattleRoyale", function () {
             // Win season 2, and start season 3.
             await subr
                 .connect(otherAccount)
-                .purchaseTokens(DOTA_2_SUBREDDIT, purchaseAmount, { value: totalCost });
+                .purchaseTokens(TEST_SUBREDDIT, purchaseAmount, { value: totalCost });
 
             voidTokenCount =
                 await subr.INITIAL_SUPPLY()
                 + (await subr.INITIAL_SUPPLY() + (await subr.INITIAL_SUPPLY() / (await subr.currentSeason() - 1n)))
                 + (await subr.INITIAL_SUPPLY() + (await subr.INITIAL_SUPPLY() / await subr.currentSeason()))
-                - await subr.subredditTokenBalances(DOTA_2_SUBREDDIT);
+                - await subr.subredditTokenBalances(TEST_SUBREDDIT)
+                - NUM_ASSIGNED_TOKENS_AT_START;
 
             expect(await subr.voidTokenCount()).to.equal(voidTokenCount);
         });
@@ -199,7 +202,7 @@ describe("SubredditBattleRoyale", function () {
 
             await subr
                 .connect(otherAccount)
-                .purchaseTokens(DOTA_2_SUBREDDIT, purchaseAmount, { value: totalCost });
+                .purchaseTokens(TEST_SUBREDDIT, purchaseAmount, { value: totalCost });
 
             let burnMultiplier = 2n;
 
@@ -208,10 +211,10 @@ describe("SubredditBattleRoyale", function () {
             let burnAmount = 5n;
             let burnCost = await subr.TOKEN_PRICE() * burnAmount;
 
-            await subr.connect(otherAccount).burnTokens(DOTA_2_SUBREDDIT, burnAmount, { value: burnCost });
+            await subr.connect(otherAccount).burnTokens(TEST_SUBREDDIT, burnAmount, { value: burnCost });
 
             let expectedTokensRemaining = purchaseAmount - burnAmount * burnMultiplier;
-            expect(await subr.subredditTokenBalances(DOTA_2_SUBREDDIT)).to.equal(expectedTokensRemaining);
+            expect(await subr.subredditTokenBalances(TEST_SUBREDDIT)).to.equal(expectedTokensRemaining);
         });
 
         it("Should revert if burn amount is too high", async function () {
@@ -222,7 +225,7 @@ describe("SubredditBattleRoyale", function () {
 
             await subr
                 .connect(otherAccount)
-                .purchaseTokens(DOTA_2_SUBREDDIT, purchaseAmount, { value: totalCost });
+                .purchaseTokens(TEST_SUBREDDIT, purchaseAmount, { value: totalCost });
 
             let burnMultiplier = 2n;
 
@@ -233,7 +236,7 @@ describe("SubredditBattleRoyale", function () {
 
             let burnTokensResponse = subr
                 .connect(otherAccount)
-                .burnTokens(DOTA_2_SUBREDDIT, burnAmount, { value: burnCost });
+                .burnTokens(TEST_SUBREDDIT, burnAmount, { value: burnCost });
 
             await expect(burnTokensResponse).to.be.revertedWith("Not enough tokens to burn");
         });
@@ -248,7 +251,7 @@ describe("SubredditBattleRoyale", function () {
 
             await subr
                 .connect(otherAccount)
-                .purchaseTokens(DOTA_2_SUBREDDIT, purchaseAmount, { value: totalCost });
+                .purchaseTokens(TEST_SUBREDDIT, purchaseAmount, { value: totalCost });
 
             let withdrawResponse = await subr.connect(owner).withdraw();
 
@@ -279,7 +282,7 @@ describe("SubredditBattleRoyale", function () {
 
             await subr
                 .connect(otherAccount)
-                .purchaseTokens(DOTA_2_SUBREDDIT, purchaseAmount, { value: totalCost });
+                .purchaseTokens(TEST_SUBREDDIT, purchaseAmount, { value: totalCost });
 
             let withdrawResponse = await subr.connect(owner).withdraw();
 
@@ -287,7 +290,7 @@ describe("SubredditBattleRoyale", function () {
 
             await subr
                 .connect(otherAccount)
-                .purchaseTokens(DOTA_2_SUBREDDIT, purchaseAmount, { value: totalCost });
+                .purchaseTokens(TEST_SUBREDDIT, purchaseAmount, { value: totalCost });
 
             let withdrawResponse2 = await subr.connect(owner).withdraw();
 

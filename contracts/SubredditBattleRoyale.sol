@@ -4,7 +4,7 @@ pragma solidity ^0.8.28;
 // Author: rasmusedvardsen
 contract SubredditBattleRoyale {
     uint256 public constant INITIAL_SUPPLY = 1_000_000;
-    uint256 public constant TOKEN_PRICE = 0.001 ether; // In WEI
+    uint256 public constant TOKEN_PRICE = 0.0001 ether; // In WEI
     uint256 public BURN_MULTIPLIER = 3;
     uint256 public constant MAX_SUBREDDIT_LENGTH = 3 + 21; // "/r/" + 21 chars
 
@@ -39,6 +39,8 @@ contract SubredditBattleRoyale {
     constructor() {
         voidTokenCount = INITIAL_SUPPLY; // Initialize "the void" with the initial supply of tokens
         owner = msg.sender;
+
+        _initState();
     }
 
     function purchaseTokens(string memory subreddit, uint256 amount) external payable validSubreddit(subreddit) {
@@ -100,5 +102,37 @@ contract SubredditBattleRoyale {
             }
         }
         return string(bLower);
+    }
+
+    // 24182 tokens distributed in total at initial state.
+    function _initState() internal {
+        _incrementSubredditTokensDecrementVoidTokens("/r/ethereum", 576);
+        _incrementSubredditTokensDecrementVoidTokens("/r/solana", 1036);
+        _incrementSubredditTokensDecrementVoidTokens("/r/bitcoin", 329);
+        _incrementSubredditTokensDecrementVoidTokens("/r/dogecoin", 298);
+        _incrementSubredditTokensDecrementVoidTokens("/r/shib", 207);
+        _incrementSubredditTokensDecrementVoidTokens("/r/liverpoolfc", 938);
+        _incrementSubredditTokensDecrementVoidTokens("/r/mcfc", 857);
+        _incrementSubredditTokensDecrementVoidTokens("/r/chelseafc", 913);
+        _incrementSubredditTokensDecrementVoidTokens("/r/dota2", 1326);
+        _incrementSubredditTokensDecrementVoidTokens("/r/leagueoflegends", 1092);
+        _incrementSubredditTokensDecrementVoidTokens("/r/globaloffensive", 387);
+        _incrementSubredditTokensDecrementVoidTokens("/r/pathofexile", 997);
+        _incrementSubredditTokensDecrementVoidTokens("/r/diablo4", 378);
+        _incrementSubredditTokensDecrementVoidTokens("/r/rust", 2029);
+        _incrementSubredditTokensDecrementVoidTokens("/r/csharp", 1290);
+        _incrementSubredditTokensDecrementVoidTokens("/r/python", 3829);
+        _incrementSubredditTokensDecrementVoidTokens("/r/cpp", 1027);
+        _incrementSubredditTokensDecrementVoidTokens("/r/java", 1726);
+        _incrementSubredditTokensDecrementVoidTokens("/r/solidity", 27);
+        _incrementSubredditTokensDecrementVoidTokens("/r/javascript", 4093);
+        _incrementSubredditTokensDecrementVoidTokens("/r/golang", 827);
+    }
+    
+    function _incrementSubredditTokensDecrementVoidTokens(string memory subreddit, uint256 amount) internal {
+        subredditTokenBalances[subreddit] += amount;
+        voidTokenCount -= amount;
+
+        emit TokensPurchased(msg.sender, subreddit, amount);
     }
 }
