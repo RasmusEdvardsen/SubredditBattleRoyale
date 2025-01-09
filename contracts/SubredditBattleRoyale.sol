@@ -5,7 +5,7 @@ pragma solidity ^0.8.28;
 contract SubredditBattleRoyale {
     uint256 public constant INITIAL_SUPPLY = 1_000_000;
     uint256 public constant TOKEN_PRICE = 0.001 ether; // In WEI
-    uint256 public constant BURN_MULTIPLIER = 3;
+    uint256 public BURN_MULTIPLIER = 3;
     uint256 public constant MAX_SUBREDDIT_LENGTH = 3 + 21; // "/r/" + 21 chars
 
     struct Subreddit {
@@ -67,6 +67,12 @@ contract SubredditBattleRoyale {
         voidTokenCount -= amount; // Reduce tokens in "the void"
 
         emit TokensBurned(msg.sender, subreddit, amount);
+    }
+
+    function setBurnMultiplier(uint256 newMultiplier) public onlyOwner {
+        require(newMultiplier > 0, "Multiplier must be greater than 0");
+        require(newMultiplier <= 100, "Multiplier must be less than  or equal to 10o");
+        BURN_MULTIPLIER = newMultiplier;
     }
 
     function _startNewSeason() internal {
