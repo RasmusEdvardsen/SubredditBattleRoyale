@@ -3,7 +3,7 @@
 SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddits to flex on each other, or for people to secure the void will win against subreddits. When a winner is found, a new and harder season is started.
 
 ## Game summary
-* Start with 1_000_000 SUBR tokens. They cost 0.001 ether to purchase. 
+* Start with 1_000_000 SUBR tokens. They cost 0.0001 ether to purchase. 
 * Tokens should be inscribed with a subreddit. It should always start with "/r/" followed by no less than one character.
 * A "season" is won, when a subreddit has more tokens than "the void". After that, a new season starts. Old tokens still count, but new tokens are minted for the new season.
 * You can also burn tokens, which will burn amount 3 times the amount of tokens of the specified subreddit.
