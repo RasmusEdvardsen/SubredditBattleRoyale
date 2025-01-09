@@ -17,7 +17,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 * Create ERC20 tokens. Seems difficult though, as we need metadata (subreddit) for each token trade.
 
 ## Progress
-* [Deployed Lock contract for testing](https://sepolia.etherscan.io/address/0xB86DC26c7fe525Fe7938c4Ea5C8121d9192ec618#code)
+* [SubredditBattleRoyale smart contract on Sepolia Ethereum testnet](https://sepolia.etherscan.io/address/0x47e330c6a28bb7b89eda068b8a68943e1574cce8)
 * [My wallet](https://etherscan.io/address/0xB6Bf1Eec596602D14acb288262C7B9b6D1B801eA)
 * [My test wallet](https://sepolia.etherscan.io/address/0xb6bf1eec596602d14acb288262c7b9b6d1b801ea)
 
@@ -44,6 +44,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 - [ ] **(MAYBE)** subreddit names: string -> bytes32,
 - [ ] **(MAYBE)** optimize _toLowerCase, or require in validation somehow?
 - [ ] **(MAYBE)** lower uint256 where possible?
+- [ ] **(MAYBE)** Function that adds 1 token to subreddit if not exists?
 - [ ] Deploy to live
 - [ ] Read up on the [ethers library](https://docs.ethers.org/v6/) for interacting with the Ethereum Blockchain
 - [ ] Create frontend that shows subreddit standings (Take inspiration from the frontend in the [hardhat boilerplate project](https://hardhat.org/tutorial/boilerplate-project))
