@@ -56,7 +56,13 @@ contract SubredditBattleRoyale {
             _startNewSeason();
         }
     }
-
+    
+    function _startNewSeason() internal {
+        // Mint new tokens and assign them to "the void"
+        currentSeason++;
+        voidTokenCount += INITIAL_SUPPLY + (INITIAL_SUPPLY / currentSeason);
+    }
+    
     function burnTokens(string memory subreddit, uint256 amount) external payable validSubreddit(subreddit) {
         require(msg.value == amount * TOKEN_PRICE, "Incorrect Ether sent");
         require(subredditTokenBalances[subreddit] >= amount * BURN_MULTIPLIER, "Not enough tokens to burn");
@@ -67,24 +73,6 @@ contract SubredditBattleRoyale {
         voidTokenCount -= amount; // Reduce tokens in "the void"
 
         emit TokensBurned(msg.sender, subreddit, amount);
-    }
-
-    function setBurnMultiplier(uint256 newMultiplier) public onlyOwner {
-        require(newMultiplier > 0, "Multiplier must be greater than 0");
-        require(newMultiplier <= 100, "Multiplier must be less than  or equal to 10o");
-        BURN_MULTIPLIER = newMultiplier;
-    }
-
-    function _startNewSeason() internal {
-        // Mint new tokens and assign them to "the void"
-        currentSeason++;
-        voidTokenCount += INITIAL_SUPPLY + (INITIAL_SUPPLY / currentSeason);
-    }
-
-    function withdraw() external onlyOwner {
-        require(address(this).balance > 0, "No Ether available to withdraw");
-
-        payable(owner).transfer(address(this).balance);
     }
 
     function _toLowerCase(string memory str) internal pure returns (string memory) {
@@ -99,5 +87,17 @@ contract SubredditBattleRoyale {
             }
         }
         return string(bLower);
+    }
+    
+    function setBurnMultiplier(uint256 newMultiplier) external onlyOwner {
+        require(newMultiplier > 0, "Multiplier must be greater than 0");
+        require(newMultiplier <= 100, "Multiplier must be less than  or equal to 10o");
+        BURN_MULTIPLIER = newMultiplier;
+    }
+    
+    function withdraw() external onlyOwner {
+        require(address(this).balance > 0, "No Ether available to withdraw");
+
+        payable(owner).transfer(address(this).balance);
     }
 }
