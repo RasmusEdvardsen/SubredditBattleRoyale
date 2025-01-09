@@ -41,7 +41,7 @@ contract SubredditBattleRoyale {
         owner = msg.sender;
     }
 
-    function purchaseTokens(string memory subreddit, uint256 amount) public payable validSubreddit(subreddit) {
+    function purchaseTokens(string memory subreddit, uint256 amount) external payable validSubreddit(subreddit) {
         require(msg.value == amount * TOKEN_PRICE, "Incorrect Ether sent");
 
         subreddit = _toLowerCase(subreddit);
@@ -57,7 +57,7 @@ contract SubredditBattleRoyale {
         }
     }
 
-    function burnTokens(string memory subreddit, uint256 amount) public payable validSubreddit(subreddit) {
+    function burnTokens(string memory subreddit, uint256 amount) external payable validSubreddit(subreddit) {
         require(msg.value == amount * TOKEN_PRICE, "Incorrect Ether sent");
         require(subredditTokenBalances[subreddit] >= amount * BURN_MULTIPLIER, "Not enough tokens to burn");
 
@@ -75,7 +75,7 @@ contract SubredditBattleRoyale {
         voidTokenCount += INITIAL_SUPPLY + (INITIAL_SUPPLY / currentSeason);
     }
 
-    function withdraw() public onlyOwner {
+    function withdraw() external onlyOwner {
         require(address(this).balance > 0, "No Ether available to withdraw");
 
         payable(owner).transfer(address(this).balance);
