@@ -43,6 +43,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 - [x] Deploy to testnet
 - [x] Test that eth/gwei are sent to owner wallet, and that I have control over it (configure wallet during build/deploy to go to mine)
 - [x] **(MAYBE)** optimize _toLowerCase, or require in validation somehow?
+- [x] Deploy Lock.sol to mainnet
 - [ ] Lower optimization all the way down for cheaper deployment
 - [ ] Deploy to live
 - [ ] Read up on the [ethers library](https://docs.ethers.org/v6/) for interacting with the Ethereum Blockchain
