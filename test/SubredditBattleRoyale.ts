@@ -70,15 +70,17 @@ describe("SubredditBattleRoyale", function () {
             await expect(purchaseTokenResponse).to.be.revertedWith("Incorrect Ether sent");
         });
 
-        it("Should set subreddit to lower case", async function () {
+        it("Should revert if not lower case", async function () {
             const { subr, otherAccount } = await loadFixture(deploySubredditBattleRoyaleFixture);
 
             const purchaseAmount = 10n;
             const totalCost = await subr.TOKEN_PRICE() * purchaseAmount;
 
-            await subr.connect(otherAccount).purchaseTokens(TEST_SUBREDDIT.toUpperCase(), purchaseAmount, { value: totalCost });
+            let purchaseTokenResponse = subr
+                .connect(otherAccount)
+                .purchaseTokens(TEST_SUBREDDIT.toUpperCase(), purchaseAmount, { value: totalCost });
 
-            expect(await subr.subredditTokenBalances(TEST_SUBREDDIT)).to.equal(purchaseAmount);
+            await expect(purchaseTokenResponse).to.be.revertedWith("Subreddit must be lowercase");
         });
 
         it("Should revert if subreddit name is too long", async function () {

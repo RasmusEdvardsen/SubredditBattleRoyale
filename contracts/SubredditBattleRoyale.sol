@@ -28,6 +28,7 @@ contract SubredditBattleRoyale {
         require(b.length <= MAX_SUBREDDIT_LENGTH, "Subreddit name too long");
         require(b.length > 3, "Subreddit name too short"); // Must be at least "/r/" + 1 char
         require(b[0] == "/" || b[1] == "r" || b[2] == "/", "Subreddit must start with '/r/'");
+        require(!_hasUpperCase(subreddit), "Subreddit must be lowercase");
         _;
     }
 
@@ -46,8 +47,6 @@ contract SubredditBattleRoyale {
     function purchaseTokens(string memory subreddit, uint256 amount) external payable validSubreddit(subreddit) {
         require(msg.value == amount * TOKEN_PRICE, "Incorrect Ether sent");
 
-        subreddit = _toLowerCase(subreddit);
-
         subredditTokenBalances[subreddit] += amount;
         voidTokenCount -= amount;
 
@@ -61,9 +60,6 @@ contract SubredditBattleRoyale {
     
     function burnTokens(string memory subreddit, uint256 amount) external payable validSubreddit(subreddit) {
         require(msg.value == amount * TOKEN_PRICE, "Incorrect Ether sent");
-
-        subreddit = _toLowerCase(subreddit);
-
         require(subredditTokenBalances[subreddit] >= amount * BURN_MULTIPLIER, "Not enough tokens to burn");
 
         subredditTokenBalances[subreddit] -= amount * BURN_MULTIPLIER;
@@ -90,18 +86,15 @@ contract SubredditBattleRoyale {
         voidTokenCount += INITIAL_SUPPLY + (INITIAL_SUPPLY / currentSeason);
     }
 
-    function _toLowerCase(string memory str) internal pure returns (string memory) {
+    function _hasUpperCase(string memory str) internal pure returns (bool) {
         bytes memory bStr = bytes(str);
-        bytes memory bLower = new bytes(bStr.length);
         for (uint256 i = 0; i < bStr.length; i++) {
-            // Uppercase character
+            // If uppercase character, return true at first occurence.
             if ((uint8(bStr[i]) >= 65) && (uint8(bStr[i]) <= 90)) {
-                bLower[i] = bytes1(uint8(bStr[i]) + 32);
-            } else {
-                bLower[i] = bStr[i];
+                return true;
             }
         }
-        return string(bLower);
+        return false;
     }
 
     // 24182 tokens distributed in total at initial state.
