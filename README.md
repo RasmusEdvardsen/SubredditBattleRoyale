@@ -47,7 +47,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 - [x] Deploy Lock.sol to mainnet
 - [x] Lower optimization all the way down for cheaper deployment
 - [x] Deploy to live
-- [ ] Read up on the [ethers library](https://docs.ethers.org/v6/) for interacting with the Ethereum Blockchain
+- [ ] Read up on the [web3.js](https://web3js.readthedocs.io/en/v1.10.0/) for interacting with the Ethereum Blockchain (instead of [ethers library](https://docs.ethers.org/v6/))
 - [ ] Create frontend that shows subreddit standings (Take inspiration from the frontend in the [hardhat boilerplate project](https://hardhat.org/tutorial/boilerplate-project))
 - [ ] Figure out how to call smart contract seamlessly (purchasing, burning, withdrawing)
 - [ ] Ads/marketing
