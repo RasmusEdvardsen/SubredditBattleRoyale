@@ -43,7 +43,6 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 - [x] Deploy to testnet
 - [x] Test that eth/gwei are sent to owner wallet, and that I have control over it (configure wallet during build/deploy to go to mine)
 - [ ] Read up on localhost testing with [ethernal or ganache](https://ethereum.stackexchange.com/questions/92512/can-i-use-etherscan-with-my-local-development-blockchain)
-- [ ] **(MAYBE)** subreddit names: string -> bytes32 (and add tests)
 - [x] **(MAYBE)** optimize _toLowerCase, or require in validation somehow?
 - [ ] **(MAYBE)** lower uint256 where possible?
 - [ ] Deploy to live
