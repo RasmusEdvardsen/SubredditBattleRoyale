@@ -15,6 +15,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 * Maybe "kill" subreddits with low amount of tokens?
 * The void could also just get stronger after every win, then old coins would still matter?
 * Create ERC20 tokens. Seems difficult though, as we need metadata (subreddit) for each token trade.
+* Consider Solana as a blockchain instead, and figure out what the equivalent of an ERC-20 standard token is for Solana.
 
 ## Progress
 * [SubredditBattleRoyale smart contract on Sepolia Ethereum testnet](https://sepolia.etherscan.io/address/0x47e330c6a28bb7b89eda068b8a68943e1574cce8)
