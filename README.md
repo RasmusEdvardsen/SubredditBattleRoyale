@@ -16,6 +16,7 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 * The void could also just get stronger after every win, then old coins would still matter?
 * Create ERC20 tokens. Seems difficult though, as we need metadata (subreddit) for each token trade.
 * Consider Solana as a blockchain instead, and figure out what the equivalent of an ERC-20 standard token is for Solana.
+* Figure out way for onlyOwner to add/remove subreddits.
 
 ## Progress
 * [SubredditBattleRoyale smart contract on Sepolia Ethereum testnet](https://sepolia.etherscan.io/address/0x47e330c6a28bb7b89eda068b8a68943e1574cce8)
@@ -43,9 +44,8 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 - [x] Test that eth/gwei are sent to owner wallet, and that I have control over it (configure wallet during build/deploy to go to mine)
 - [ ] Read up on localhost testing with [ethernal or ganache](https://ethereum.stackexchange.com/questions/92512/can-i-use-etherscan-with-my-local-development-blockchain)
 - [ ] **(MAYBE)** subreddit names: string -> bytes32 (and add tests)
-- [ ] **(MAYBE)** optimize _toLowerCase, or require in validation somehow?
+- [x] **(MAYBE)** optimize _toLowerCase, or require in validation somehow?
 - [ ] **(MAYBE)** lower uint256 where possible?
-- [ ] **(MAYBE)** Function that adds 1 token to subreddit if not exists?
 - [ ] Deploy to live
 - [ ] Read up on the [ethers library](https://docs.ethers.org/v6/) for interacting with the Ethereum Blockchain
 - [ ] Create frontend that shows subreddit standings (Take inspiration from the frontend in the [hardhat boilerplate project](https://hardhat.org/tutorial/boilerplate-project))
