@@ -42,7 +42,6 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 - [x] Allow the owner to adjust the burn multiplier as part of seasonal settings.
 - [x] Deploy to testnet
 - [x] Test that eth/gwei are sent to owner wallet, and that I have control over it (configure wallet during build/deploy to go to mine)
-- [ ] Read up on localhost testing with [ethernal or ganache](https://ethereum.stackexchange.com/questions/92512/can-i-use-etherscan-with-my-local-development-blockchain)
 - [x] **(MAYBE)** optimize _toLowerCase, or require in validation somehow?
 - [ ] Deploy to live
 - [ ] Read up on the [ethers library](https://docs.ethers.org/v6/) for interacting with the Ethereum Blockchain
