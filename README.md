@@ -1,9 +1,9 @@
-# SUBR
+# SubredditBattleRoyale
 
-SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddits to flex on each other, or for people to secure the void will win against subreddits. When a winner is found, a new and harder season is started.
+SubredditBattleRoyale is a battle royale token for subreddits to flex on each other, or for people to secure the void will win against subreddits. When a winner is found, a new and harder season is started.
 
 ## Game summary
-* Start with 1_000_000 SUBR tokens. They cost 0.0001 ether to purchase. 
+* Start with 1_000_000 tokens. They cost 0.0001 ether to purchase. 
 * Tokens should be inscribed with a subreddit. It should always start with "/r/" followed by no less than one character.
 * A "season" is won, when a subreddit has more tokens than "the void". After that, a new season starts. Old tokens still count, but new tokens are minted for the new season.
 * You can also burn tokens, which will burn amount 3 times the amount of tokens of the specified subreddit.
@@ -32,8 +32,8 @@ SUBR (**SUBR**eddit **B**attle**R**oyale) is a battle royale token for subreddit
 - [x] Try deploy Lock.sol to testnet
 - [x] Read up on [how to interact with smart contracts](https://www.quicknode.com/guides/ethereum-development/smart-contracts/how-to-interact-with-smart-contracts#interacting-with-smart-contracts)
 - [x] Try calling Lock.sol on testnet?
-- [x] Work on SUBR.sol
-- [x] Create tests for SUBR.sol
+- [x] Work on SubredditBattleRoyalesol
+- [x] Create tests for SubredditBattleRoyale.sol
 - [x] Figure out how to handle casing (subreddits are case insensitive right?)
 - [x] Figure out max subreddit length
 - [x] Test that _startNewSeason increases linearly over time, and that successive wins can occur
