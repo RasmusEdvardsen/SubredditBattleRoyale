@@ -69,3 +69,6 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 * ANCHOR (backend framework for accelerating development (hide away complexity))
 * solana-program-test (backend test)
 * typescript+@solana/web3.js (frontend to display battle stats)
+
+### Notes
+* To run .ts files: npx ts-node file.ts
