@@ -16,18 +16,12 @@ async function main() {
 
     const contract = new web3.eth.Contract(jsonContract.abi, CONTRACT_ADDRESS);
 
-    let currentSeason = await contract.methods.currentSeason().call();
-    let initialSupply = await contract.methods.INITIAL_SUPPLY().call();
-    let voidTokenCount = await contract.methods.voidTokenCount().call();
-
-    console.log("Current season: ", currentSeason);
-    console.log("Initial supply: ", initialSupply);
-    console.log("Void token count: ", voidTokenCount);
-
+    // todo: either I keep state up until block N off-chain and fetch events from block N+1, or I just fetch all events.
     const event = await contract.events.TokensPurchased({fromBlock: 0});
 
     event.on('data', (data) => {
         console.log(`\nTokens purchased!\nBuyer: ${data.returnValues.buyer}\nSubreddit: ${data.returnValues.subreddit}\nAmount: ${data.returnValues.amount}`);
+        console.log(`Unique id: block# ${data.blockHash}, txn# ${data.transactionHash}, logIndex ${data.logIndex}`)
     });
     event.on('error', (err: Error) => {
         console.log("\nError occurred: ", err);
