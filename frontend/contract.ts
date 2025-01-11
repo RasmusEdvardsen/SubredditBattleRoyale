@@ -7,6 +7,16 @@ const CONTRACT_ADDRESS = "0xea8831bcb719914ab97131f48d9b2dc737dbd25a";
 
 const jsonContractFilePath = "..\\ignition\\deployments\\mainnet-deployment\\artifacts\\SubredditBattleRoyaleModule#SubredditBattleRoyale.json";
 
+// todo: stuff I need:
+// Events:
+// 1. Tokens purchased
+// 2. Tokens burned
+// 3. Season won
+// State:
+// 1. Current season (Update if changed)
+// 2. voidTokens (Update if changed)
+// 3. BURN_MULTIPLIER (Update if changed)
+// 4. TOKEN_PRICE
 async function main() {
     const provider = new Web3.providers.HttpProvider(`https://mainnet.infura.io/v3/${INFURA_API_KEY}`);
     const web3 = new Web3(provider);
