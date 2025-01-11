@@ -48,7 +48,8 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [x] Lower optimization all the way down for cheaper deployment
 - [x] Deploy to live
 - [ ] Read up on the [web3.js](https://web3js.readthedocs.io/en/v1.10.0/) for interacting with the Ethereum Blockchain (instead of [ethers library](https://docs.ethers.org/v6/))
-- [ ] Create frontend that shows subreddit standings (Take inspiration from the frontend in the [hardhat boilerplate project](https://hardhat.org/tutorial/boilerplate-project))
+- [ ] Buy 'subredditbattleroyale.com' domain
+- [ ] Create frontend that shows subreddit standings (Take inspiration from the frontend in the [hardhat boilerplate project](https://hardhat.org/tutorial/boilerplate-project)) (Also [this](https://github.com/ChainSafe/web3js-example-react-app/tree/main/src))
 - [ ] Figure out how to call smart contract seamlessly (purchasing, burning, withdrawing)
 - [ ] Ads/marketing
 
