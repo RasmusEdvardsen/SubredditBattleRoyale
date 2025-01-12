@@ -12,8 +12,5 @@
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "hardhat": "^2.22.17",
     "hardhat-gas-reporter": "^2.2.2"
-  },
-  "dependencies": {
-    "web3": "^4.16.0"
   }
 }
