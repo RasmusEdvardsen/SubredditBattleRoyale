@@ -1,0 +1,6 @@
+@test_HostAddress = http://localhost:5238
+
+GET {{test_HostAddress}}/events/
+Accept: application/json
+
+###
