@@ -31,6 +31,14 @@ static void SetupTeardownDatabase()
         )";
     connection.Execute(createTokensPurchasedEventTable);
 
+    // {"buyer":"0xB6Bf1Eec596602D14acb288262C7B9b6D1B801eA","subreddit":"/r/ethereum","tokens":{"isPowerOfTwo":false,"isZero":false,"isOne":false,"isEven":true,"sign":1}}
+    
+    // blockhash string "0x12271ffad8006ac6d2fa1cf92d767ea30eaf443e781300aed90283af11543456"
+    // txnhash string "0x8d70c8d3932323af7a7e047d65bc25d5ef8b144d5ca194bcdc04aac7d0ddfc12"
+    // logindex hexbiginteger {619}
+    
+    // blocknumber hexbiginteger {21596321}
+
     // Clean up
     SqliteConnection.ClearAllPools();
     File.Delete("hello.db");
