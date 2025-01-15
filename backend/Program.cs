@@ -17,6 +17,7 @@ app.MapGet("/events", async () => {
 
 app.Run();
 
+// todo: need blockhash+transactionhash+logindex for each events
 // todo: create database that stores all types of events, INCLUDING BLOCK NUMBER
 // todo: when new request, only request events from latest block number in database
 // todo: probably rate limit not the API, but calls to blockchain somehow, when API is called (stale data is fine to some extent)
