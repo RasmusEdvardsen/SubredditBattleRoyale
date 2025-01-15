@@ -55,6 +55,7 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [ ] Create frontend: [web3.js](https://docs.web3js.org/), [ethers library](https://docs.ethers.org/v6/), [hardhat boilerplate project](https://hardhat.org/tutorial/boilerplate-project), [web3 example app](https://github.com/ChainSafe/web3js-example-react-app/tree/main/src)
 - [ ] Figure out how to call smart contract seamlessly (purchasing, burning, withdrawing)
 - [ ] Ads/marketing
+- [ ] Create diagram to show how blockchain, backend, database, frontend and wallet communicates
 
 ## Installation and preparation
 ### Ethereum
