@@ -5,36 +5,25 @@ using Nethereum.Web3;
 
 namespace Backend
 {
-    public class Events
+    public class Events(string ContractAddress = "", string AlchemyApiKey = "")
     {
-        public static async Task<AllEvents> GetAllEvents()
+        private readonly Web3 web3 = new($"https://eth-mainnet.g.alchemy.com/v2/{AlchemyApiKey}");
+        
+        public async Task<AllEvents> GetAllEvents()
         {
-            // todo: move in to appsettings.json
-            var contractAddress = "";
+            var tokensPurchasedEvents = await GetEventLogs<TokensPurchasedEvent>(ContractAddress);
+            var tokensBurnedEventEvents = await GetEventLogs<TokensBurnedEvent>(ContractAddress);
+            var seasonWonEventEvents = await GetEventLogs<SeasonWonEvent>(ContractAddress);
 
-            // todo: hide apiKey somehow
-            var alchemyApiKey = "";
+            return new AllEvents(tokensPurchasedEvents, tokensBurnedEventEvents, seasonWonEventEvents);
+        }
 
-            var web3 = new Web3($"https://eth-mainnet.g.alchemy.com/v2/${alchemyApiKey}");
-
-            var tokensPurchasedEventHandler = web3.Eth.GetEvent<TokensPurchasedEvent>(contractAddress);
-            var allTokensPurchasedEventsFilter = tokensPurchasedEventHandler.CreateFilterInput();
-            var tokensPurchasedEvents = await tokensPurchasedEventHandler.GetAllChangesAsync(allTokensPurchasedEventsFilter);
-
-            var tokensBurnedEventEventHandler = web3.Eth.GetEvent<TokensBurnedEvent>(contractAddress);
-            var allTokensBurnedEventEventsFilter = tokensBurnedEventEventHandler.CreateFilterInput();
-            var tokensBurnedEventEvents = await tokensBurnedEventEventHandler.GetAllChangesAsync(allTokensBurnedEventEventsFilter);
-
-            var seasonWonEventEventHandler = web3.Eth.GetEvent<SeasonWonEvent>(contractAddress);
-            var allSeasonWonEventEventsFilter = seasonWonEventEventHandler.CreateFilterInput();
-            var seasonWonEventPurchasedEvents = await seasonWonEventEventHandler.GetAllChangesAsync(allSeasonWonEventEventsFilter);
-
-            var allEvents = new List<IEventDTO>();
-
-            return new AllEvents(
-                tokensPurchasedEvents.Select(s => s.Event),
-                tokensBurnedEventEvents.Select(s => s.Event),
-                seasonWonEventPurchasedEvents.Select(s => s.Event));
+        private async Task<IEnumerable<TEventDTO>> GetEventLogs<TEventDTO>(string contractAddress) where TEventDTO : IEventDTO, new()
+        {
+            var eventHandler = web3.Eth.GetEvent<TEventDTO>(contractAddress);
+            var filter = eventHandler.CreateFilterInput();
+            var events = await eventHandler.GetAllChangesAsync(filter);
+            return events.Select(s => s.Event);
         }
     }
 
@@ -46,7 +35,6 @@ namespace Backend
     [Event("TokensPurchased")]
     public record TokensPurchasedEvent : IEventDTO
     {
-        [DataMember]
         [Parameter("address", "buyer", 1, true)] public string? Buyer { get; set; }
         [Parameter("string", "subreddit", 2, false)] public string? Subreddit { get; set; }
         [Parameter("uint256", "amount", 2, false)] public BigInteger Tokens { get; set; }
