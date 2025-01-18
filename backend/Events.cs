@@ -1,5 +1,4 @@
 ﻿using System.Numerics;
-using System.Runtime.Serialization;
 using Nethereum.ABI.FunctionEncoding.Attributes;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Web3;
