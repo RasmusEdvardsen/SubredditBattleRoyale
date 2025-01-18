@@ -18,7 +18,14 @@ namespace Backend
             using var connection = new SqliteConnection("Data Source=hello.db");
             
             var tokensPurchased = await connection.QueryAsync<TokensPurchased>("SELECT * FROM TokensPurchased");
-            
+            var blockchainSync = await connection.QueryAsync<BlockchainSync>("SELECT * FROM BlockchainSync");
+
+            if (blockchainSync.Any() && blockchainSync.Max(s => s.SyncedAt) > DateTime.Now - TimeSpan.FromMinutes(1))
+            {
+                return new AllEvents(tokensPurchased, [], []);
+            }
+
+            #region TokensPurchased
             var fromBlock = tokensPurchased.Any() ? tokensPurchased.Max(e => e.BlockNumber) + 1 : 0;
             
             var tokensPurchasedEventsBlockChain = await GetEventLogs<TokensPurchasedEvent>(ContractAddress, fromBlock);
@@ -26,12 +33,15 @@ namespace Backend
             
             foreach (var eventItem in tokensPurchasedEvents)
             {
-                connection.Execute(@"
+                await connection.ExecuteAsync(@"
                     INSERT INTO TokensPurchased (Id, Buyer, Subreddit, Tokens, BlockHash, TransactionHash, LogIndex, BlockNumber)
                     VALUES (@Id, @Buyer, @Subreddit, @Tokens, @BlockHash, @TransactionHash, @LogIndex, @BlockNumber)", eventItem);
             }
             
             tokensPurchasedEvents = await connection.QueryAsync<TokensPurchased>("SELECT * FROM TokensPurchased");
+            #endregion
+
+            await connection.ExecuteAsync("INSERT INTO BlockchainSync (SyncedAt) VALUES (DATETIME('now'))");
 
             return new AllEvents(tokensPurchasedEvents, [], []);
         }
@@ -132,5 +142,11 @@ namespace Backend
         public required string TransactionHash { get; set; }
         public ulong LogIndex { get; set; }
         public ulong BlockNumber { get; set; }
+    }
+
+    public record struct BlockchainSync
+    {
+        public int Id { get; set; }
+        public DateTime SyncedAt { get; set; }
     }
 }

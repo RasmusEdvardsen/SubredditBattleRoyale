@@ -43,32 +43,38 @@ static void SetupTeardownDatabase()
 
     var createTokensBurnedTable = @"
         CREATE TABLE IF NOT EXISTS TokensBurned (
+            Id TEXT PRIMARY KEY,
             Buyer TEXT NOT NULL,
             Subreddit TEXT NOT NULL,
             Tokens INTEGER NOT NULL,
             BlockHash TEXT NOT NULL,
             TransactionHash TEXT NOT NULL,
             LogIndex INTEGER NOT NULL,
-            BlockNumber INTEGER NOT NULL,
-            PRIMARY KEY (BlockHash, TransactionHash, LogIndex)
+            BlockNumber INTEGER NOT NULL
         )";
     connection.Execute(createTokensBurnedTable);
 
     var createSeasonWonTable = @"
         CREATE TABLE IF NOT EXISTS SeasonWon (
+            Id TEXT PRIMARY KEY,
             Subreddit TEXT NOT NULL,
             Tokens INTEGER NOT NULL,
             Season INTEGER NOT NULL,
             BlockHash TEXT NOT NULL,
             TransactionHash TEXT NOT NULL,
             LogIndex INTEGER NOT NULL,
-            BlockNumber INTEGER NOT NULL,
-            PRIMARY KEY (BlockHash, TransactionHash, LogIndex)
+            BlockNumber INTEGER NOT NULL
         )";
     connection.Execute(createSeasonWonTable);
+
+    var createLastBlockchainUpdateTable = @"
+        CREATE TABLE IF NOT EXISTS BlockchainSync (
+            Id INTEGER PRIMARY KEY AUTOINCREMENT,
+            SyncedAt DATETIME NOT NULL
+        )";
+    connection.Execute(createLastBlockchainUpdateTable);
 }
 
-// todo: add table with just last blockchain update, to throttle 3rd party API calls (e.g. Alchemy towards blockchain)
 // todo: implement for Events.cs tokensBurned and seasonWon
 // todo: probably rate limit not the API, but calls to blockchain somehow, when API is called (stale data is fine to some extent)
 // todo: allow query from-block=blockNumber&to-block=blockNumber
