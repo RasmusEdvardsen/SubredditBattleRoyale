@@ -30,6 +30,7 @@ namespace Backend
                 mappedEvent.BlockHash = s.Log.BlockHash;
                 mappedEvent.TransactionHash = s.Log.TransactionHash;
                 mappedEvent.LogIndex = s.Log.LogIndex;
+                mappedEvent.BlockNumber = s.Log.BlockNumber;
                 return mappedEvent;
             });
             return mappedEvents;
@@ -41,6 +42,7 @@ namespace Backend
         string? BlockHash { get; set; }
         string? TransactionHash { get; set; }
         HexBigInteger? LogIndex { get; set; }
+        HexBigInteger? BlockNumber { get; set; }
     }
 
     public record struct AllEvents(
@@ -58,6 +60,7 @@ namespace Backend
         public string? BlockHash { get; set; }
         public string? TransactionHash { get; set; }
         public HexBigInteger? LogIndex { get; set; }
+        public HexBigInteger? BlockNumber { get; set; }
     }
 
     [Event("TokensBurned")]
@@ -69,6 +72,7 @@ namespace Backend
         public string? BlockHash { get; set; }
         public string? TransactionHash { get; set; }
         public HexBigInteger? LogIndex { get; set; }
+        public HexBigInteger? BlockNumber { get; set; }
     }
 
     [Event("SeasonWon")]
@@ -80,5 +84,6 @@ namespace Backend
         public string? BlockHash { get; set; }
         public string? TransactionHash { get; set; }
         public HexBigInteger? LogIndex { get; set; }
+        public HexBigInteger? BlockNumber { get; set; }
     }
 }
