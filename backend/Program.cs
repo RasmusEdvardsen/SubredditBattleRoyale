@@ -30,7 +30,7 @@ app.Run();
 
 static void SetupTeardownDatabase()
 {
-    var connection = new SqliteConnection("Data Source=hello.db");
+    using var connection = new SqliteConnection("Data Source=hello.db");
 
     connection.Open();
     
@@ -74,11 +74,11 @@ static void SetupTeardownDatabase()
     connection.Execute(createSeasonWonEventTable);
 
     // Clean up
+    connection.Dispose();
     SqliteConnection.ClearAllPools();
     File.Delete("hello.db");
 }
 
-// fix: An unhandled exception of type 'System.IO.IOException' occurred in System.Private.CoreLib.dll: 'The process cannot access the file 'E:\code\subr\backend\hello.db' because it is being used by another process.'
 // todo: when new request, only request events from latest block number in database
 // todo: probably rate limit not the API, but calls to blockchain somehow, when API is called (stale data is fine to some extent)
 // todo: allow query from-block=blockNumber&to-block=blockNumber
