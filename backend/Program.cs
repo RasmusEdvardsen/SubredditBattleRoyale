@@ -1,10 +1,20 @@
+using System.Globalization;
+using System.Numerics;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Backend;
 using Dapper;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Data.Sqlite;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.Converters.Add(new BigIntegerConverter());
+});
 
 var app = builder.Build();
 
@@ -16,6 +26,7 @@ app.MapGet("/events", async () => await new Events().GetAllEvents());
 
 app.Run();
 
+#pragma warning disable CS8321 // Local function is declared but never used
 static void SetupTeardownDatabase()
 {
     var connection = new SqliteConnection("Data Source=hello.db");
@@ -43,6 +54,7 @@ static void SetupTeardownDatabase()
     SqliteConnection.ClearAllPools();
     File.Delete("hello.db");
 }
+#pragma warning restore CS8321 // Local function is declared but never used
 
 // fix: An unhandled exception of type 'System.IO.IOException' occurred in System.Private.CoreLib.dll: 'The process cannot access the file 'E:\code\subr\backend\hello.db' because it is being used by another process.'
 // todo: need (blockhash+transactionhash+logindex) for ID (NEED BLOCK NUMBER TOO FOR FROMBLOCK/TOBLOCK) for each events (EventLog.Log) (maybe map to custom object that combines EventLog.Log and EventLog.Event)
@@ -52,3 +64,12 @@ static void SetupTeardownDatabase()
 // todo: allow query from-block=blockNumber&to-block=blockNumber
 // todo: move Events.ContractAddress in to appsettings.json
 // todo: hide Events.AlchemyApiKey apiKey somehow
+
+public class BigIntegerConverter : JsonConverter<BigInteger>
+{
+    public override BigInteger Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) =>
+        throw new NotImplementedException();
+
+    public override void Write(Utf8JsonWriter writer, BigInteger value, JsonSerializerOptions options) =>
+        writer.WriteRawValue(value.ToString(NumberFormatInfo.InvariantInfo), false);
+}
