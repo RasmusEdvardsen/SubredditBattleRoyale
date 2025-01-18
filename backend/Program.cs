@@ -6,6 +6,7 @@ using Backend;
 using Dapper;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Data.Sqlite;
+using Nethereum.Hex.HexTypes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.Configure<JsonOptions>(options =>
 {
     options.SerializerOptions.Converters.Add(new BigIntegerConverter());
+    options.SerializerOptions.Converters.Add(new HexBigIntegerConverter());
 });
 
 var app = builder.Build();
@@ -72,4 +74,13 @@ public class BigIntegerConverter : JsonConverter<BigInteger>
 
     public override void Write(Utf8JsonWriter writer, BigInteger value, JsonSerializerOptions options) =>
         writer.WriteRawValue(value.ToString(NumberFormatInfo.InvariantInfo), false);
+}
+
+public class HexBigIntegerConverter : JsonConverter<HexBigInteger>
+{
+    public override HexBigInteger Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) =>
+        throw new NotImplementedException();
+
+    public override void Write(Utf8JsonWriter writer, HexBigInteger value, JsonSerializerOptions options) =>
+        writer.WriteRawValue(value.Value.ToString(NumberFormatInfo.InvariantInfo), false);
 }

@@ -1,6 +1,7 @@
 ﻿using System.Numerics;
 using System.Runtime.Serialization;
 using Nethereum.ABI.FunctionEncoding.Attributes;
+using Nethereum.Hex.HexTypes;
 using Nethereum.Web3;
 
 namespace Backend
@@ -18,13 +19,28 @@ namespace Backend
             return new AllEvents(tokensPurchasedEvents, tokensBurnedEventEvents, seasonWonEventEvents);
         }
 
-        private async Task<IEnumerable<TEventDTO>> GetEventLogs<TEventDTO>(string contractAddress) where TEventDTO : IEventDTO, new()
+        private async Task<IEnumerable<TEventDTO>> GetEventLogs<TEventDTO>(string contractAddress) where TEventDTO : IEventDTO, IUniqueLog, new()
         {
             var eventHandler = web3.Eth.GetEvent<TEventDTO>(contractAddress);
             var filter = eventHandler.CreateFilterInput();
             var events = await eventHandler.GetAllChangesAsync(filter);
-            return events.Select(s => s.Event);
+            var mappedEvents = events.Select(s =>
+            {
+                var mappedEvent = s.Event;
+                mappedEvent.BlockHash = s.Log.BlockHash;
+                mappedEvent.TransactionHash = s.Log.TransactionHash;
+                mappedEvent.LogIndex = s.Log.LogIndex;
+                return mappedEvent;
+            });
+            return mappedEvents;
         }
+    }
+
+    public interface IUniqueLog
+    {
+        string? BlockHash { get; set; }
+        string? TransactionHash { get; set; }
+        HexBigInteger? LogIndex { get; set; }
     }
 
     public record struct AllEvents(
@@ -32,36 +48,37 @@ namespace Backend
         IEnumerable<TokensBurnedEvent> TokensBurnedEvents,
         IEnumerable<SeasonWonEvent> SeasonWonEvents);
 
+
     [Event("TokensPurchased")]
-    public record TokensPurchasedEvent : IEventDTO
+    public record TokensPurchasedEvent : IEventDTO, IUniqueLog
     {
         [Parameter("address", "buyer", 1, true)] public string? Buyer { get; set; }
         [Parameter("string", "subreddit", 2, false)] public string? Subreddit { get; set; }
         [Parameter("uint256", "amount", 3, false)] public BigInteger Tokens { get; set; }
         public string? BlockHash { get; set; }
         public string? TransactionHash { get; set; }
-        public string? LogIndex { get; set; }
+        public HexBigInteger? LogIndex { get; set; }
     }
 
     [Event("TokensBurned")]
-    public record TokensBurnedEvent : IEventDTO
+    public record TokensBurnedEvent : IEventDTO, IUniqueLog
     {
         [Parameter("address", "buyer", 1, true)] public string? Buyer { get; set; }
         [Parameter("string", "subreddit", 2, false)] public string? Subreddit { get; set; }
         [Parameter("uint256", "amount", 3, false)] public BigInteger Tokens { get; set; }
         public string? BlockHash { get; set; }
         public string? TransactionHash { get; set; }
-        public string? LogIndex { get; set; }
+        public HexBigInteger? LogIndex { get; set; }
     }
 
     [Event("SeasonWon")]
-    public record SeasonWonEvent : IEventDTO
+    public record SeasonWonEvent : IEventDTO, IUniqueLog
     {
         [Parameter("string", "subreddit", 1, true)] public string? Subreddit { get; set; }
         [Parameter("uint256", "tokens", 2, false)] public string? Tokens { get; set; }
         [Parameter("uint256", "season", 3, false)] public BigInteger Season { get; set; }
         public string? BlockHash { get; set; }
         public string? TransactionHash { get; set; }
-        public string? LogIndex { get; set; }
+        public HexBigInteger? LogIndex { get; set; }
     }
 }
