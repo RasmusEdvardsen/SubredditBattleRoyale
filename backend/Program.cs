@@ -68,6 +68,7 @@ static void SetupTeardownDatabase()
     connection.Execute(createSeasonWonTable);
 }
 
+// todo: add table with just last blockchain update, to throttle 3rd party API calls (e.g. Alchemy towards blockchain)
 // todo: implement for Events.cs tokensBurned and seasonWon
 // todo: probably rate limit not the API, but calls to blockchain somehow, when API is called (stale data is fine to some extent)
 // todo: allow query from-block=blockNumber&to-block=blockNumber
