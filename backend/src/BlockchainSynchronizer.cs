@@ -38,7 +38,6 @@ namespace Backend
             var fromBlock = existingEntries.Any() ? existingEntries.Max() + 1 : 0;
 
             var eventsBlockChain = await GetEventLogs<TEventDTO>(ContractAddress, fromBlock);
-            Console.WriteLine($"Found {eventsBlockChain.Count()} {tableName} events");
 
             var events = eventsBlockChain.Select(objectMapper);
 
