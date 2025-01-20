@@ -53,9 +53,10 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [x] Try withdrawing from the contract, and purchase more tokens afterwards
 - [x] Read up on: [getting started](https://docs.nethereum.com/en/latest/getting-started/), [abi encoding](https://docs.nethereum.com/en/latest/nethereum-abi-encoding/), [log streaming](https://docs.nethereum.com/en/latest/nethereum-subscriptions-streaming/)
 - [x] Add backend for blockchain events (logs). When frontend requests data, get new events since last block in db from blockchain and persist to db, then send to frontend.
-- [ ] Use github actions for CI/CD, figure out how to hide contract address and alchemy api key (appsettings.json, azure key vault?).
-- [ ] Create frontend: [web3.js](https://docs.web3js.org/), [ethers library](https://docs.ethers.org/v6/), [hardhat boilerplate project](https://hardhat.org/tutorial/boilerplate-project), [web3 example app](https://github.com/ChainSafe/web3js-example-react-app/tree/main/src)
-- [ ] Figure out how to call smart contract seamlessly (purchasing, burning, withdrawing)
+- [x] Create frontend: [web3.js](https://docs.web3js.org/), [ethers library](https://docs.ethers.org/v6/), [hardhat boilerplate project](https://hardhat.org/tutorial/boilerplate-project), [web3 example app](https://github.com/ChainSafe/web3js-example-react-app/tree/main/src)
+- [x] Figure out how to call smart contract seamlessly (purchasing, burning, withdrawing)
+- [ ] Use github actions for CI/CD, figure out how to hide contract address and alchemy api key (appsettings.json, azure key vault?) (hook up frontend to backend).
+- [ ] Make frontend pretty (reactive to purchases and burns), and implement burnTokens.
 - [ ] Ads/marketing
 - [ ] Create diagram to show how blockchain, backend, database, frontend and wallet communicates
 
