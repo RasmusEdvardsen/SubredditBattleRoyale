@@ -60,7 +60,7 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [x] Create diagram to show how blockchain, backend, database, frontend and wallet communicates
 - [ ] Use github actions for CI/CD, figure out how to hide contract address and alchemy api key (appsettings.json, azure key vault?) (azure storage account host static react web app? [tutorial](https://johanrin.com/posts/deploy-react-app-in-azure-storage-and-static-web-apps/)) (digitalocean?)
 - [ ] hook up frontend to backend (sync events)
-- [ ] Implement burnTokens, make frontend pretty (reactive to purchases and burns)
+- [ ] switch to using typescript, implement burnTokens, make frontend pretty (reactive to purchases and burns)
 - [ ] Ads/marketing
 
 ## Installation and preparation
