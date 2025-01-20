@@ -58,7 +58,7 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [x] Create frontend: [web3.js](https://docs.web3js.org/), [ethers library](https://docs.ethers.org/v6/), [hardhat boilerplate project](https://hardhat.org/tutorial/boilerplate-project), [web3 example app](https://github.com/ChainSafe/web3js-example-react-app/tree/main/src)
 - [x] Figure out how to call smart contract seamlessly (purchasing, burning, withdrawing)
 - [x] Create diagram to show how blockchain, backend, database, frontend and wallet communicates
-- [ ] Use github actions for CI/CD, figure out how to hide contract address and alchemy api key (appsettings.json, azure key vault?) (azure storage account host static react web app?) (digitalocean?)
+- [ ] Use github actions for CI/CD, figure out how to hide contract address and alchemy api key (appsettings.json, azure key vault?) (azure storage account host static react web app? [tutorial](https://johanrin.com/posts/deploy-react-app-in-azure-storage-and-static-web-apps/)) (digitalocean?)
 - [ ] hook up frontend to backend (sync events)
 - [ ] Implement burnTokens, make frontend pretty (reactive to purchases and burns)
 - [ ] Ads/marketing
