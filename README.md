@@ -2,6 +2,8 @@
 
 SubredditBattleRoyale is a battle royale token for subreddits to flex on each other, or for people to secure the void will win against subreddits. When a winner is found, a new and harder season is started.
 
+![architecture](architecture.png)
+
 ## Game summary
 * Start with 1_000_000 tokens. They cost 0.0001 ether to purchase. 
 * Tokens should be inscribed with a subreddit. It should always start with "/r/" followed by no less than one character.
