@@ -1,5 +1,6 @@
 using Backend.Functionality;
 using Microsoft.Azure.Functions.Worker.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 var builder = FunctionsApplication.CreateBuilder(args);
@@ -10,6 +11,12 @@ builder.ConfigureFunctionsWebApplication();
 // builder.Services
 //     .AddApplicationInsightsTelemetryWorkerService()
 //     .ConfigureFunctionsApplicationInsights();
+
+builder.Services.AddTransient<IEventService, EventService>();
+builder.Services.AddTransient<IBlockchainSynchronizer, BlockchainSynchronizer>();
+
+builder.Services.Configure<BlockchainOptions>(
+    builder.Configuration.GetSection(BlockchainOptions.Blockchain));
 
 await DatabaseSetup.SetupTeardownDatabase();
 

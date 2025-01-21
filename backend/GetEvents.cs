@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Backend.Function
 {
-    public class GetEvents(ILogger<GetEvents> logger)
+    public class GetEvents(ILogger<GetEvents> logger, IEventService _event)
     {
         private readonly ILogger<GetEvents> _logger = logger;
 
@@ -15,7 +15,7 @@ namespace Backend.Function
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
-            var allEvents = await new Events().GetAllEvents();
+            var allEvents = await _event.GetAllEvents();
 
             return new OkObjectResult(allEvents);
         }

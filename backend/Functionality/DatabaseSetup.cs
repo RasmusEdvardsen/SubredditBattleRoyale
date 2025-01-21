@@ -1,17 +1,17 @@
 using Dapper;
 using Microsoft.Data.Sqlite;
 
-namespace Backend.Functionality
+namespace Backend.Functionality;
+
+public static class DatabaseSetup
 {
-    public static class DatabaseSetup
+    public async static Task SetupTeardownDatabase()
     {
-        public async static Task SetupTeardownDatabase()
-        {
-            using var connection = new SqliteConnection("Data Source=hello.db");
+        using var connection = new SqliteConnection("Data Source=hello.db");
 
-            connection.Open();
+        connection.Open();
 
-            var createTokensPurchasedTable = @"
+        var createTokensPurchasedTable = @"
             CREATE TABLE IF NOT EXISTS TokensPurchased (
                 Id TEXT PRIMARY KEY,
                 Buyer TEXT NOT NULL,
@@ -22,9 +22,9 @@ namespace Backend.Functionality
                 LogIndex INTEGER NOT NULL,
                 BlockNumber INTEGER NOT NULL
             )";
-            await connection.ExecuteAsync(createTokensPurchasedTable);
+        await connection.ExecuteAsync(createTokensPurchasedTable);
 
-            var createTokensBurnedTable = @"
+        var createTokensBurnedTable = @"
             CREATE TABLE IF NOT EXISTS TokensBurned (
                 Id TEXT PRIMARY KEY,
                 Buyer TEXT NOT NULL,
@@ -35,9 +35,9 @@ namespace Backend.Functionality
                 LogIndex INTEGER NOT NULL,
                 BlockNumber INTEGER NOT NULL
             )";
-            await connection.ExecuteAsync(createTokensBurnedTable);
+        await connection.ExecuteAsync(createTokensBurnedTable);
 
-            var createSeasonWonTable = @"
+        var createSeasonWonTable = @"
             CREATE TABLE IF NOT EXISTS SeasonWon (
                 Id TEXT PRIMARY KEY,
                 Subreddit TEXT NOT NULL,
@@ -48,14 +48,13 @@ namespace Backend.Functionality
                 LogIndex INTEGER NOT NULL,
                 BlockNumber INTEGER NOT NULL
             )";
-            await connection.ExecuteAsync(createSeasonWonTable);
+        await connection.ExecuteAsync(createSeasonWonTable);
 
-            var createLastBlockchainUpdateTable = @"
+        var createLastBlockchainUpdateTable = @"
             CREATE TABLE IF NOT EXISTS BlockchainSync (
                 Id INTEGER PRIMARY KEY AUTOINCREMENT,
                 SyncedAt DATETIME NOT NULL
             )";
-            await connection.ExecuteAsync(createLastBlockchainUpdateTable);
-        }
+        await connection.ExecuteAsync(createLastBlockchainUpdateTable);
     }
 }
