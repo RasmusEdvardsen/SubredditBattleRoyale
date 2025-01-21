@@ -16,7 +16,7 @@ function Wallet() {
                 console.error(error);
             }
         } else {
-            console.error("No Ethereum provider found. Install MetaMask.");
+            console.error("No Ethereum provider found. Install an ethereum-compatible wallet like MetaMask.");
         }
     };
 
@@ -41,17 +41,26 @@ function Wallet() {
         // todo: display result somehow
     }
 
+    // todo: if window.ethereum not found, inform no ethereum-compatible wallet found, so please install
+    if (!window.ethereum) {
+        return (
+            <div className="Wallet">
+                No Ethereum provider found. Install an ethereum-compatible wallet like MetaMask.
+            </div>
+        );
+    }
+
     if (!signer) {
         return (
             <div className="Wallet">
-                <button onClick={handleLogin}>Connect to MetaMask</button>
+                <button onClick={handleLogin}>Connect to wallet</button>
             </div>
         );
     }
 
     return (
         <div className="Wallet">
-            {signer ? "Connected to MetaMask! " : "Connect to MetaMask!"}
+            {signer ? "Connected to your wallet on! " : "Something went wrong. Please refresh this page, and try again."}
             <button onClick={printToConsole}>Print to console</button>
         </div>
     );
