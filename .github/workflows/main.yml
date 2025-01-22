@@ -67,7 +67,7 @@ jobs:
             az functionapp config appsettings set -n ${{ env.SUBREDDITBATTLEROYALE }} -g ${{ env.SUBREDDITBATTLEROYALE }} --settings Blockchain__ContractAddress=0xEA8831Bcb719914aB97131F48d9B2DC737dBD25a
             az functionapp config appsettings set -n ${{ env.SUBREDDITBATTLEROYALE }} -g ${{ env.SUBREDDITBATTLEROYALE }} --settings Blockchain__RpcUri=https://eth-mainnet.g.alchemy.com/v2/DIxVHPSSpQB7Z3ynvCUqhdzh6jadkqVY
 
-  # Azure logout
+    # Azure logout
     - name: logout
       run: |
             az logout
