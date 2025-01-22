@@ -40,7 +40,7 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-            az storage blob upload-batch --account-name '${{ env.AZURE_STORAGEACCOUNT_NAME }}' --auth-mode key -d '$web' -s ./frontend/build
+            az storage blob upload-batch --account-name '${{ env.AZURE_STORAGEACCOUNT_NAME }}' --auth-mode key -d '$web' -s ./frontend/build --overwrite
 
     # Build & deploy backend
     - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
