@@ -9,8 +9,7 @@ on:
     workflow_dispatch:
 
 env:
-  AZURE_STORAGEACCOUNT_NAME: 'subredditbattleroyale'
-  AZURE_FUNCTIONAPP_NAME: 'subredditbattleroyale'
+  SUBREDDITBATTLEROYALE: 'subredditbattleroyale'
   DOTNET_VERSION: '9.0.x'
 
 jobs:
@@ -40,7 +39,7 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-            az storage blob upload-batch --account-name '${{ env.AZURE_STORAGEACCOUNT_NAME }}' --auth-mode key -d '$web' -s ./frontend/build --overwrite
+            az storage blob upload-batch --account-name '${{ env.SUBREDDITBATTLEROYALE }}' --auth-mode key -d '$web' -s ./frontend/build --overwrite
 
     # Build & deploy backend
     - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
@@ -58,8 +57,15 @@ jobs:
       uses: Azure/functions-action@v1
       id: fa
       with:
-        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        app-name: ${{ env.SUBREDDITBATTLEROYALE }}
         package: './backend/output'
+    
+    - name: 'Set Azure Function app settings'
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+            az functionapp config appsettings set -n ${{ env.SUBREDDITBATTLEROYALE }} -g ${{ env.SUBREDDITBATTLEROYALE }} --settings Blockchain__ContractAddress=0xEA8831Bcb719914aB97131F48d9B2DC737dBD25a
+            az functionapp config appsettings set -n ${{ env.SUBREDDITBATTLEROYALE }} -g ${{ env.SUBREDDITBATTLEROYALE }} --settings Blockchain__RpcUri=https://eth-mainnet.g.alchemy.com/v2/DIxVHPSSpQB7Z3ynvCUqhdzh6jadkqVY
 
   # Azure logout
     - name: logout
