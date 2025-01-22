@@ -59,7 +59,7 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [x] Figure out how to call smart contract seamlessly (purchasing, burning, withdrawing)
 - [x] Create diagram to show how blockchain, backend, database, frontend and wallet communicates
 - [x] github actions CI/CD for web app: [tutorial](https://johanrin.com/posts/deploy-react-app-in-azure-storage-and-static-web-apps/)
-- [ ] github actions CI/CD for api, (appsettings.json, key vault(?), azure functions), hide contractAddress & alchemyApiKey?
+- [x] github actions CI/CD for api azure functions set contractAddress & alchemyApiKey through github actions as az func app settings variables
 - [ ] hook up frontend to backend (sync events)
 - [ ] switch to use typescript, implement burnTokens, make frontend pretty (reactive to purchases and burns), [d3.js](https://d3js.org/), [tailwind](https://tailwindcss.com/docs/installation)
 - [ ] Ads/marketing
