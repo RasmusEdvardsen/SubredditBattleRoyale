@@ -1,76 +1,79 @@
-<mxfile host="65bd71144e">
-    <diagram id="9BlR1gugy0eIZUxKQba9" name="Page-1">
-        <mxGraphModel dx="1741" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
-            <root>
-                <mxCell id="0"/>
-                <mxCell id="1" parent="0"/>
-                <mxCell id="5" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="1" vertex="1">
-                    <mxGeometry x="200" y="210" width="60" height="80" as="geometry"/>
-                </mxCell>
-                <mxCell id="6" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="1" vertex="1">
-                    <mxGeometry x="60" y="210" width="60" height="80" as="geometry"/>
-                </mxCell>
-                <mxCell id="7" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="1" vertex="1">
-                    <mxGeometry x="130" y="120" width="60" height="80" as="geometry"/>
-                </mxCell>
-                <mxCell id="8" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="1" vertex="1">
-                    <mxGeometry x="130" y="300" width="60" height="80" as="geometry"/>
-                </mxCell>
-                <mxCell id="11" value="Ethereum P2P Network" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;fontSize=16;fontStyle=0;fontFamily=Lucida Console;labelBackgroundColor=default;labelBorderColor=default;fontColor=#FFFFFF;" parent="1" vertex="1">
-                    <mxGeometry x="40" y="110" width="240" height="290" as="geometry"/>
-                </mxCell>
-                <mxCell id="14" value="C# Minimal Api" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=default;labelBorderColor=default;fontFamily=Lucida Console;fontSize=16;fillColor=none;fontColor=#FFFFFF;" parent="1" vertex="1">
-                    <mxGeometry x="482.5" y="40" width="240" height="290" as="geometry"/>
-                </mxCell>
-                <mxCell id="15" value="Sqlite Db" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;labelBackgroundColor=default;labelBorderColor=default;fontFamily=Lucida Console;fontSize=16;fillColor=none;fontColor=#FFFFFF;" parent="1" vertex="1">
-                    <mxGeometry x="550" y="230" width="105" height="80" as="geometry"/>
-                </mxCell>
-                <mxCell id="16" value="Ratelimited Sync" style="endArrow=classic;html=1;fontFamily=Lucida Console;fontSize=16;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;labelBackgroundColor=default;labelBorderColor=default;fontColor=#FFFFFF;" parent="1" source="14" target="11" edge="1">
-                    <mxGeometry width="50" height="50" relative="1" as="geometry">
-                        <mxPoint x="480" y="370" as="sourcePoint"/>
-                        <mxPoint x="530" y="320" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="17" value="React web app" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=default;labelBorderColor=default;fontFamily=Lucida Console;fontSize=16;fontColor=#FFFFFF;fillColor=none;" parent="1" vertex="1">
-                    <mxGeometry x="483.75" y="440" width="237.5" height="200" as="geometry"/>
-                </mxCell>
-                <mxCell id="18" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;labelBackgroundColor=default;labelBorderColor=default;fontFamily=Lucida Console;fontSize=16;fontColor=#FFFFFF;fillColor=none;" parent="1" vertex="1">
-                    <mxGeometry x="330" y="510" width="30" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="19" value="" style="endArrow=classic;html=1;labelBackgroundColor=default;labelBorderColor=default;fontFamily=Lucida Console;fontSize=16;fontColor=#F0F0F0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="18" target="17" edge="1">
-                    <mxGeometry width="50" height="50" relative="1" as="geometry">
-                        <mxPoint x="390" y="670" as="sourcePoint"/>
-                        <mxPoint x="440" y="620" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="20" value="Get purchase-, burn- and seasonWon-events" style="endArrow=classic;html=1;labelBackgroundColor=default;labelBorderColor=default;fontFamily=Lucida Console;fontSize=16;fontColor=#FFFFFF;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="17" target="14" edge="1">
-                    <mxGeometry width="50" height="50" relative="1" as="geometry">
-                        <mxPoint x="480" y="470" as="sourcePoint"/>
-                        <mxPoint x="530" y="420" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="21" value="purchase and burn tokens" style="endArrow=classic;html=1;labelBackgroundColor=default;labelBorderColor=default;fontFamily=Lucida Console;fontSize=16;fontColor=#FFFFFF;entryX=0.75;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;" parent="1" source="17" target="11" edge="1">
-                    <mxGeometry width="50" height="50" relative="1" as="geometry">
-                        <mxPoint x="400" y="490" as="sourcePoint"/>
-                        <mxPoint x="530" y="420" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="22" value="Browser Wallet plugin" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=default;labelBorderColor=default;fontFamily=Lucida Console;fontSize=16;fontColor=#FFFFFF;fillColor=none;" parent="1" vertex="1">
-                    <mxGeometry x="483.75" y="710" width="236.25" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="23" value="" style="endArrow=classic;html=1;labelBackgroundColor=default;labelBorderColor=default;fontFamily=Lucida Console;fontSize=16;fontColor=#F0F0F0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="17" target="22" edge="1">
-                    <mxGeometry width="50" height="50" relative="1" as="geometry">
-                        <mxPoint x="480" y="550" as="sourcePoint"/>
-                        <mxPoint x="530" y="500" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="24" value="Approve read/write transactions" style="endArrow=classic;startArrow=classic;html=1;labelBackgroundColor=default;labelBorderColor=default;fontFamily=Lucida Console;fontSize=16;fontColor=#FFFFFF;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="22" target="18" edge="1">
-                    <mxGeometry width="50" height="50" relative="1" as="geometry">
-                        <mxPoint x="480" y="550" as="sourcePoint"/>
-                        <mxPoint x="530" y="500" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-            </root>
-        </mxGraphModel>
-    </diagram>
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36" version="26.0.7">
+  <diagram name="Page-1" id="Ciuq5HzIvrRnvL6CACdL">
+    <mxGraphModel dx="887" dy="535" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bM2lkoSieHrVSTULnlUR-1" value="Ethereum P2P Network" style="rounded=1;whiteSpace=wrap;html=1;labelBorderColor=default;labelBackgroundColor=none;labelPosition=center;verticalLabelPosition=middle;align=center;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="230" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="bM2lkoSieHrVSTULnlUR-2" value="Azure" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;labelBorderColor=default;" vertex="1" parent="1">
+          <mxGeometry x="440" y="40" width="280" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="bM2lkoSieHrVSTULnlUR-3" value="C# Azure Function" style="rounded=1;whiteSpace=wrap;html=1;spacingBottom=0;align=center;textShadow=0;labelBorderColor=default;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="500" y="85" width="160" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="bM2lkoSieHrVSTULnlUR-4" value="React Web App" style="rounded=1;whiteSpace=wrap;html=1;labelBorderColor=default;" vertex="1" parent="1">
+          <mxGeometry x="500" y="300" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bM2lkoSieHrVSTULnlUR-6" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="55" y="125" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="bM2lkoSieHrVSTULnlUR-7" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="125" y="75" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="bM2lkoSieHrVSTULnlUR-8" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="195" y="125" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="bM2lkoSieHrVSTULnlUR-9" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="125" y="165" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="bM2lkoSieHrVSTULnlUR-10" value="Sqlite Db" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;labelBorderColor=default;" vertex="1" parent="1">
+          <mxGeometry x="550" y="125" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="bM2lkoSieHrVSTULnlUR-11" value="Browser Wallet Plugin" style="rounded=1;whiteSpace=wrap;html=1;labelBorderColor=default;" vertex="1" parent="1">
+          <mxGeometry x="440" y="440" width="280" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="bM2lkoSieHrVSTULnlUR-13" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="140" y="470" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bM2lkoSieHrVSTULnlUR-16" value="Approve read/write transactions" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBorderColor=default;" edge="1" parent="1" source="bM2lkoSieHrVSTULnlUR-13" target="bM2lkoSieHrVSTULnlUR-11">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="260" y="530" as="sourcePoint" />
+            <mxPoint x="310" y="480" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bM2lkoSieHrVSTULnlUR-17" value="Request read/write transaction on user&#39;s behalf" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBorderColor=default;spacing=2;spacingRight=0;" edge="1" parent="1" source="bM2lkoSieHrVSTULnlUR-4" target="bM2lkoSieHrVSTULnlUR-11">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="500" y="320" as="sourcePoint" />
+            <mxPoint x="550" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bM2lkoSieHrVSTULnlUR-20" value="Get purchase-, burn- and seasonWon-events" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;labelBorderColor=default;" edge="1" parent="1" source="bM2lkoSieHrVSTULnlUR-4" target="bM2lkoSieHrVSTULnlUR-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="340" y="370" as="sourcePoint" />
+            <mxPoint x="390" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bM2lkoSieHrVSTULnlUR-21" value="Ratelimited event sync" style="endArrow=classic;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;labelBorderColor=default;" edge="1" parent="1" source="bM2lkoSieHrVSTULnlUR-3" target="bM2lkoSieHrVSTULnlUR-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="420" y="320" as="sourcePoint" />
+            <mxPoint x="470" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bM2lkoSieHrVSTULnlUR-22" value="Purchase and burn tokens" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.993;entryY=0.868;entryDx=0;entryDy=0;entryPerimeter=0;labelBorderColor=default;" edge="1" parent="1" source="bM2lkoSieHrVSTULnlUR-4" target="bM2lkoSieHrVSTULnlUR-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="420" y="320" as="sourcePoint" />
+            <mxPoint x="470" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bM2lkoSieHrVSTULnlUR-23" value="Interact with application" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBorderColor=default;" edge="1" parent="1" source="bM2lkoSieHrVSTULnlUR-13" target="bM2lkoSieHrVSTULnlUR-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="420" y="490" as="sourcePoint" />
+            <mxPoint x="470" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
 </mxfile>
