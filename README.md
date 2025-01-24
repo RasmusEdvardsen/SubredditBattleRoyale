@@ -61,10 +61,9 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [x] github actions CI/CD for web app: [tutorial](https://johanrin.com/posts/deploy-react-app-in-azure-storage-and-static-web-apps/)
 - [x] github actions CI/CD for api azure functions set contractAddress & alchemyApiKey through github actions as az func app settings variables
 - [x] Add box around backend & frontend which illustrates they're hosted in azure (and maybe try make the diagram [online](draw.io)?)
-- [ ] setup DNS for frontend (and maybe backend as well?)
+- [x] setup DNS for frontend (and maybe backend as well?)
 - [ ] hook up frontend to backend (sync events)
-- [ ] switch to use typescript, implement burnTokens, make frontend pretty (reactive to purchases and burns), [d3.js](https://d3js.org/), [tailwind](https://tailwindcss.com/docs/installation)
-- [ ] check for wallet on mobile as well? does it work on mobile?
+- [ ] switch to use typescript, implement burnTokens, make frontend pretty (reactive to purchases and burns), [d3.js](https://d3js.org/), [tailwind](https://tailwindcss.com/docs/installation), check for wallet on mobile as well somehow
 - [ ] Ads/marketing
 
 ## Installation and preparation
