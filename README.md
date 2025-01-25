@@ -10,7 +10,7 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 * A "season" is won, when a subreddit has more tokens than "the void". After that, a new season starts. Old tokens still count, but new tokens are minted for the new season.
 * You can also burn tokens, which will burn amount 3 times the amount of tokens of the specified subreddit.
 
-## Future ideas
+## Future ideas (**Clean up this mess**)
 * If some time expires before anyone gets more, the void wins?
 * Tokens are versioned for each season?
 * Make it harder to buy more tokens?
@@ -19,7 +19,7 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 * Create ERC20 tokens. Seems difficult though, as we need metadata (subreddit) for each token trade.
 * Consider Solana as a blockchain instead, and figure out what the equivalent of an ERC-20 standard token is for Solana.
 * Figure out way for onlyOwner to add/remove subreddits.
-* Have list of winners of each season in a mapping? Probably not needed, can probably get events (logs) from web3.js or ethers libraries
+* Have list of winners of each season in a mapping? Probably not needed, can probably get events (logs) from web3.js or ethers libraries.
 
 ## Progress
 * [SubredditBattleRoyale smart contract on Ethereum mainnet](https://etherscan.io/address/0xea8831bcb719914ab97131f48d9b2dc737dbd25a)
@@ -61,10 +61,11 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [x] github actions CI/CD for web app: [tutorial](https://johanrin.com/posts/deploy-react-app-in-azure-storage-and-static-web-apps/)
 - [x] github actions CI/CD for api azure functions set contractAddress & alchemyApiKey through github actions as az func app settings variables
 - [x] Add box around backend & frontend which illustrates they're hosted in azure (and maybe try make the diagram [online](draw.io)?)
-- [x] setup DNS for frontend (and maybe backend as well?)
-- [ ] hook up frontend to backend (sync events)
+- [x] setup DNS for frontend (and maybe backend as well?) (this didn't age well lol)
+- [ ] hook up frontend to backend (sync events), set CORS so only frontend can hit API
 - [ ] switch to use typescript, implement burnTokens, make frontend pretty (reactive to purchases and burns), [d3.js](https://d3js.org/), [tailwind](https://tailwindcss.com/docs/installation), check for wallet on mobile as well somehow
 - [ ] Ads/marketing
+- [ ] If succesful, host with app-service or static web app or whatever that allows 'https://subredditbattleroyale.com' as domain name (static website only allows subdomains)
 
 ## Installation and preparation
 ### Ethereum
