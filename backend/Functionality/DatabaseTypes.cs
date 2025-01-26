@@ -2,11 +2,6 @@ using Nethereum.Contracts;
 
 namespace Backend.Functionality;
 
-public record struct AllEvents(
-    IEnumerable<TokensPurchased> TokensPurchased,
-    IEnumerable<TokensBurned> TokensBurned,
-    IEnumerable<SeasonWon> SeasonWon);
-
 public interface ILog
 {
     string BlockHash { get; set; }
@@ -101,4 +96,10 @@ public record struct BlockchainSync
 {
     public int Id { get; set; }
     public DateTime SyncedAt { get; set; }
+}
+
+public record VoidTokenCount
+{
+    public int Id { get; set; } = 1;
+    public required ulong Balance { get; set; }
 }

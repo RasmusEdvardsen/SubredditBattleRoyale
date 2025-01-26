@@ -27,3 +27,6 @@ public record SeasonWonEvent : IEventDTO
     [Parameter("uint256", "tokens", 2, false)] public string? Tokens { get; set; }
     [Parameter("uint256", "season", 3, false)] public BigInteger Season { get; set; }
 }
+
+[Function("voidTokenCount", "uint256")]
+public class VoidTokenCountMessage : FunctionMessage { }

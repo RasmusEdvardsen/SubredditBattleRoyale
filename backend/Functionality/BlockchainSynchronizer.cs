@@ -1,4 +1,5 @@
 using System.Data;
+using System.Numerics;
 using Dapper;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Options;
@@ -17,14 +18,13 @@ public interface IBlockchainSynchronizer
 
 public class BlockchainSynchronizer(IOptions<BlockchainOptions> blockchainOptions) : IBlockchainSynchronizer
 {
-    private readonly Web3 web3 = new(blockchainOptions.Value.RpcUri);
-    private readonly BlockchainOptions _blockchainOptions = blockchainOptions.Value;
+    private readonly Web3 _web3 = new(blockchainOptions.Value.RpcUri);
+    private readonly string _contractAddress = blockchainOptions.Value.ContractAddress;
 
     public async Task SyncBlockchainIfNeeded()
     {
         using var connection = new SqliteConnection("Data Source=hello.db");
 
-        var ethereumPeerUri = _blockchainOptions.RpcUri;
 
         var blockchainSync = await connection.QueryAsync<BlockchainSync>("SELECT * FROM BlockchainSync");
         if (!blockchainSync.Any() || blockchainSync.Max(s => s.SyncedAt) < DateTime.UtcNow - TimeSpan.FromSeconds(15))
@@ -35,6 +35,12 @@ public class BlockchainSynchronizer(IOptions<BlockchainOptions> blockchainOption
                 SyncEvents<SeasonWonEvent, SeasonWon>("SeasonWon", SeasonWon.FromBlockChain)
             ]);
 
+            var voidTokenCount = await _web3.Eth
+                .GetContractQueryHandler<VoidTokenCountMessage>()
+                .QueryAsync<BigInteger>(_contractAddress, new VoidTokenCountMessage());
+            
+            // todo: wrap in waitall
+            await connection.SingleUpdateAsync(new VoidTokenCount { Balance = (ulong)voidTokenCount } );
             await connection.ExecuteAsync("INSERT INTO BlockchainSync (SyncedAt) VALUES (DATETIME('now'))");
         }
     }
@@ -47,16 +53,16 @@ public class BlockchainSynchronizer(IOptions<BlockchainOptions> blockchainOption
 
         var fromBlock = existingEntries.Any() ? existingEntries.Max() + 1 : 0;
 
-        var eventsBlockChain = await GetEventLogs<TEventDTO>(_blockchainOptions.ContractAddress, fromBlock);
+        var eventsBlockChain = await GetEventLogs<TEventDTO>(fromBlock);
 
         var events = eventsBlockChain.Select(objectMapper);
 
         await connection.UseBulkOptions(s => s.InsertIfNotExists = true).BulkInsertAsync(events);
     }
 
-    private async Task<IEnumerable<EventLog<TEventDTO>>> GetEventLogs<TEventDTO>(string contractAddress, ulong fromBlock) where TEventDTO : IEventDTO, new()
+    private async Task<IEnumerable<EventLog<TEventDTO>>> GetEventLogs<TEventDTO>(ulong fromBlock) where TEventDTO : IEventDTO, new()
     {
-        var eventHandler = web3.Eth.GetEvent<TEventDTO>(contractAddress);
+        var eventHandler = _web3.Eth.GetEvent<TEventDTO>(_contractAddress);
 
         // todo: does this actually work?
         var filter = eventHandler.CreateFilterInput();

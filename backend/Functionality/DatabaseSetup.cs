@@ -56,5 +56,13 @@ public static class DatabaseSetup
                 SyncedAt DATETIME NOT NULL
             )";
         await connection.ExecuteAsync(createLastBlockchainUpdateTable);
+
+        var createVoidTokenCountTable = @"
+            CREATE TABLE IF NOT EXISTS VoidTokenCount (
+                Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                Balance INTEGER NOT NULL
+            );
+            INSERT INTO VoidTokenCount (Balance) VALUES (0);";
+        await connection.ExecuteAsync(createVoidTokenCountTable);
     }
 }

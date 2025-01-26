@@ -3,6 +3,12 @@ using Microsoft.Data.Sqlite;
 
 namespace Backend.Functionality;
 
+public record struct AllEvents(
+    VoidTokenCount VoidTokenCount,
+    IEnumerable<TokensPurchased> TokensPurchased,
+    IEnumerable<TokensBurned> TokensBurned,
+    IEnumerable<SeasonWon> SeasonWon);
+
 public interface IEventService
 {
     Task<AllEvents> GetAllEvents();
@@ -16,12 +22,13 @@ public class EventService(IBlockchainSynchronizer _blockchainSynchronizer) : IEv
 
         await _blockchainSynchronizer.SyncBlockchainIfNeeded();
 
+        var voidTokenCount = connection.QuerySingleAsync<VoidTokenCount>("SELECT * FROM VoidTokenCount");
         var tokensPurchased = connection.QueryAsync<TokensPurchased>("SELECT * FROM TokensPurchased");
         var tokensBurned = connection.QueryAsync<TokensBurned>("SELECT * FROM TokensBurned");
         var seasonWon = connection.QueryAsync<SeasonWon>("SELECT * FROM SeasonWon");
 
-        await Task.WhenAll(tokensPurchased, tokensBurned, seasonWon);
+        await Task.WhenAll(voidTokenCount, tokensPurchased, tokensBurned, seasonWon);
 
-        return new AllEvents(tokensPurchased.Result, tokensBurned.Result, seasonWon.Result);
+        return new AllEvents(voidTokenCount.Result, tokensPurchased.Result, tokensBurned.Result, seasonWon.Result);
     }
 }
