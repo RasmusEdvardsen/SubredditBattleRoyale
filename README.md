@@ -63,6 +63,7 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [x] Add box around backend & frontend which illustrates they're hosted in azure (and maybe try make the diagram [online](draw.io)?)
 - [x] setup DNS for frontend (and maybe backend as well?) (this didn't age well lol)
 - [ ] hook up frontend to backend (sync events), set CORS so only frontend can hit API
+- [ ] sync void tokens from backend to frontend as well
 - [ ] switch to use typescript, implement burnTokens, make frontend pretty (reactive to purchases and burns), [d3.js](https://d3js.org/), [tailwind](https://tailwindcss.com/docs/installation), check for wallet on mobile as well somehow
 - [ ] Ads/marketing
 - [ ] If succesful, host with app-service or static web app or whatever that allows 'https://subredditbattleroyale.com' as domain name (static website only allows subdomains)
