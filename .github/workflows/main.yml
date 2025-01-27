@@ -1,4 +1,4 @@
-name: Blob storage website CI
+name: Frontend & Backend Azure CI
 
 on:
     push:
