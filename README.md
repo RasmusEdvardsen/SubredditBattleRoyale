@@ -22,6 +22,7 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 * Consider Solana as a blockchain instead, and figure out what the equivalent of an ERC-20 standard token is for Solana.
 * Figure out way for onlyOwner to add/remove subreddits.
 * Have list of winners of each season in a mapping? Probably not needed, can probably get events (logs) from web3.js or ethers libraries.
+* Should configure CORS on backend thru az cli deploy script, and same for backend URI env var for frontend
 
 ## Progress
 * [SubredditBattleRoyale smart contract on Ethereum mainnet](https://etherscan.io/address/0xea8831bcb719914ab97131f48d9b2dc737dbd25a)
