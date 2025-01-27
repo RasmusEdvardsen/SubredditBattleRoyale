@@ -1,6 +1,6 @@
 # SubredditBattleRoyale
 
-[![Blob storage website CI](https://github.com/RasmusEdvardsen/SubredditBattleRoyale/actions/workflows/main.yml/badge.svg)](https://github.com/RasmusEdvardsen/SubredditBattleRoyale/actions/workflows/main.yml)
+[![Frontend & Backend Azure CI](https://github.com/RasmusEdvardsen/SubredditBattleRoyale/actions/workflows/main.yml/badge.svg)](https://github.com/RasmusEdvardsen/SubredditBattleRoyale/actions/workflows/main.yml)
 
 SubredditBattleRoyale is a battle royale token for subreddits to flex on each other, or for people to secure the void will win against subreddits. When a winner is found, a new and harder season is started.
 
