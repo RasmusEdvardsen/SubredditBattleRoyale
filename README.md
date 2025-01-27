@@ -23,6 +23,7 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 * Figure out way for onlyOwner to add/remove subreddits.
 * Have list of winners of each season in a mapping? Probably not needed, can probably get events (logs) from web3.js or ethers libraries.
 * Should configure CORS on backend thru az cli deploy script, and same for backend URI env var for frontend
+* Consider Vue instead of React. More familiar with Vue.
 
 ## Progress
 * [Frontend](https://subredditbattleroyale.z16.web.core.windows.net/)
