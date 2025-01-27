@@ -25,6 +25,8 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 * Should configure CORS on backend thru az cli deploy script, and same for backend URI env var for frontend
 
 ## Progress
+* [Frontend](https://subredditbattleroyale.z16.web.core.windows.net/)
+* [Backend](https://subredditbattleroyale.azurewebsites.net/api/GetEvents)
 * [SubredditBattleRoyale smart contract on Ethereum mainnet](https://etherscan.io/address/0xea8831bcb719914ab97131f48d9b2dc737dbd25a)
 * [SubredditBattleRoyale smart contract on Sepolia Ethereum testnet](https://sepolia.etherscan.io/address/0x47e330c6a28bb7b89eda068b8a68943e1574cce8)
 * [My wallet](https://etherscan.io/address/0xB6Bf1Eec596602D14acb288262C7B9b6D1B801eA)
