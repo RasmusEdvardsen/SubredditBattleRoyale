@@ -20,8 +20,8 @@ function Wallet() {
         }
     };
 
-    const printToConsole = async () => {
-        const contract = new ethers.Contract("0xea8831bcb719914ab97131f48d9b2dc737dbd25a", abi.abi, signer)
+    const purchaseTokens = async () => {
+        const contract = new ethers.Contract(process.env.REACT_APP_CONTRACT_ADDRESS, abi.abi, signer)
 
         const numTokensToPurchase = 1;
         const TOKEN_PRICE = 0.0001;
@@ -32,6 +32,27 @@ function Wallet() {
         });
 
         const txn = await contract.purchaseTokens("/r/dota2", numTokensToPurchase, {
+            value: ethers.parseEther(ether.toString()),
+            gasLimit: gasEstimate
+        })
+
+        console.log("Transaction hash: ", txn.hash)
+
+        // todo: display result somehow
+    }
+
+    const burnTokens = async () => {
+        const contract = new ethers.Contract(process.env.REACT_APP_CONTRACT_ADDRESS, abi.abi, signer)
+
+        const numTokensToBurn = 1;
+        const TOKEN_PRICE = 0.0001;
+
+        const ether = numTokensToBurn * TOKEN_PRICE
+        const gasEstimate = await contract.burnTokens.estimateGas("/r/dota2", numTokensToBurn, {
+            value: ethers.parseEther(ether.toString())
+        });
+
+        const txn = await contract.burnTokens("/r/dota2", numTokensToBurn, {
             value: ethers.parseEther(ether.toString()),
             gasLimit: gasEstimate
         })
@@ -61,7 +82,8 @@ function Wallet() {
     return (
         <div className="Wallet">
             {signer ? "Connected to your wallet on! " : "Something went wrong. Please refresh this page, and try again."}
-            <button onClick={printToConsole}>Print to console</button>
+            <button onClick={purchaseTokens}>Purchase tokens</button>
+            <button onClick={burnTokens}>Burn tokens</button>
         </div>
     );
 }
