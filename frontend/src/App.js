@@ -10,9 +10,19 @@ function App() {
   const [backendData, setBackendData] = useState(null);
 
   useEffect(() => {
-    axios.get(process.env.REACT_APP_BACKEND_URI)
-      .then(response => setBackendData(response.data))
-      .catch(error => console.error(error));
+    const fetchData = async () => {
+      axios.get(process.env.REACT_APP_BACKEND_URI)
+        .then(response => setBackendData(response.data))
+        .catch(error => console.error(error));
+    };
+
+    // Fetch initially
+    fetchData();
+
+    // Set interval for polling
+    const intervalId = setInterval(fetchData, 15_000); // Poll every 5 seconds
+
+    return () => clearInterval(intervalId); // Cleanup on unmount
   }, []);
 
   return (
