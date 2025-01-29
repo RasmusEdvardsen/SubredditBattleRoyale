@@ -29,11 +29,14 @@ function App() {
     <div className="App">
       <h1>Subreddit Battle Royale</h1>
 
+      {/* todo: say somewhere that we refresh blockchain data from the backend every 15s */}
+
       <Wallet />
 
       <h3>Void Token Count</h3>
       <p>{backendData?.voidTokenCount == null ? "" : JSON.stringify(backendData.voidTokenCount)}</p>
 
+      {/* todo: show all these 3 types of transactions together in a table */}
       <h3>Tokens Purchased</h3>
       <ul>{backendData?.tokensPurchased.map((tokensPurchased, index) => <li key={index}>{tokensPurchased.id}</li>)}</ul>
 
