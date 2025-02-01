@@ -35,6 +35,7 @@ const purchaseTokens = async () => {
     const TOKEN_PRICE = 0.0001;
 
     const ether = numTokensToPurchase * TOKEN_PRICE
+    // todo: fix not allowed to use private function on contract object
     const gasEstimate = await contract.purchaseTokens.estimateGas("/r/dota2", numTokensToPurchase, {
         value: ethers.parseEther(ether.toString())
     });
@@ -57,6 +58,7 @@ const burnTokens = async () => {
     const TOKEN_PRICE = 0.0001;
 
     const ether = numTokensToBurn * TOKEN_PRICE
+    // todo: fix not allowed to use private function on contract object
     const gasEstimate = await contract.burnTokens.estimateGas("/r/dota2", numTokensToBurn, {
         value: ethers.parseEther(ether.toString())
     });
