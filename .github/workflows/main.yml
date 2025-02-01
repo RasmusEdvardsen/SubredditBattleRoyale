@@ -37,7 +37,7 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-            az storage blob upload-batch --account-name '${{ env.SUBREDDITBATTLEROYALE }}' --auth-mode key -d '$web' -s ./frontend/build --overwrite
+            az storage blob upload-batch --account-name '${{ env.SUBREDDITBATTLEROYALE }}' --auth-mode key -d '$web' -s ./frontend/dist --overwrite
 
     # Build & deploy backend
     - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
