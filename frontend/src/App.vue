@@ -13,8 +13,7 @@ const setBackendData = (data: any) => {
 onMounted(() => {
   const fetchData = async () => {
     try {
-      // todo: get from process.env
-      const response = await axios.get("");
+      const response = await axios.get(import.meta.env.VITE_BACKEND_URI);
       setBackendData(response.data);
     } catch (error) {
       console.error(error);
@@ -44,8 +43,10 @@ onMounted(() => {
       <!-- todo: do better v-ifs here (check further in on each props) -->
       <!-- todo: create actual BackendData type -->
 
-      <h3>Void Token Count</h3>
-      <p v-if="backendData">{{ backendData.voidTokenCount.balance }}</p>
+      <div v-if="backendData">
+        <h3>Void Token Count</h3>
+        <p>{{ backendData.voidTokenCount.balance }}</p>
+      </div>
 
       <!-- todo: show all these 3 types of transactions together in a table -->
       <div v-if="backendData">

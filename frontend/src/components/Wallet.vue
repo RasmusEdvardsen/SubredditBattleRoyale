@@ -27,9 +27,9 @@ const handleLogin = async () => {
     }
 };
 
+// todo: allow user to specify subreddit and amount
 const purchaseTokens = async () => {
-    // todo: get from process.env
-    const contract = new ethers.Contract("", abi.abi, signer.value)
+    const contract = new ethers.Contract(import.meta.env.VITE_CONTRACT_ADDRESS, abi.abi, signer.value)
 
     const numTokensToPurchase = 1;
     const TOKEN_PRICE = 0.0001;
@@ -49,9 +49,9 @@ const purchaseTokens = async () => {
     // todo: display result somehow
 }
 
+// todo: allow user to specify subreddit and amount
 const burnTokens = async () => {
-    // todo: get from process.env
-    const contract = new ethers.Contract("", abi.abi, signer.value)
+    const contract = new ethers.Contract(import.meta.env.VITE_CONTRACT_ADDRESS, abi.abi, signer.value)
 
     const numTokensToBurn = 1;
     const TOKEN_PRICE = 0.0001;
