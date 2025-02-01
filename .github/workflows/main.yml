@@ -25,21 +25,19 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'
+        node-version: '20'
     
     - name: Install dependencies
-      run: |
-        cd ./frontend; npm install
+      run: cd ./frontend; npm install
     
     - name: Build
-      run: |
-        cd ./frontend; CI=false; npm run build
+      run: cd ./frontend; CI=false; npm run build
 
     - name: Upload to blob storage
       uses: azure/CLI@v1
       with:
         inlineScript: |
-            az storage blob upload-batch --account-name '${{ env.SUBREDDITBATTLEROYALE }}' --auth-mode key -d '$web' -s ./frontend/build --overwrite
+            az storage blob upload-batch --account-name '${{ env.SUBREDDITBATTLEROYALE }}' --auth-mode key -d '$web' -s ./frontend/dist --overwrite
 
     # Build & deploy backend
     - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment

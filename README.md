@@ -4,7 +4,7 @@
 
 SubredditBattleRoyale is a battle royale token for subreddits to flex on each other, or for people to secure the void will win against subreddits. When a winner is found, a new and harder season is started.
 
-![architecture](architecture.svg)
+![architecture](architecture.drawio.svg)
 
 ## Game summary
 * Start with 1_000_000 tokens. They cost 0.0001 ether to purchase. 
@@ -13,17 +13,9 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 * You can also burn tokens, which will burn amount 3 times the amount of tokens of the specified subreddit.
 
 ## Future ideas (**Clean up this mess**)
-* If some time expires before anyone gets more, the void wins?
-* Tokens are versioned for each season?
-* Make it harder to buy more tokens?
-* Maybe "kill" subreddits with low amount of tokens?
-* The void could also just get stronger after every win, then old coins would still matter?
-* Create ERC20 tokens. Seems difficult though, as we need metadata (subreddit) for each token trade.
-* Consider Solana as a blockchain instead, and figure out what the equivalent of an ERC-20 standard token is for Solana.
-* Figure out way for onlyOwner to add/remove subreddits.
-* Have list of winners of each season in a mapping? Probably not needed, can probably get events (logs) from web3.js or ethers libraries.
+* Look in to ERC20 tokens. Voting sessions for owners, or something like that?
+* Consider Solana as a blockchain, and figure out equivalent of ERC-20 standard token for Solana.
 * Should configure CORS on backend thru az cli deploy script, and same for backend URI env var for frontend
-* Consider Vue+typescript instead of React. More familiar with Vue.
 
 ## Progress
 * [Frontend](https://subredditbattleroyale.z16.web.core.windows.net/)
