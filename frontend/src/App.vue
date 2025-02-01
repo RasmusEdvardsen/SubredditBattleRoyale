@@ -1,20 +1,75 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { ref } from "vue";
+import Wallet from "./components/Wallet.vue";
+import { onMounted, onUnmounted } from "vue";
+import axios from "axios";
+
+const backendData = ref<any>();
+
+const setBackendData = (data: any) => {
+  backendData.value = data;
+};
+
+onMounted(() => {
+  const fetchData = async () => {
+    try {
+      // todo: get from process.env
+      const response = await axios.get("");
+      setBackendData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Fetch initially
+  fetchData();
+
+  // Set interval for polling
+  const intervalId = setInterval(fetchData, 15_000); // Poll every 15 seconds
+
+  onUnmounted(() => clearInterval(intervalId)); // Cleanup on unmount
+});
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <body>
+    <div className="App">
+      <h1>Subreddit Battle Royale</h1>
+
+      <!-- todo: say somewhere that we refresh blockchain data from the backend every 15s -->
+
+      <Wallet />
+
+      <!-- todo: do better v-ifs here (check further in on each props) -->
+      <!-- todo: create actual BackendData type -->
+
+      <h3>Void Token Count</h3>
+      <p v-if="backendData">{{ backendData.voidTokenCount.balance }}</p>
+
+      <!-- todo: show all these 3 types of transactions together in a table -->
+      <div v-if="backendData">
+        <h3>Tokens Purchased</h3>
+        <li v-for="tokensPurchased in backendData.tokensPurchased" :key="tokensPurchased.id">
+          {{ tokensPurchased.id }}
+        </li>
+      </div>
+
+      <div v-if="backendData">
+        <h3>Tokens Burned</h3>
+        <li v-for="tokensBurned in backendData.tokensBurned" :key="tokensBurned.id">
+          {{ tokensBurned.id }}
+        </li>
+      </div>
+
+      <div v-if="backendData">
+        <h3>Season Won</h3>
+        <li v-for="seasonWon in backendData.seasonWon" :key="seasonWon.id">
+          {{ seasonWon.id }}
+        </li>
+      </div>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  </body>
 </template>
 
 <style scoped>
