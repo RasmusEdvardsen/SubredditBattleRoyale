@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import * as ethers from 'ethers';
-import { abi } from '../abi';
-import { ref } from 'vue';
+import { markRaw, ref } from 'vue';
+import { callPurchaseTokens, callBurnTokens } from '../blockchain/wallet.ts';
 
 declare global {
     interface Window {
@@ -17,8 +17,8 @@ const handleLogin = async () => {
     if (window.ethereum) {
         try {
             const browserProvider = new ethers.BrowserProvider(window.ethereum);
-            provider.value = browserProvider;
-            signer.value = await browserProvider.getSigner();
+            provider.value = markRaw(browserProvider);
+            signer.value = markRaw(await browserProvider.getSigner());
         } catch (error) {
             console.error(error);
         }
@@ -28,50 +28,10 @@ const handleLogin = async () => {
 };
 
 // todo: allow user to specify subreddit and amount
-const purchaseTokens = async () => {
-    const contract = new ethers.Contract(import.meta.env.VITE_CONTRACT_ADDRESS, abi.abi, signer.value)
-
-    const numTokensToPurchase = 1;
-    const TOKEN_PRICE = 0.0001;
-
-    const ether = numTokensToPurchase * TOKEN_PRICE
-    // todo: fix not allowed to use private function on contract object
-    const gasEstimate = await contract.purchaseTokens.estimateGas("/r/dota2", numTokensToPurchase, {
-        value: ethers.parseEther(ether.toString())
-    });
-
-    const txn = await contract.purchaseTokens("/r/dota2", numTokensToPurchase, {
-        value: ethers.parseEther(ether.toString()),
-        gasLimit: gasEstimate
-    })
-
-    console.log("Transaction hash: ", txn.hash)
-
-    // todo: display result somehow
-}
+const purchaseTokens = async (): Promise<void> => await callPurchaseTokens(signer.value);
 
 // todo: allow user to specify subreddit and amount
-const burnTokens = async () => {
-    const contract = new ethers.Contract(import.meta.env.VITE_CONTRACT_ADDRESS, abi.abi, signer.value)
-
-    const numTokensToBurn = 1;
-    const TOKEN_PRICE = 0.0001;
-
-    const ether = numTokensToBurn * TOKEN_PRICE
-    // todo: fix not allowed to use private function on contract object
-    const gasEstimate = await contract.burnTokens.estimateGas("/r/dota2", numTokensToBurn, {
-        value: ethers.parseEther(ether.toString())
-    });
-
-    const txn = await contract.burnTokens("/r/dota2", numTokensToBurn, {
-        value: ethers.parseEther(ether.toString()),
-        gasLimit: gasEstimate
-    })
-
-    console.log("Transaction hash: ", txn.hash)
-
-    // todo: display result somehow
-}
+const burnTokens = async (): Promise<void> => await callBurnTokens(signer.value);
 
 </script>
 
