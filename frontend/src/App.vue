@@ -34,9 +34,12 @@ onMounted(() => {
 
   <body>
     <div className="App">
-      <h1>Subreddit Battle Royale</h1>
+
+      <!-- todo: add d3 chart with all subreddit balances here -->
 
       <!-- todo: say somewhere that we refresh blockchain data from the backend every 15s -->
+
+      <h1>Subreddit Battle Royale</h1>
 
       <Wallet />
 
@@ -48,6 +51,7 @@ onMounted(() => {
         <p>{{ backendData.voidTokenCount.balance }}</p>
       </div>
 
+      <!-- todo: show all subreddit balances in table as well -->
       <!-- todo: show all these 3 types of transactions together in a table -->
       <div v-if="backendData">
         <h3>Tokens Purchased</h3>
