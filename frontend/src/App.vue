@@ -6,15 +6,11 @@ import axios from "axios";
 
 const backendData = ref<any>();
 
-const setBackendData = (data: any) => {
-  backendData.value = data;
-};
-
 onMounted(() => {
   const fetchData = async () => {
     try {
       const response = await axios.get(import.meta.env.VITE_BACKEND_URI);
-      setBackendData(response.data);
+      backendData.value = response.data;
     } catch (error) {
       console.error(error);
     }
