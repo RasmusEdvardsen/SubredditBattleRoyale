@@ -5,9 +5,9 @@ namespace Backend.Functionality;
 
 public record struct AllEvents(
     VoidTokenCount VoidTokenCount,
-    IEnumerable<TokensPurchased> TokensPurchased,
-    IEnumerable<TokensBurned> TokensBurned,
-    IEnumerable<SeasonWon> SeasonWon);
+    IEnumerable<TokensPurchasedApiModel> TokensPurchased,
+    IEnumerable<TokensBurnedApiModel> TokensBurned,
+    IEnumerable<SeasonWonApiModel> SeasonWon);
 
 public interface IEventService
 {
@@ -29,6 +29,11 @@ public class EventService(IBlockchainSynchronizer _blockchainSynchronizer) : IEv
 
         await Task.WhenAll(voidTokenCount, tokensPurchased, tokensBurned, seasonWon);
 
-        return new AllEvents(voidTokenCount.Result, tokensPurchased.Result, tokensBurned.Result, seasonWon.Result);
+        return new AllEvents(
+            voidTokenCount.Result,
+            tokensPurchased.Result.Select(TokensPurchasedApiModel.FromDatabase),
+            tokensBurned.Result.Select(TokensBurnedApiModel.FromDatabase),
+            seasonWon.Result.Select(SeasonWonApiModel.FromDatabase)
+        );
     }
 }
