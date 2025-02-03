@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import Wallet from "./components/Wallet.vue";
 import { onMounted, onUnmounted } from "vue";
 import axios from "axios";
+import type { BackendData } from "./types";
 
-const backendData = ref<any>();
+const backendData = ref<BackendData>();
+const aggregatedData = ref({});
 
 onMounted(() => {
   const fetchData = async () => {
     try {
-      const response = await axios.get(import.meta.env.VITE_BACKEND_URI);
+      const response = await axios.get<BackendData>(import.meta.env.VITE_BACKEND_URI);
       backendData.value = response.data;
     } catch (error) {
       console.error(error);
@@ -24,51 +26,88 @@ onMounted(() => {
 
   onUnmounted(() => clearInterval(intervalId)); // Cleanup on unmount
 });
+
+watch(backendData, (newData) => {
+  if (newData) {
+    // Aggregate data
+    const aggregated = [...newData.tokensPurchased, ...newData.tokensBurned].reduce((acc: any, curr) => {
+      if (!acc[curr.subreddit]) {
+        acc[curr.subreddit] = 0;
+      }
+
+      acc[curr.subreddit] += curr.eventType == "TokensPurchased" ? curr.tokens : -curr.tokens;
+
+      return acc;
+    }, {});
+
+    aggregatedData.value = aggregated;
+  }
+});
 </script>
 
 <template>
 
   <body>
     <div className="App">
-
       <!-- todo: add d3 chart with all subreddit balances here -->
-
       <!-- todo: say somewhere that we refresh blockchain data from the backend every 15s -->
+      <!-- todo: do better v-ifs (check further in on each props) -->
 
       <h1>Subreddit Battle Royale</h1>
 
       <Wallet />
-
-      <!-- todo: do better v-ifs here (check further in on each props) -->
-      <!-- todo: create actual BackendData type -->
 
       <div v-if="backendData">
         <h3>Void Token Count</h3>
         <p>{{ backendData.voidTokenCount.balance }}</p>
       </div>
 
-      <!-- todo: show all subreddit balances in table as well -->
-      <!-- todo: show all these 3 types of transactions together in a table -->
       <div v-if="backendData">
-        <h3>Tokens Purchased</h3>
-        <li v-for="tokensPurchased in backendData.tokensPurchased" :key="tokensPurchased.id">
-          {{ tokensPurchased.id }}
-        </li>
-      </div>
-
-      <div v-if="backendData">
-        <h3>Tokens Burned</h3>
-        <li v-for="tokensBurned in backendData.tokensBurned" :key="tokensBurned.id">
-          {{ tokensBurned.id }}
-        </li>
-      </div>
-
-      <div v-if="backendData">
-        <h3>Season Won</h3>
+        <h3>Seasons Won</h3>
         <li v-for="seasonWon in backendData.seasonWon" :key="seasonWon.id">
           {{ seasonWon.id }}
         </li>
       </div>
+
+      <h3>Subreddit Balances</h3>
+      <table v-if="aggregatedData">
+        <thead>
+          <tr>
+            <th>Subreddit</th>
+            <th>Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(balance, subreddit) in aggregatedData" :key="subreddit">
+            <td>{{ subreddit }}</td>
+            <td>{{ balance }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Events</h3>
+      <table v-if="backendData">
+        <thead>
+          <tr>
+            <th>Event Type</th>
+            <th>Block No.</th>
+            <th>Transaction (#)</th>
+            <th>Subreddit</th>
+            <th>Amount</th>
+            <th>Buyer (#)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="transaction in [...backendData.tokensPurchased, ...backendData.tokensBurned].sort((a, b) => b.blockNumber - a.blockNumber)" :key="transaction.id">
+            <td>{{ transaction.eventType }}</td>
+            <td>{{ transaction.blockNumber }}</td>
+            <td>{{ transaction.transactionHash }}</td>
+            <td>{{ transaction.subreddit }}</td>
+            <td>{{ transaction.tokens }}</td>
+            <td>{{ transaction.buyer }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </body>
 </template>

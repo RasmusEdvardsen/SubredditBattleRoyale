@@ -1,29 +1,41 @@
-interface TokenTransaction {
-    id: string;
-    buyer: string;
-    subreddit: string;
-    tokens: number;
-    blockHash: string;
-    transactionHash: string;
-    logIndex: number;
-    blockNumber: number;
+export interface BackendData {
+    voidTokenCount: VoidTokenCount;
+    tokensPurchased: TokensPurchasedEvent[];
+    tokensBurned: TokensBurnedEvent[];
+    seasonWon: SeasonWonEvent[];
 }
 
-interface VoidTokenCount {
-    id: number;
+export interface VoidTokenCount {
+    id: string;
     balance: number;
 }
 
-interface TokensPurchased extends TokenTransaction {}
-
-interface TokensBurned extends TokenTransaction {}
-
-interface SeasonWon extends TokenTransaction {
-    season: number;
+export interface TokensPurchasedEvent {
+    id: string;
+    eventType: string;
+    buyer: string;
+    subreddit: string;
+    tokens: number;
+    transactionHash: string;
+    blockNumber: number;
 }
 
-// todo: DO THIS INSTEAD OF THE ABOVE
-// event has id, blockhash, txnhash, logindex, blocknumber
-// tokenevent has buyer, subreddit, tokens
-// tokenpurchaseevent and tokenburnevent extend tokenevent with no additional fields
-// seasonevent has season, subreddit, tokens and extends event
+export interface TokensBurnedEvent {
+    id: string;
+    eventType: string;
+    buyer: string;
+    subreddit: string;
+    tokens: number;
+    transactionHash: string;
+    blockNumber: number;
+}
+
+export interface SeasonWonEvent {
+    id: string
+    eventType: string;
+    subreddit: string;
+    tokens: number;
+    season: number;
+    transactionHash: string;
+    blockNumber: number;
+}
