@@ -15,7 +15,8 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 ## Future ideas (**Clean up this mess**)
 * Look in to ERC20 tokens. Voting sessions for owners, or something like that?
 * Consider Solana as a blockchain, and figure out equivalent of ERC-20 standard token for Solana.
-* Should configure CORS on backend thru az cli deploy script, and same for backend URI env var for frontend
+* Should configure CORS on backend thru az cli deploy script, and same for backend URI env var for frontend.
+* Check for wallet on mobile as well somehow. If possible, then show in architecture diagram.
 
 ## Progress
 * [Frontend](https://subredditbattleroyale.z16.web.core.windows.net/)
@@ -65,7 +66,7 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [x] Implement burnTokens
 - [x] refresh from backend every N seconds (add loading state) (setInterval?)
 - [x] Add d3.js to frontend
-- [ ] check for wallet on mobile as well somehow, [tailwind](https://tailwindcss.com/docs/installation), make frontend pretty (and reactive to purchases and burns)
+- [ ] [tailwind](https://tailwindcss.com/docs/installation), make frontend pretty (and reactive to purchases and burns)
 - [ ] Ads/marketing
 - [ ] If succesful, host with app-service or static web app or whatever that allows 'https://subredditbattleroyale.com' as domain name (static website only allows subdomains)
 
