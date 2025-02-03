@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import Wallet from "./components/Wallet.vue";
+import BubbleCloud from "./components/BubbleCloud.vue";
 import { onMounted, onUnmounted } from "vue";
 import axios from "axios";
 import type { BackendData } from "./types";
@@ -49,9 +50,11 @@ watch(backendData, (newData) => {
 
   <body>
     <div className="App">
-      <!-- todo: add d3 chart with all subreddit balances here -->
       <!-- todo: say somewhere that we refresh blockchain data from the backend every 15s -->
       <!-- todo: do better v-ifs (check further in on each props) -->
+      <!-- make aggregatedData typed instead of any, and pass actual data to bubblecloud -->
+
+      <BubbleCloud />
 
       <h1>Subreddit Battle Royale</h1>
 
@@ -98,7 +101,9 @@ watch(backendData, (newData) => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="transaction in [...backendData.tokensPurchased, ...backendData.tokensBurned].sort((a, b) => b.blockNumber - a.blockNumber)" :key="transaction.id">
+          <tr
+            v-for="transaction in [...backendData.tokensPurchased, ...backendData.tokensBurned].sort((a, b) => b.blockNumber - a.blockNumber)"
+            :key="transaction.id">
             <td>{{ transaction.eventType }}</td>
             <td>{{ transaction.blockNumber }}</td>
             <td>{{ transaction.transactionHash }}</td>
