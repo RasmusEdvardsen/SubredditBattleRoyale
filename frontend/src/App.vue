@@ -7,7 +7,7 @@ import axios from "axios";
 import type { BackendData } from "./types";
 
 const backendData = ref<BackendData>();
-const aggregatedData = ref({});
+const aggregatedData = ref<Record<string, number>>({});
 
 onMounted(() => {
   const fetchData = async () => {
@@ -31,7 +31,7 @@ onMounted(() => {
 watch(backendData, (newData) => {
   if (newData) {
     // Aggregate data
-    const aggregated = [...newData.tokensPurchased, ...newData.tokensBurned].reduce((acc: any, curr) => {
+    const aggregated = [...newData.tokensPurchased, ...newData.tokensBurned].reduce((acc: Record<string, number>, curr) => {
       if (!acc[curr.subreddit]) {
         acc[curr.subreddit] = 0;
       }
@@ -44,31 +44,6 @@ watch(backendData, (newData) => {
     aggregatedData.value = aggregated;
   }
 });
-
-const rawData = {
-  "/r/ethereum": 576,
-  "/r/solana": 1036,
-  "/r/bitcoin": 329,
-  "/r/dogecoin": 298,
-  "/r/shib": 207,
-  "/r/liverpoolfc": 938,
-  "/r/mcfc": 857,
-  "/r/chelseafc": 913,
-  "/r/dota2": 1329,
-  "/r/leagueoflegends": 1091,
-  "/r/globaloffensive": 387,
-  "/r/pathofexile": 997,
-  "/r/diablo4": 378,
-  "/r/rust": 2029,
-  "/r/csharp": 1290,
-  "/r/python": 3829,
-  "/r/cpp": 1027,
-  "/r/java": 1726,
-  "/r/solidity": 27,
-  "/r/javascript": 4093,
-  "/r/golang": 827,
-};
-
 </script>
 
 <template>
@@ -77,9 +52,8 @@ const rawData = {
     <div className="App">
       <!-- todo: say somewhere that we refresh blockchain data from the backend every 15s -->
       <!-- todo: do better v-ifs (check further in on each props) -->
-      <!-- todo: MAKE AGGREGATEDDATA TYPED INSTEAD OF ANY, PASS AGGREGATEDDATA TO BUBBLECLOUD -->
 
-      <BubbleCloud :rawData="rawData" />
+      <BubbleCloud :rawData="aggregatedData" />
 
       <h1>Subreddit Battle Royale</h1>
 

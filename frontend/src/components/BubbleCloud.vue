@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref, watch, computed, nextTick } from "vue";
 import * as d3 from "d3";
 
 // Define the type for dataset entries
@@ -28,14 +28,19 @@ const nodes = computed<DataEntry[]>(() =>
   }))
 );
 
-onMounted(() => {
+let simulation: d3.Simulation<DataEntry, undefined> | null = null;
+
+const renderChart = async () => {
   if (!svgRef.value) return;
 
   const width = 800;
   const height = 600;
 
-  // D3 Force Simulation
-  const simulation = d3
+  const svg = d3.select(svgRef.value);
+  svg.selectAll("*").remove(); // Clear previous SVG content
+
+  // Restart the simulation
+  simulation = d3
     .forceSimulation<DataEntry>(nodes.value)
     .force("charge", d3.forceManyBody().strength(5))
     .force(
@@ -43,11 +48,6 @@ onMounted(() => {
       d3.forceCollide<DataEntry>().radius((d) => d.radius + 2)
     )
     .force("center", d3.forceCenter(width / 2, height / 2));
-
-  const svg = d3
-    .select(svgRef.value)
-    .attr("width", width)
-    .attr("height", height);
 
   const bubbles = svg
     .selectAll<SVGCircleElement, DataEntry>("circle")
@@ -75,11 +75,19 @@ onMounted(() => {
     bubbles.attr("cx", (d) => d.x || 0).attr("cy", (d) => d.y || 0);
     labels.attr("x", (d) => d.x || 0).attr("y", (d) => d.y || 0);
   });
-});
+};
+
+// Watch for rawData changes and re-render the chart
+watch(() => props.rawData, async () => {
+  await nextTick(); // Ensure Vue updates the DOM before D3 renders again
+  renderChart();
+}, { deep: true });
+
+onMounted(renderChart);
 </script>
 
 <template>
-  <svg ref="svgRef"></svg>
+  <svg ref="svgRef" width="800" height="600"></svg>
 </template>
 
 <style scoped>
