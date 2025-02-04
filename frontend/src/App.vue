@@ -77,7 +77,7 @@ const rawData = {
     <div className="App">
       <!-- todo: say somewhere that we refresh blockchain data from the backend every 15s -->
       <!-- todo: do better v-ifs (check further in on each props) -->
-      <!-- make aggregatedData typed instead of any, and pass actual data to bubblecloud -->
+      <!-- todo: MAKE AGGREGATEDDATA TYPED INSTEAD OF ANY, PASS AGGREGATEDDATA TO BUBBLECLOUD -->
 
       <BubbleCloud :rawData="rawData" />
 
