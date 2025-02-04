@@ -44,6 +44,31 @@ watch(backendData, (newData) => {
     aggregatedData.value = aggregated;
   }
 });
+
+const rawData = {
+  "/r/ethereum": 576,
+  "/r/solana": 1036,
+  "/r/bitcoin": 329,
+  "/r/dogecoin": 298,
+  "/r/shib": 207,
+  "/r/liverpoolfc": 938,
+  "/r/mcfc": 857,
+  "/r/chelseafc": 913,
+  "/r/dota2": 1329,
+  "/r/leagueoflegends": 1091,
+  "/r/globaloffensive": 387,
+  "/r/pathofexile": 997,
+  "/r/diablo4": 378,
+  "/r/rust": 2029,
+  "/r/csharp": 1290,
+  "/r/python": 3829,
+  "/r/cpp": 1027,
+  "/r/java": 1726,
+  "/r/solidity": 27,
+  "/r/javascript": 4093,
+  "/r/golang": 827,
+};
+
 </script>
 
 <template>
@@ -54,7 +79,7 @@ watch(backendData, (newData) => {
       <!-- todo: do better v-ifs (check further in on each props) -->
       <!-- make aggregatedData typed instead of any, and pass actual data to bubblecloud -->
 
-      <BubbleCloud />
+      <BubbleCloud :rawData="rawData" />
 
       <h1>Subreddit Battle Royale</h1>
 
