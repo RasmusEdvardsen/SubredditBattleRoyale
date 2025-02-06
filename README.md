@@ -18,6 +18,7 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 * Should configure CORS on backend thru az cli deploy script, and same for backend URI env var for frontend.
 * Check for wallet on mobile as well somehow. If possible, then show in architecture diagram.
 * [tailwind](https://tailwindcss.com/docs/installation), make frontend pretty (and reactive to purchases and burns)
+* Get token price from blockchain, persist to backend, show in frontend
 
 ## Progress
 * [Frontend](https://subredditbattleroyale.z16.web.core.windows.net/)
@@ -69,6 +70,7 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [x] Add d3.js to frontend
 - [x] Add 'Browser' to Browser box in architecture diagram
 - [x] burn/purchase tokens number picker
+- [ ] Add a text detailing the rules of subreddit battle royale
 - [ ] fix layout
 - [ ] Ads/marketing
 - [ ] If succesful, host with app-service or static web app or whatever that allows 'https://subredditbattleroyale.com' as domain name (static website only allows subdomains)
