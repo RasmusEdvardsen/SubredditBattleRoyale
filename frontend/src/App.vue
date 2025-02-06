@@ -71,6 +71,7 @@ watch(backendData, (newData) => {
         </li>
       </div>
 
+      <!-- todo: a bit ugly. change to filterable barchart with aggregatedData -->
       <h3>Subreddit Balances</h3>
       <table v-if="aggregatedData">
         <thead>

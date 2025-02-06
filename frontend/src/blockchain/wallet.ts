@@ -1,18 +1,18 @@
 import * as ethers from 'ethers';
 import { abi } from './abi.ts';
 
-const callPurchaseTokens = async (signerValue: ethers.JsonRpcSigner | undefined) => {
+const callPurchaseTokens = async (signerValue: ethers.JsonRpcSigner | undefined, subreddit: string, amount: number) => {
     const contract = new ethers.Contract(import.meta.env.VITE_CONTRACT_ADDRESS, abi.abi, signerValue)
 
-    const numTokensToPurchase = 1;
     const TOKEN_PRICE = 0.0001;
 
-    const ether = numTokensToPurchase * TOKEN_PRICE
-    const gasEstimate = await contract.purchaseTokens.estimateGas("/r/dota2", numTokensToPurchase, {
+    const ether = (amount * TOKEN_PRICE).toFixed(4);
+
+    const gasEstimate = await contract.purchaseTokens.estimateGas(subreddit, amount, {
         value: ethers.parseEther(ether.toString())
     });
 
-    const txn = await contract.purchaseTokens("/r/dota2", numTokensToPurchase, {
+    const txn = await contract.purchaseTokens(subreddit, amount, {
         value: ethers.parseEther(ether.toString()),
         gasLimit: gasEstimate
     })
@@ -22,18 +22,18 @@ const callPurchaseTokens = async (signerValue: ethers.JsonRpcSigner | undefined)
     // todo: display result somehow
 }
 
-const callBurnTokens = async (signerValue: ethers.JsonRpcSigner | undefined) => {
+const callBurnTokens = async (signerValue: ethers.JsonRpcSigner | undefined, subreddit: string, amount: number) => {
     const contract = new ethers.Contract(import.meta.env.VITE_CONTRACT_ADDRESS, abi.abi, signerValue)
 
-    const numTokensToBurn = 1;
     const TOKEN_PRICE = 0.0001;
 
-    const ether = numTokensToBurn * TOKEN_PRICE
-    const gasEstimate = await contract.burnTokens.estimateGas("/r/dota2", numTokensToBurn, {
+    const ether = (amount * TOKEN_PRICE).toFixed(4);
+
+    const gasEstimate = await contract.burnTokens.estimateGas(subreddit, amount, {
         value: ethers.parseEther(ether.toString())
     });
 
-    const txn = await contract.burnTokens("/r/dota2", numTokensToBurn, {
+    const txn = await contract.burnTokens(subreddit, amount, {
         value: ethers.parseEther(ether.toString()),
         gasLimit: gasEstimate
     })

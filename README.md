@@ -68,7 +68,8 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [x] refresh from backend every N seconds (add loading state) (setInterval?)
 - [x] Add d3.js to frontend
 - [x] Add 'Browser' to Browser box in architecture diagram
-- [ ] burn/purchase tokens number picker, fix layout
+- [x] burn/purchase tokens number picker
+- [ ] fix layout
 - [ ] Ads/marketing
 - [ ] If succesful, host with app-service or static web app or whatever that allows 'https://subredditbattleroyale.com' as domain name (static website only allows subdomains)
 

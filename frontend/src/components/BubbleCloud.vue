@@ -94,6 +94,6 @@ onMounted(renderChart);
 svg {
   display: block;
   margin: auto;
-  background-color: #222;
+  /* background-color: #222; */
 }
 </style>

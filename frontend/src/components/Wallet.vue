@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import * as ethers from 'ethers';
-import { markRaw, ref } from 'vue';
+import { computed, markRaw, ref } from 'vue';
 import { callPurchaseTokens, callBurnTokens } from '../blockchain/wallet.ts';
 
 declare global {
@@ -12,6 +12,17 @@ declare global {
 const signer = ref<ethers.JsonRpcSigner | undefined>();
 const provider = ref<ethers.BrowserProvider | undefined>();
 const ethereum = window.ethereum;
+
+const subreddit = ref<string>('');
+const subredditError = computed<string>(() =>
+    !subreddit.value.startsWith('/r/') || subreddit.value.length < 4
+        ? "Subreddit must start with /r/', and have at least one character after that." : ""
+);
+
+const amount = ref<number>(1);
+const amountError = computed<string>(() => amount.value < 1 ? "Amount must be greater than 0." : "");
+
+const hasValidationErrors = computed<boolean>(() => subredditError.value.length != 0 || amountError.value.length != 0);
 
 const handleLogin = async () => {
     if (window.ethereum) {
@@ -27,11 +38,8 @@ const handleLogin = async () => {
     }
 };
 
-// todo: allow user to specify subreddit and amount
-const purchaseTokens = async (): Promise<void> => await callPurchaseTokens(signer.value);
-
-// todo: allow user to specify subreddit and amount
-const burnTokens = async (): Promise<void> => await callBurnTokens(signer.value);
+const purchaseTokens = async (subreddit: string, amount: number): Promise<void> => await callPurchaseTokens(signer.value, subreddit, amount);
+const burnTokens = async (subreddit: string, amount: number): Promise<void> => await callBurnTokens(signer.value, subreddit, amount);
 
 </script>
 
@@ -43,8 +51,18 @@ const burnTokens = async (): Promise<void> => await callBurnTokens(signer.value)
         <button @click="handleLogin">Connect to wallet</button>
     </div>
     <div v-else className="Wallet">
-        {{signer ? "Connected to your wallet on! " : "Something went wrong. Please refresh this page, and try again."}}
-        <button @click="purchaseTokens">Purchase tokens</button>
-        <button @click="burnTokens">Burn tokens</button>
+        {{ signer ? "Connected to your wallet!" : "Something went wrong. Please refresh this page, and try again." }}
+        <div>
+            <label for="subreddit">Subreddit:</label>
+            <input id="subreddit" v-model="subreddit" type="text" placeholder="Enter subreddit (e.g., /r/example)" />
+            <span v-if="subreddit.length > 0 && subredditError" style="color: red;">{{ subredditError }}</span>
+        </div>
+        <div>
+            <label for="amount">Amount:</label>
+            <input id="amount" v-model="amount" type="number" min="1" placeholder="Enter amount" />
+            <span v-if="amountError" style="color: red;">{{ amountError }}</span>
+        </div>
+        <button @click="purchaseTokens(subreddit, amount)" :disabled="hasValidationErrors">Purchase tokens</button>
+        <button @click="burnTokens(subreddit, amount)" :disabled="hasValidationErrors">Burn tokens</button>
     </div>
 </template>
