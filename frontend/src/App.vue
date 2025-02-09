@@ -72,6 +72,7 @@ watch(backendData, (newData) => {
       </div>
 
       <!-- todo: a bit ugly. change to filterable barchart with aggregatedData -->
+      <!-- todo: move to separate component -->
       <h3>Subreddit Balances</h3>
       <table v-if="aggregatedData">
         <thead>
@@ -88,6 +89,7 @@ watch(backendData, (newData) => {
         </tbody>
       </table>
 
+      <!-- todo: move to separate component -->
       <h3>Events</h3>
       <table v-if="backendData">
         <thead>
