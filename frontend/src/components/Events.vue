@@ -7,7 +7,6 @@ const { backendData } = defineProps<{
 }>();
 </script>
 
-<!-- todo: comment out buyer for now to incentivize competition -->
 <template>
     <div id="events-table">
         <h3>Blockchain Events</h3>
@@ -19,7 +18,6 @@ const { backendData } = defineProps<{
                     <th>Transaction (#)</th>
                     <th>Subreddit</th>
                     <th>Amount</th>
-                    <th>Buyer (#)</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,7 +28,6 @@ const { backendData } = defineProps<{
                     <td>{{ transaction.transactionHash }}</td>
                     <td>{{ transaction.subreddit }}</td>
                     <td>{{ transaction.tokens }}</td>
-                    <td>{{ transaction.buyer }}</td>
                 </tr>
             </tbody>
         </table>
