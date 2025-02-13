@@ -71,5 +71,4 @@ tbody tr:nth-child(even) {
 tbody tr:nth-child(odd) {
   background-color: #1e1e1e; /* Slightly lighter row */
 }
-
 </style>
