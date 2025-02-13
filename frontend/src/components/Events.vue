@@ -7,6 +7,7 @@ const { backendData } = defineProps<{
 }>();
 </script>
 
+<!-- todo: comment out buyer for now to incentivize competition -->
 <template>
     <div id="events-table">
         <h3>Blockchain Events</h3>
