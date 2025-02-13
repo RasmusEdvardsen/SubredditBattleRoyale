@@ -13,15 +13,15 @@ interface DataEntry {
 
 // Define Props
 const props = defineProps<{
-  rawData: Record<string, number>;
+  aggregatedData: Record<string, number>;
 }>();
 
 // Ref for the SVG container
 const svgRef = ref<SVGSVGElement | null>(null);
 
-// Convert rawData into a reactive node list
+// Convert aggregatedData into a reactive node list
 const nodes = computed<DataEntry[]>(() =>
-  Object.entries(props.rawData).map(([id, value]) => ({
+  Object.entries(props.aggregatedData).map(([id, value]) => ({
     id,
     value,
     radius: Math.sqrt(value) * 2, // Scale the bubble size
@@ -30,10 +30,20 @@ const nodes = computed<DataEntry[]>(() =>
 
 let simulation: d3.Simulation<DataEntry, undefined> | null = null;
 
+// Function to darken a color by reducing its brightness
+function darkenColor(color: string, factor: number = 0.5): string {
+  const rgb = d3.rgb(color);
+  rgb.r = Math.floor(rgb.r * factor);
+  rgb.g = Math.floor(rgb.g * factor);
+  rgb.b = Math.floor(rgb.b * factor);
+  return rgb.toString();
+}
+
+// todo: move out into separate d3 function/file (along with darkenColor)
 const renderChart = async () => {
   if (!svgRef.value) return;
 
-  const width = 800;
+  const width = window.innerWidth;
   const height = 600;
 
   const svg = d3.select(svgRef.value);
@@ -55,7 +65,11 @@ const renderChart = async () => {
     .enter()
     .append("circle")
     .attr("r", (d) => d.radius)
-    .attr("fill", (d) => d3.interpolateCool(d.value / 4093))
+    .attr("fill", (d) => {
+      // Interpolate and darken color
+      const color = d3.interpolateCool(d.value / 4093);
+      return darkenColor(color, 0.35); // Darken the color
+    })
     .attr("stroke", "#333")
     .attr("stroke-width", 2);
 
@@ -77,8 +91,8 @@ const renderChart = async () => {
   });
 };
 
-// Watch for rawData changes and re-render the chart
-watch(() => props.rawData, async () => {
+// Watch for aggregatedData changes and re-render the chart
+watch(() => props.aggregatedData, async () => {
   await nextTick(); // Ensure Vue updates the DOM before D3 renders again
   renderChart();
 }, { deep: true });
@@ -87,13 +101,5 @@ onMounted(renderChart);
 </script>
 
 <template>
-  <svg ref="svgRef" width="800" height="600"></svg>
+  <svg ref="svgRef" width="100%" height="600"></svg>
 </template>
-
-<style scoped>
-svg {
-  display: block;
-  margin: auto;
-  /* background-color: #222; */
-}
-</style>
