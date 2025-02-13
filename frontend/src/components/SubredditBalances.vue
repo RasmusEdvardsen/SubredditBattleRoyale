@@ -23,6 +23,7 @@ watch([sortedData, searchQuery], (params) => {
     drawChart();
 }, { deep: true });
 
+// todo: move out into separate d3 function/file
 // Function to draw the bar chart
 const drawChart = () => {
     const svg = d3.select("#chart");

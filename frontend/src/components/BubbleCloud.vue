@@ -30,6 +30,7 @@ const nodes = computed<DataEntry[]>(() =>
 
 let simulation: d3.Simulation<DataEntry, undefined> | null = null;
 
+// todo: move out into separate d3 function/file
 const renderChart = async () => {
   if (!svgRef.value) return;
 
