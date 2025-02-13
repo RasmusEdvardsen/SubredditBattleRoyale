@@ -53,7 +53,7 @@ watch(backendData, (newData) => {
 <template>
   <!-- todo: do better v-ifs (check further in on each props) -->
 
-  <BubbleCloud :rawData="aggregatedData" />
+  <BubbleCloud :aggregatedData="aggregatedData" />
 
   <div id="intro-and-title">
     <h1>Subreddit Battle Royale</h1>

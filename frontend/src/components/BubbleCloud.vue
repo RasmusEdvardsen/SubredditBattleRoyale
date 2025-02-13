@@ -13,15 +13,15 @@ interface DataEntry {
 
 // Define Props
 const props = defineProps<{
-  rawData: Record<string, number>;
+  aggregatedData: Record<string, number>;
 }>();
 
 // Ref for the SVG container
 const svgRef = ref<SVGSVGElement | null>(null);
 
-// Convert rawData into a reactive node list
+// Convert aggregatedData into a reactive node list
 const nodes = computed<DataEntry[]>(() =>
-  Object.entries(props.rawData).map(([id, value]) => ({
+  Object.entries(props.aggregatedData).map(([id, value]) => ({
     id,
     value,
     radius: Math.sqrt(value) * 2, // Scale the bubble size
@@ -78,8 +78,8 @@ const renderChart = async () => {
   });
 };
 
-// Watch for rawData changes and re-render the chart
-watch(() => props.rawData, async () => {
+// Watch for aggregatedData changes and re-render the chart
+watch(() => props.aggregatedData, async () => {
   await nextTick(); // Ensure Vue updates the DOM before D3 renders again
   renderChart();
 }, { deep: true });
