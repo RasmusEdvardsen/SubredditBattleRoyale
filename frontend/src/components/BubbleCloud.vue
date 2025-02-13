@@ -30,11 +30,19 @@ const nodes = computed<DataEntry[]>(() =>
 
 let simulation: d3.Simulation<DataEntry, undefined> | null = null;
 
-// todo: move out into separate d3 function/file
+// Function to darken a color by reducing its brightness
+function darkenColor(color: string, factor: number = 0.5): string {
+  const rgb = d3.rgb(color);
+  rgb.r = Math.floor(rgb.r * factor);
+  rgb.g = Math.floor(rgb.g * factor);
+  rgb.b = Math.floor(rgb.b * factor);
+  return rgb.toString();
+}
+
+// todo: move out into separate d3 function/file (along with darkenColor)
 const renderChart = async () => {
   if (!svgRef.value) return;
 
-  
   const width = window.innerWidth;
   const height = 600;
 
@@ -57,7 +65,11 @@ const renderChart = async () => {
     .enter()
     .append("circle")
     .attr("r", (d) => d.radius)
-    .attr("fill", (d) => d3.interpolateCool(d.value / 4093))
+    .attr("fill", (d) => {
+      // Interpolate and darken color
+      const color = d3.interpolateCool(d.value / 4093);
+      return darkenColor(color, 0.35); // Darken the color
+    })
     .attr("stroke", "#333")
     .attr("stroke-width", 2);
 
