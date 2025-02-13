@@ -19,7 +19,7 @@ const callPurchaseTokens = async (signerValue: ethers.JsonRpcSigner | undefined,
 
     console.log("Transaction hash: ", txn.hash)
 
-    // todo: display result somehow
+    // todo: display result somehow (maybe popup/snackbar thingy?)
 }
 
 const callBurnTokens = async (signerValue: ethers.JsonRpcSigner | undefined, subreddit: string, amount: number) => {
@@ -40,7 +40,7 @@ const callBurnTokens = async (signerValue: ethers.JsonRpcSigner | undefined, sub
 
     console.log("Transaction hash: ", txn.hash)
 
-    // todo: display result somehow
+    // todo: display result somehow (maybe popup/snackbar thingy?)
 }
 
 export { callPurchaseTokens, callBurnTokens };
