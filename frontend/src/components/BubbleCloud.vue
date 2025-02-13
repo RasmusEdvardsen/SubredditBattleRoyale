@@ -100,6 +100,7 @@ watch(() => props.aggregatedData, async () => {
 onMounted(renderChart);
 </script>
 
+<!-- TODO: make bubble cloud bigger somehow? -->
 <template>
   <svg ref="svgRef" width="100%" height="600"></svg>
 </template>
