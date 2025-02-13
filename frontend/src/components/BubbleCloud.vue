@@ -33,7 +33,8 @@ let simulation: d3.Simulation<DataEntry, undefined> | null = null;
 const renderChart = async () => {
   if (!svgRef.value) return;
 
-  const width = 800;
+  
+  const width = window.innerWidth;
   const height = 600;
 
   const svg = d3.select(svgRef.value);
@@ -87,13 +88,5 @@ onMounted(renderChart);
 </script>
 
 <template>
-  <svg ref="svgRef" width="800" height="600"></svg>
+  <svg ref="svgRef" width="100%" height="600"></svg>
 </template>
-
-<style scoped>
-svg {
-  display: block;
-  margin: auto;
-  /* background-color: #222; */
-}
-</style>
