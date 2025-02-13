@@ -40,6 +40,7 @@ const { backendData } = defineProps<{
 #events-table {
   max-height: 800px; /* Adjust as needed */
   max-width: 90%;
+  width: 90%;
   overflow-y: scroll;
   border: 2px solid #444; /* Ensure border is always visible */
   padding: 10px;

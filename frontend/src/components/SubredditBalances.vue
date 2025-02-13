@@ -93,6 +93,7 @@ onMounted(drawChart);
 <style scoped>
 #subreddit-balances {
     max-width: 90%;
+    width: 90%;
     padding: 10px;
     border: 2px solid #444;
     margin-bottom: 10px;
