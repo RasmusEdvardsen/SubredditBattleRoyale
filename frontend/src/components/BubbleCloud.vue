@@ -30,6 +30,7 @@ const nodes = computed<DataEntry[]>(() =>
 
 let simulation: d3.Simulation<DataEntry, undefined> | null = null;
 
+// todo: use better colors, current ones are shit (d3 schemePastel1?)
 // Function to darken a color by reducing its brightness
 function darkenColor(color: string, factor: number = 0.5): string {
   const rgb = d3.rgb(color);
