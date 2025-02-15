@@ -30,17 +30,7 @@ const nodes = computed<DataEntry[]>(() =>
 
 let simulation: d3.Simulation<DataEntry, undefined> | null = null;
 
-// todo: use better colors, current ones are shit (d3 schemePastel1?)
-// Function to darken a color by reducing its brightness
-function darkenColor(color: string, factor: number = 0.5): string {
-  const rgb = d3.rgb(color);
-  rgb.r = Math.floor(rgb.r * factor);
-  rgb.g = Math.floor(rgb.g * factor);
-  rgb.b = Math.floor(rgb.b * factor);
-  return rgb.toString();
-}
-
-// todo: move out into separate d3 function/file (along with darkenColor)
+// todo: move out into separate d3 function/file
 const renderChart = async () => {
   if (!svgRef.value) return;
 
@@ -49,6 +39,13 @@ const renderChart = async () => {
 
   const svg = d3.select(svgRef.value);
   svg.selectAll("*").remove(); // Clear previous SVG content
+
+  // Get min/max radius for scaling colors
+  const extent = d3.extent(nodes.value, d => d.radius) as [number, number] | [undefined, undefined];
+  const minRadius = extent[0] ?? 5; // Default to 5 if undefined
+  const maxRadius = extent[1] ?? 50; // Default to 50 if undefined
+
+  const colorScale = d3.scaleSequential(d3.interpolateMagma).domain([minRadius, maxRadius]);
 
   // Restart the simulation
   simulation = d3
@@ -67,12 +64,12 @@ const renderChart = async () => {
     .append("circle")
     .attr("r", (d) => d.radius)
     .attr("fill", (d) => {
-      // Interpolate and darken color
-      const color = d3.interpolateCool(d.value / 4093);
-      return darkenColor(color, 0.35); // Darken the color
+      // Get color based on radius
+      let baseColor = d3.color(colorScale(d.radius));
+      return baseColor ? baseColor.darker(0.2).toString() : "#666";
     })
-    .attr("stroke", "#333")
-    .attr("stroke-width", 2);
+    .attr("stroke", "#222")
+    .attr("stroke-width", 1.5);
 
   const labels = svg
     .selectAll<SVGTextElement, DataEntry>("text")
@@ -81,10 +78,14 @@ const renderChart = async () => {
     .append("text")
     .attr("text-anchor", "middle")
     .attr("dy", 4)
-    .attr("font-size", "12px")
-    .attr("fill", "white")
+    .attr("font-size", (d) => Math.max(d.radius / 3, 10) + "px") // Scale text size
+    .attr("fill", "white") // White text
+    .attr("stroke", "black") // Black border
+    .attr("stroke-width", 2) // Thickness of the border
+    .attr("paint-order", "stroke") // Ensures stroke is applied outside the text
     .style("pointer-events", "none")
     .text((d) => d.id);
+
 
   simulation.on("tick", () => {
     bubbles.attr("cx", (d) => d.x || 0).attr("cy", (d) => d.y || 0);
@@ -101,7 +102,6 @@ watch(() => props.aggregatedData, async () => {
 onMounted(renderChart);
 </script>
 
-<!-- TODO: make bubble cloud bigger somehow? -->
 <template>
-  <svg ref="svgRef" width="100%" height="600"></svg>
+  <svg ref="svgRef" width="100%" height="800"></svg>
 </template>
