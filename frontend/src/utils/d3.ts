@@ -5,7 +5,6 @@ export const renderBubbleCloud = (svgElement: SVGSVGElement | null, nodes: Bubbl
   if (!svgElement || nodes.length === 0) return;
 
   const width = window.innerWidth;
-  console.log(width);
   const height = 800;
 
   const svg = d3.select(svgElement);
