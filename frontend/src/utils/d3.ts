@@ -13,13 +13,6 @@ export const renderBubbleCloud = (svgElement: SVGSVGElement | null, nodes: Bubbl
   // Create a container group for zooming and panning
   const container = svg.append("g");
 
-  // Add zoom and pan behavior
-  svg.call(
-    d3.zoom<SVGSVGElement, unknown>().on("zoom", (event) => {
-      container.attr("transform", event.transform);
-    })
-  );
-
   // Get min/max radius for color scaling
   const extent = d3.extent(nodes, (d) => d.radius) as [number, number];
   const minRadius = extent[0] ?? 5;
@@ -27,8 +20,7 @@ export const renderBubbleCloud = (svgElement: SVGSVGElement | null, nodes: Bubbl
   const colorScale = d3.scaleSequential(d3.interpolatePlasma).domain([minRadius, maxRadius]);
 
   // Force Simulation
-  const simulation = d3
-    .forceSimulation<BubbleCloudEntry>(nodes)
+  d3.forceSimulation<BubbleCloudEntry>(nodes)
     .force("charge", d3.forceManyBody().strength(5))
     .force("collide", d3.forceCollide<BubbleCloudEntry>().radius((d) => d.radius + 2))
     .force("center", d3.forceCenter(width / 2, height / 2))
@@ -43,13 +35,7 @@ export const renderBubbleCloud = (svgElement: SVGSVGElement | null, nodes: Bubbl
     .attr("r", (d) => d.radius)
     .attr("fill", (d) => d3.color(colorScale(d.radius))?.darker(0.2).toString() || "#666")
     .attr("stroke", "#222")
-    .attr("stroke-width", 1.5)
-    .call(
-      d3.drag<SVGCircleElement, BubbleCloudEntry>()
-        .on("start", dragStarted)
-        .on("drag", dragged)
-        .on("end", dragEnded)
-    );
+    .attr("stroke-width", 1.5);
 
   // Add labels
   const labels = container
@@ -70,24 +56,6 @@ export const renderBubbleCloud = (svgElement: SVGSVGElement | null, nodes: Bubbl
   function ticked() {
     bubbles.attr("cx", (d) => d.x ?? 0).attr("cy", (d) => d.y ?? 0);
     labels.attr("x", (d) => d.x ?? 0).attr("y", (d) => d.y ?? 0);
-  }
-
-  // Dragging logic
-  function dragStarted(event: d3.D3DragEvent<SVGCircleElement, BubbleCloudEntry, unknown>, d: BubbleCloudEntry) {
-    if (!event.active) simulation.alphaTarget(0.8).restart();
-    d.fx = d.x;
-    d.fy = d.y;
-  }
-
-  function dragged(event: d3.D3DragEvent<SVGCircleElement, BubbleCloudEntry, unknown>, d: BubbleCloudEntry) {
-    d.fx = event.x;
-    d.fy = event.y;
-  }
-
-  function dragEnded(event: d3.D3DragEvent<SVGCircleElement, BubbleCloudEntry, unknown>, d: BubbleCloudEntry) {
-    if (!event.active) simulation.alphaTarget(0);
-    d.fx = null;
-    d.fy = null;
   }
 };
 
