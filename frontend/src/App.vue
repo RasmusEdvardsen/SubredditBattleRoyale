@@ -1,33 +1,22 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, onUnmounted } from "vue";
 
-import axios from "axios";
+import { fetchData } from "@/utils/axios";
 
 import Wallet from "@/components/Wallet.vue";
 import BubbleCloud from "@/components/BubbleCloud.vue";
 import Events from "@/components/Events.vue";
+import SubredditBalances from "@/components/SubredditBalances.vue";
 
 import type { BackendData } from "@/types";
-import SubredditBalances from "@/components/SubredditBalances.vue";
 
 const backendData = ref<BackendData>();
 const aggregatedData = ref<Record<string, number>>({});
 
 onMounted(() => {
-  const fetchData = async () => {
-    try {
-      const response = await axios.get<BackendData>(import.meta.env.VITE_BACKEND_URI);
-      backendData.value = response.data;
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  fetchData(backendData); // Fetch initially
 
-  // Fetch initially
-  fetchData();
-
-  // Set interval for polling
-  const intervalId = setInterval(fetchData, 15_000); // Poll every 15 seconds
+  const intervalId = setInterval(() => fetchData(backendData), 15_000); // Poll every 15 seconds
 
   onUnmounted(() => clearInterval(intervalId)); // Cleanup on unmount
 });
@@ -76,9 +65,11 @@ watch(backendData, (newData) => {
   <!-- todo: move in to component as well -->
   <div v-if="backendData && backendData.seasonWon.length > 0">
     <h3>Seasons Won</h3>
-    <li v-for="seasonWon in backendData.seasonWon" :key="seasonWon.id">
-      Season {{ seasonWon.season }} was won by {{ seasonWon.subreddit }}.
-    </li>
+    <ul>
+      <li v-for="seasonWon in backendData.seasonWon" :key="seasonWon.id">
+        Season {{ seasonWon.season }} was won by {{ seasonWon.subreddit }}.
+      </li>
+    </ul>
   </div>
   <div v-else>
     <h3>No seasons won yet.</h3>
