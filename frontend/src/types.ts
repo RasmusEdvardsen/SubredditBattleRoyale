@@ -39,3 +39,11 @@ export interface SeasonWonEvent {
     transactionHash: string;
     blockNumber: number;
 }
+
+export interface BubbleCloudEntry {
+    id: string;
+    value: number;
+    radius: number;
+    x?: number;
+    y?: number;
+}
