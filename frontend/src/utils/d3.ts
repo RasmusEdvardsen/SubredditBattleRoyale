@@ -59,3 +59,58 @@ export const renderBubbleCloud = (svgElement: SVGSVGElement | null, nodes: Bubbl
     labels.attr("x", (d) => d.x || 0).attr("y", (d) => d.y || 0);
   });
 };
+
+//todo: should take up fixed height. when limiting search, the bar just takes up the whole chart.
+export const renderSubredditBalances = (svgElement: SVGSVGElement | null, filteredData: { subreddit: string; balance: number; }[]) => {
+  if (!svgElement || filteredData.length === 0) return;
+
+  const width = window.innerWidth;
+  const height = 600;
+  const margin = { top: 20, right: 20, bottom: 50, left: 100 };
+
+  const svg = d3.select(svgElement);
+  svg.selectAll("*").remove(); // Clear previous chart
+
+  svg.attr("width", width).attr("height", height);
+
+  // X Scale
+  const x = d3.scaleLinear()
+    .domain([0, d3.max(filteredData, (d) => d.balance) || 1])
+    .range([0, width - margin.left - margin.right]);
+
+  // Y Scale
+  const y = d3.scaleBand()
+    .domain(filteredData.map((d) => d.subreddit))
+    .range([0, height - margin.top - margin.bottom])
+    .padding(0.2);
+
+  const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+  // Bars
+  g.selectAll("rect")
+    .data(filteredData)
+    .enter()
+    .append("rect")
+    .attr("y", (d) => y(d.subreddit)!)
+    .attr("width", (d) => x(d.balance))
+    .attr("height", y.bandwidth())
+    .attr("fill", "#334d37");
+
+  // Labels
+  g.selectAll("text")
+    .data(filteredData)
+    .enter()
+    .append("text")
+    .attr("x", (d) => x(d.balance) - 5)
+    .attr("y", (d) => y(d.subreddit)! + y.bandwidth() / 2)
+    .attr("dy", "0.35em")
+    .attr("text-anchor", "end")
+    .attr("fill", "white")
+    .text((d) => d.balance);
+
+  // Axes
+  g.append("g").call(d3.axisLeft(y));
+  g.append("g")
+    .attr("transform", `translate(0,${height - margin.top - margin.bottom})`)
+    .call(d3.axisBottom(x));
+};
