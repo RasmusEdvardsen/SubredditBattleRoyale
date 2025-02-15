@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import * as ethers from 'ethers';
 import { computed, markRaw, ref } from 'vue';
-import { callPurchaseTokens, callBurnTokens } from '../blockchain/wallet.ts';
+import { callPurchaseTokens, callBurnTokens } from '@/blockchain/wallet.ts';
 
 declare global {
     interface Window {

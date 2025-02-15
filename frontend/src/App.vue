@@ -3,12 +3,12 @@ import { ref, watch, onMounted, onUnmounted } from "vue";
 
 import axios from "axios";
 
-import Wallet from "./components/Wallet.vue";
-import BubbleCloud from "./components/BubbleCloud.vue";
-import Events from "./components/Events.vue";
+import Wallet from "@/components/Wallet.vue";
+import BubbleCloud from "@/components/BubbleCloud.vue";
+import Events from "@/components/Events.vue";
 
-import type { BackendData } from "./types";
-import SubredditBalances from "./components/SubredditBalances.vue";
+import type { BackendData } from "@/types";
+import SubredditBalances from "@/components/SubredditBalances.vue";
 
 const backendData = ref<BackendData>();
 const aggregatedData = ref<Record<string, number>>({});
