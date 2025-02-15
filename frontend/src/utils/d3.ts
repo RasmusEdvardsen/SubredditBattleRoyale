@@ -5,41 +5,55 @@ export const renderBubbleCloud = (svgElement: SVGSVGElement | null, nodes: Bubbl
   if (!svgElement || nodes.length === 0) return;
 
   const width = window.innerWidth;
+  console.log(width);
   const height = 800;
 
   const svg = d3.select(svgElement);
-  svg.selectAll("*").remove(); // Clear previous SVG content
+  svg.selectAll("*").remove(); // Clear previous content
 
-  // Get min/max radius for scaling colors
-  const extent = d3.extent(nodes, (d) => d.radius) as [number, number] | [undefined, undefined];
+  // Create a container group for zooming and panning
+  const container = svg.append("g");
+
+  // Add zoom and pan behavior
+  svg.call(
+    d3.zoom<SVGSVGElement, unknown>().on("zoom", (event) => {
+      container.attr("transform", event.transform);
+    })
+  );
+
+  // Get min/max radius for color scaling
+  const extent = d3.extent(nodes, (d) => d.radius) as [number, number];
   const minRadius = extent[0] ?? 5;
   const maxRadius = extent[1] ?? 50;
-
-  // Scale color based on radius
   const colorScale = d3.scaleSequential(d3.interpolatePlasma).domain([minRadius, maxRadius]);
 
-  // Restart the simulation
+  // Force Simulation
   const simulation = d3
     .forceSimulation<BubbleCloudEntry>(nodes)
     .force("charge", d3.forceManyBody().strength(5))
     .force("collide", d3.forceCollide<BubbleCloudEntry>().radius((d) => d.radius + 2))
-    .force("center", d3.forceCenter(width / 2, height / 2));
+    .force("center", d3.forceCenter(width / 2, height / 2))
+    .on("tick", ticked);
 
-  const bubbles = svg
+  // Add bubbles
+  const bubbles = container
     .selectAll<SVGCircleElement, BubbleCloudEntry>("circle")
     .data(nodes)
     .enter()
     .append("circle")
     .attr("r", (d) => d.radius)
-    .attr("fill", (d) => {
-      const baseColor = d3.color(colorScale(d.radius));
-      return baseColor ? baseColor.darker(0.2).toString() : "#666";
-    })
+    .attr("fill", (d) => d3.color(colorScale(d.radius))?.darker(0.2).toString() || "#666")
     .attr("stroke", "#222")
-    .attr("stroke-width", 1.5);
+    .attr("stroke-width", 1.5)
+    .call(
+      d3.drag<SVGCircleElement, BubbleCloudEntry>()
+        .on("start", dragStarted)
+        .on("drag", dragged)
+        .on("end", dragEnded)
+    );
 
-  // Add text labels with a black outline for visibility
-  const labels = svg
+  // Add labels
+  const labels = container
     .selectAll<SVGTextElement, BubbleCloudEntry>("text")
     .data(nodes)
     .enter()
@@ -54,10 +68,28 @@ export const renderBubbleCloud = (svgElement: SVGSVGElement | null, nodes: Bubbl
     .style("pointer-events", "none")
     .text((d) => d.id);
 
-  simulation.on("tick", () => {
-    bubbles.attr("cx", (d) => d.x || 0).attr("cy", (d) => d.y || 0);
-    labels.attr("x", (d) => d.x || 0).attr("y", (d) => d.y || 0);
-  });
+  function ticked() {
+    bubbles.attr("cx", (d) => d.x ?? 0).attr("cy", (d) => d.y ?? 0);
+    labels.attr("x", (d) => d.x ?? 0).attr("y", (d) => d.y ?? 0);
+  }
+
+  // Dragging logic
+  function dragStarted(event: d3.D3DragEvent<SVGCircleElement, BubbleCloudEntry, unknown>, d: BubbleCloudEntry) {
+    if (!event.active) simulation.alphaTarget(0.8).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+
+  function dragged(event: d3.D3DragEvent<SVGCircleElement, BubbleCloudEntry, unknown>, d: BubbleCloudEntry) {
+    d.fx = event.x;
+    d.fy = event.y;
+  }
+
+  function dragEnded(event: d3.D3DragEvent<SVGCircleElement, BubbleCloudEntry, unknown>, d: BubbleCloudEntry) {
+    if (!event.active) simulation.alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+  }
 };
 
 //todo: should take up fixed height. when limiting search, the bar just takes up the whole chart.

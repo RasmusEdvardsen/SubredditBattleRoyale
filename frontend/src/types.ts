@@ -46,4 +46,6 @@ export interface BubbleCloudEntry {
     radius: number;
     x?: number;
     y?: number;
+    fx?: number | null;
+    fy?: number | null;
 }
