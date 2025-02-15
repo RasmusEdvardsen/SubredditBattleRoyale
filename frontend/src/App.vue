@@ -7,6 +7,7 @@ import Wallet from "@/components/Wallet.vue";
 import BubbleCloud from "@/components/BubbleCloud.vue";
 import Events from "@/components/Events.vue";
 import SubredditBalances from "@/components/SubredditBalances.vue";
+import Seasons from "@/components/Seasons.vue";
 
 import type { BackendData } from "@/types";
 
@@ -57,27 +58,15 @@ watch(backendData, (newData) => {
 
   <Wallet />
 
-  <!-- todo: move in to component as well -->
   <div v-if="backendData" id="void-token-count">
     <h3>Void Token Count: {{ backendData.voidTokenCount.balance }}</h3>
   </div>
 
-  <!-- todo: move in to component as well -->
-  <div v-if="backendData && backendData.seasonWon.length > 0">
-    <h3>Seasons Won</h3>
-    <ul>
-      <li v-for="seasonWon in backendData.seasonWon" :key="seasonWon.id">
-        Season {{ seasonWon.season }} was won by {{ seasonWon.subreddit }}.
-      </li>
-    </ul>
-  </div>
-  <div v-else>
-    <h3>No seasons won yet.</h3>
-  </div>
+  <Seasons :backendData="backendData" />
 
   <SubredditBalances :aggregatedData="aggregatedData" />
 
-  <Events :backendData="backendData"/>
+  <Events :backendData="backendData" />
 </template>
 
 <style scoped>
