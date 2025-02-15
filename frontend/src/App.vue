@@ -51,8 +51,6 @@ watch(backendData, (newData) => {
 </script>
 
 <template>
-  <!-- todo: do better v-ifs (check further in on each props) -->
-
   <BubbleCloud :aggregatedData="aggregatedData" />
 
   <div id="intro-and-title">
