@@ -19,6 +19,7 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 * Check for wallet on mobile as well somehow. If possible, then show in architecture diagram.
 * [tailwind](https://tailwindcss.com/docs/installation), make frontend pretty (and reactive to purchases and burns)
 * Get token price from blockchain, persist to backend, show in frontend
+* If succesful, host with app-service or static web app or whatever that allows 'https://subredditbattleroyale.com' as domain name (static website only allows subdomains)
 
 ## Progress
 * [Frontend](https://subredditbattleroyale.z16.web.core.windows.net/)
@@ -73,9 +74,8 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [x] Add a text detailing the rules of subreddit battle royale
 - [x] fix layout (bubblecloud take all horizontal space, use flex for other things) (comment out all css, then add back in iteratively)
 - [x] Make "connect", "purchase" and "burn" buttons prettier
-- [ ] Ads/marketing
 - [x] Create AI Logo (favicon.ico)
-- [ ] If succesful, host with app-service or static web app or whatever that allows 'https://subredditbattleroyale.com' as domain name (static website only allows subdomains)
+- [ ] Ads/marketing
 
 ## Installation and preparation
 ### Ethereum
