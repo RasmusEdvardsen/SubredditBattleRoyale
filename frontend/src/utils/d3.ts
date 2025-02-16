@@ -59,7 +59,7 @@ export const renderBubbleCloud = (svgElement: SVGSVGElement | null, nodes: Bubbl
   }
 };
 
-//todo: should take up fixed height. when limiting search, the bar just takes up the whole chart.
+//todo: entries should take up fixed height. when limiting search, the bar just takes up the whole chart.
 export const renderSubredditBalances = (svgElement: SVGSVGElement | null, filteredData: { subreddit: string; balance: number; }[]) => {
   if (!svgElement || filteredData.length === 0) return;
 
