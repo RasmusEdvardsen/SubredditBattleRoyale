@@ -72,7 +72,7 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [x] burn/purchase tokens number picker
 - [x] Add a text detailing the rules of subreddit battle royale
 - [x] fix layout (bubblecloud take all horizontal space, use flex for other things) (comment out all css, then add back in iteratively)
-- [ ] Make "connect", "purchase" and "burn" buttons prettier
+- [x] Make "connect", "purchase" and "burn" buttons prettier
 - [ ] Ads/marketing
 - [x] Create AI Logo (favicon.ico)
 - [ ] If succesful, host with app-service or static web app or whatever that allows 'https://subredditbattleroyale.com' as domain name (static website only allows subdomains)
