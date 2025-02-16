@@ -66,3 +66,71 @@ const burnTokens = async (subreddit: string, amount: number): Promise<void> => a
         <button @click="burnTokens(subreddit, amount)" :disabled="hasValidationErrors">Burn tokens</button>
     </div>
 </template>
+
+<style scoped>
+/* Dark theme styles */
+.Wallet {
+    background-color: #181818;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #bbb;
+    text-align: left;
+}
+
+input {
+    width: 100%;
+    max-width: 380px;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #252525;
+    color: white;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #666;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #6200ea;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:disabled {
+    background-color: #444;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #7b1fa2;
+}
+
+span {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    color: red;
+}
+</style>
