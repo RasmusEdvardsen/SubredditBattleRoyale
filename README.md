@@ -75,7 +75,7 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [x] fix layout (bubblecloud take all horizontal space, use flex for other things) (comment out all css, then add back in iteratively)
 - [x] Make "connect", "purchase" and "burn" buttons prettier
 - [x] Create AI Logo (favicon.ico)
-- [ ] Ads/marketing: copyright infringement. remove "subreddit" from frontend web address (new azure storage resource), remove reddit icon from battle royale logo
+- [ ] Ads/marketing: copyright infringement. remove "subreddit" from frontend web address (new azure storage resource), remove reddit icon from battle royale logo, OR USE GOOGLE ADS INSTEAD
 
 ## Installation and preparation
 ### Ethereum
