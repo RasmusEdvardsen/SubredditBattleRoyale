@@ -75,7 +75,7 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [x] fix layout (bubblecloud take all horizontal space, use flex for other things) (comment out all css, then add back in iteratively)
 - [x] Make "connect", "purchase" and "burn" buttons prettier
 - [x] Create AI Logo (favicon.ico)
-- [ ] Ads/marketing
+- [ ] Ads/marketing: copyright infringement. remove "subreddit" from frontend web address (new azure storage resource), remove reddit icon from battle royale logo
 
 ## Installation and preparation
 ### Ethereum
@@ -85,14 +85,6 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 * [metamask](https://developer.metamask.io/) account (infura sepolia)
 * metamask wallet & edge/chrome/firefox extension
 * Alchemy faucet (used instead of Infura)
-
-### Solana
-* VSCODE (and extensions) (development)
-* RUST (backend)
-* SOLANA CLI (backend)
-* ANCHOR (backend framework for accelerating development (hide away complexity))
-* solana-program-test (backend test)
-* typescript+@solana/web3.js (frontend to display battle stats)
 
 ### Notes
 * To run .ts files: npx ts-node file.ts
