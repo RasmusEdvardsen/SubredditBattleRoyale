@@ -29,7 +29,7 @@ onMounted(renderSubredditBalances);
 
 <template>
     <div id="subreddit-balances">
-        <h3>Subreddit Balances</h3>
+        <h3>Community Balances</h3>
         <input type="text" v-model="searchQuery" placeholder="Filter subreddits..." />
         <div id="chart-container">
             <svg ref="svgRef"></svg>

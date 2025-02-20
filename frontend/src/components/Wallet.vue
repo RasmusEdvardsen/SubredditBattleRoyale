@@ -16,7 +16,7 @@ const ethereum = window.ethereum;
 const subreddit = ref<string>('');
 const subredditError = computed<string>(() =>
     !subreddit.value.startsWith('/r/') || subreddit.value.length < 4
-        ? "Subreddit must start with /r/', and have at least one character after that." : ""
+        ? "Community must start with /r/', and have at least one character after that." : ""
 );
 
 const amount = ref<number>(1);

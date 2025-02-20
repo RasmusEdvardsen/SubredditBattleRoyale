@@ -14,7 +14,7 @@ const { backendData } = defineProps<{
             <thead>
                 <tr>
                     <th>Event Type</th>
-                    <th>Subreddit</th>
+                    <th>Community</th>
                     <th>Amount</th>
                     <th>Transaction (#)</th>
                     <th>Block No.</th>
