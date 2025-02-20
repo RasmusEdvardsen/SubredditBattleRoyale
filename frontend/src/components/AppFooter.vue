@@ -38,6 +38,8 @@ footer {
   margin-top: 40px;
   width: 100%;
   background: var(--color-background-mute);
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .link {
