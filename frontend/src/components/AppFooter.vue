@@ -35,7 +35,6 @@ const openModal = () => showModal.value = true;
 <style scoped>
 footer {
   text-align: center;
-  padding: 20px;
   margin-top: 40px;
   width: 100%;
   background: var(--color-background-mute);
