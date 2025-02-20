@@ -10,6 +10,7 @@ import SubredditBalances from "@/components/SubredditBalances.vue";
 import Seasons from "@/components/Seasons.vue";
 
 import type { BackendData } from "@/types";
+import AppFooter from "./components/AppFooter.vue";
 
 const backendData = ref<BackendData>();
 const aggregatedData = ref<Record<string, number>>({});
@@ -67,6 +68,8 @@ watch(backendData, (newData) => {
   <SubredditBalances :aggregatedData="aggregatedData" />
 
   <Events :backendData="backendData" />
+
+  <AppFooter />
 </template>
 
 <style scoped>
