@@ -76,8 +76,9 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [x] Make "connect", "purchase" and "burn" buttons prettier
 - [x] Create AI Logo (favicon.ico)
 - [x] Ads/marketing: google ads
-- [ ] Ads/marketing: reddit ads
-- [ ] delete subredditbattleroyale storage account from azure
+- [x] Ads/marketing: reddit ads
+- [x] delete subredditbattleroyale storage account from azure
+- [x] Remove reddit and google ads
 
 ## Installation and preparation
 ### Ethereum
