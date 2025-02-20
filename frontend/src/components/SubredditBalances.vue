@@ -28,9 +28,9 @@ onMounted(renderSubredditBalances);
 </script>
 
 <template>
-    <div id="subreddit-balances">
-        <h3>Subreddit Balances</h3>
-        <input type="text" v-model="searchQuery" placeholder="Filter subreddits..." />
+    <div id="community-balances">
+        <h3>Community Balances</h3>
+        <input type="text" v-model="searchQuery" placeholder="Filter communities..." />
         <div id="chart-container">
             <svg ref="svgRef"></svg>
         </div>
@@ -39,7 +39,7 @@ onMounted(renderSubredditBalances);
 
 
 <style scoped>
-#subreddit-balances {
+#community-balances {
     max-width: 90%;
     width: 90%;
     padding: 10px;

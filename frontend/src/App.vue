@@ -10,6 +10,7 @@ import SubredditBalances from "@/components/SubredditBalances.vue";
 import Seasons from "@/components/Seasons.vue";
 
 import type { BackendData } from "@/types";
+import AppFooter from "./components/AppFooter.vue";
 
 const backendData = ref<BackendData>();
 const aggregatedData = ref<Record<string, number>>({});
@@ -44,15 +45,15 @@ watch(backendData, (newData) => {
   <BubbleCloud :aggregatedData="aggregatedData" />
 
   <div id="intro-and-title">
-    <h1>Subreddit Battle Royale</h1>
+    <h1>Community Battle Royale</h1>
     <p>
-      Welcome to the Subreddit Battle Royale!
-      In this game, subreddits compete against each other by purchasing and burning tokens.
+      Welcome to the Battle Royale!
+      In this game, communities compete against each other by purchasing and burning tokens.
       The goal is to accumulate the more tokens than the void token count, thereby winning the season.
       <br>We refresh blockchain data from the backend every 15 seconds to keep the competition up-to-date.
       <br>The cost of a token is 0.0001 Ether. We recommend buying at least 10 tokens per transaction to save on gas
       fees.
-      <br>Good luck and may the best subreddit win!
+      <br>Good luck and may the best community win!
     </p>
   </div>
 
@@ -67,6 +68,8 @@ watch(backendData, (newData) => {
   <SubredditBalances :aggregatedData="aggregatedData" />
 
   <Events :backendData="backendData" />
+
+  <AppFooter />
 </template>
 
 <style scoped>

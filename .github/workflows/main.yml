@@ -10,6 +10,7 @@ on:
 
 env:
   SUBREDDITBATTLEROYALE: 'subredditbattleroyale'
+  BATTLEROYALE: 'battleroyale'
   DOTNET_VERSION: '9.0.x'
 
 jobs:
@@ -37,7 +38,7 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-            az storage blob upload-batch --account-name '${{ env.SUBREDDITBATTLEROYALE }}' --auth-mode key -d '$web' -s ./frontend/dist --overwrite
+            az storage blob upload-batch --account-name '${{ env.BATTLEROYALE }}' --auth-mode key -d '$web' -s ./frontend/dist --overwrite
 
     # Build & deploy backend
     - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
