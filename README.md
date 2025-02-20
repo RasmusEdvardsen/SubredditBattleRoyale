@@ -22,7 +22,7 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 * If succesful, host with app-service or static web app or whatever that allows 'https://subredditbattleroyale.com' as domain name (static website only allows subdomains)
 
 ## Progress
-* [Frontend](https://subredditbattleroyale.z16.web.core.windows.net/)
+* [Frontend](https://battleroyale.z16.web.core.windows.net/)
 * [Backend](https://subredditbattleroyale.azurewebsites.net/api/GetEvents)
 * [SubredditBattleRoyale smart contract on Ethereum mainnet](https://etherscan.io/address/0xea8831bcb719914ab97131f48d9b2dc737dbd25a)
 * [SubredditBattleRoyale smart contract on Sepolia Ethereum testnet](https://sepolia.etherscan.io/address/0x47e330c6a28bb7b89eda068b8a68943e1574cce8)
