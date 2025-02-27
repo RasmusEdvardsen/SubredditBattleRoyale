@@ -49,7 +49,7 @@ watch(backendData, (newData) => {
     <p>
       Welcome to the Battle Royale!
       In this game, communities compete against each other by purchasing and burning tokens.
-      The goal is to accumulate the more tokens than the void token count, thereby winning the season.
+      The goal is to accumulate more tokens than the void token count, thereby winning the season.
       <br>We refresh blockchain data from the backend every 15 seconds to keep the competition up-to-date.
       <br>The cost of a token is 0.0001 Ether. We recommend buying at least 10 tokens per transaction to save on gas
       fees.
