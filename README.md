@@ -79,6 +79,7 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [x] Ads/marketing: reddit ads
 - [x] delete subredditbattleroyale storage account from azure
 - [x] Remove reddit and google ads
+- [ ] Debug backend, add app insights logging, add rate limiting (?)
 
 ## Installation and preparation
 ### Ethereum
