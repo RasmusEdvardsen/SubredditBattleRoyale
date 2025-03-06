@@ -7,6 +7,8 @@ using Nethereum.ABI.FunctionEncoding.Attributes;
 using Nethereum.Contracts;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3;
+
+// todo: don't use Z.Dapper.Plus
 using Z.Dapper.Plus;
 
 namespace Backend.Functionality;
