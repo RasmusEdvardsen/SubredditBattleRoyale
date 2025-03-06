@@ -79,7 +79,10 @@ SubredditBattleRoyale is a battle royale token for subreddits to flex on each ot
 - [x] Ads/marketing: reddit ads
 - [x] delete subredditbattleroyale storage account from azure
 - [x] Remove reddit and google ads
-- [ ] Debug backend, add app insights logging, add rate limiting (?)
+- [x] Debug backend
+- [x] add app insights logging
+- [ ] Fix: "The monthly trial period is expired (date: 2025-03-01, version: 7.5.7.0). You can extend your trial by downloading the latest version as the beginning of every month. If you already have purchased a license, you can find more common causes of this problem here: https://dapper-plus.net/trial"
+- [ ] add rate limiting (?)
 
 ## Installation and preparation
 ### Ethereum
