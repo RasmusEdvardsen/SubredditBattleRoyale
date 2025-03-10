@@ -8,9 +8,6 @@ using Nethereum.Contracts;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3;
 
-// todo: don't use Z.Dapper.Plus
-using Z.Dapper.Plus;
-
 namespace Backend.Functionality;
 
 public interface IBlockchainSynchronizer
@@ -40,9 +37,12 @@ public class BlockchainSynchronizer(IOptions<BlockchainOptions> blockchainOption
             var voidTokenCount = await _web3.Eth
                 .GetContractQueryHandler<VoidTokenCountMessage>()
                 .QueryAsync<BigInteger>(_contractAddress, new VoidTokenCountMessage());
-            
+
             // todo: wrap in waitall
-            await connection.SingleUpdateAsync(new VoidTokenCount { Balance = (ulong)voidTokenCount } );
+            await connection.ExecuteAsync("UPDATE VoidTokenCount SET Balance = @Balance",
+                new { Balance = (ulong)voidTokenCount }
+            );
+            
             await connection.ExecuteAsync("INSERT INTO BlockchainSync (SyncedAt) VALUES (DATETIME('now'))");
         }
     }
@@ -59,7 +59,7 @@ public class BlockchainSynchronizer(IOptions<BlockchainOptions> blockchainOption
 
         var events = eventsBlockChain.Select(objectMapper);
 
-        await connection.UseBulkOptions(s => s.InsertIfNotExists = true).BulkInsertAsync(events);
+        await connection.BulkInsertAsync(events);
     }
 
     private async Task<IEnumerable<EventLog<TEventDTO>>> GetEventLogs<TEventDTO>(ulong fromBlock) where TEventDTO : IEventDTO, new()
