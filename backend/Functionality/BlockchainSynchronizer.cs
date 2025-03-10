@@ -24,7 +24,6 @@ public class BlockchainSynchronizer(IOptions<BlockchainOptions> blockchainOption
     {
         using var connection = new SqliteConnection("Data Source=hello.db");
 
-
         var blockchainSync = await connection.QueryAsync<BlockchainSync>("SELECT * FROM BlockchainSync");
         if (!blockchainSync.Any() || blockchainSync.Max(s => s.SyncedAt) < DateTime.UtcNow - TimeSpan.FromSeconds(15))
         {
