@@ -58,7 +58,7 @@ public class BlockchainSynchronizer(IOptions<BlockchainOptions> blockchainOption
 
         var events = eventsBlockChain.Select(objectMapper);
 
-        await connection.BulkInsertAsync(events);
+        await connection.BulkInsertIfNotExistsAsync(events);
     }
 
     private async Task<IEnumerable<EventLog<TEventDTO>>> GetEventLogs<TEventDTO>(ulong fromBlock) where TEventDTO : IEventDTO, new()
