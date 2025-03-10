@@ -62,7 +62,9 @@ public static class DatabaseSetup
                 Id INTEGER PRIMARY KEY AUTOINCREMENT,
                 Balance INTEGER NOT NULL
             );
-            INSERT INTO VoidTokenCount (Balance) VALUES (0);";
+            INSERT INTO VoidTokenCount (Balance)
+            SELECT 0
+            WHERE NOT EXISTS (SELECT 1 FROM VoidTokenCount);";
         await connection.ExecuteAsync(createVoidTokenCountTable);
     }
 }
